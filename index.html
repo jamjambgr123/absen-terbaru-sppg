@@ -2,15 +2,11 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=3.0">
-    <title>Sistem Absensi Relawan BADAN GIZI NASIONAL</title>
-    <title>SPPG GUNUNG PICUNG - PAMIJAHAN BOGOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Absensi Relawan SPPG Gunung Picung</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <style>
-        /* CSS dari tema di atas */
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
@@ -29,6 +25,47 @@
                               url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f8f9fa" width="100" height="100"/><path fill="%233498db" opacity="0.2" d="M0 0h100v100H0z"/><path fill="%232c3e50" opacity="0.1" d="M0 0h50v50H0z"/></svg>');
             background-size: 300px;
             min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .title-container {
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .title-container h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .title-container h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 5px 0 0 0;
+            color: #ecf0f1;
         }
         
         .navbar {
@@ -112,7 +149,7 @@
         
         .login-container {
             max-width: 400px;
-            margin: 100px auto;
+            margin: 50px auto;
             padding: 30px;
             background-color: white;
             border-radius: 15px;
@@ -245,10 +282,18 @@
             border-left: 4px solid var(--accent);
         }
         
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .login-container {
-                margin: 50px auto;
+                margin: 30px auto;
                 padding: 20px;
             }
             
@@ -268,16 +313,59 @@
             .camera-buttons {
                 flex-direction: column;
             }
+            
+            .title-container h1 {
+                font-size: 20px;
+            }
+            
+            .title-container h2 {
+                font-size: 16px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header dengan Logo dan Judul -->
+    <div class="header">
+        <div class="container">
+            <div class="logo-container">
+                <!-- Logo Badan Gizi Nasional -->
+                <div class="logo-wrapper">
+                    <div class="logo-placeholder" style="width: 180px; height: 80px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px; border-radius: 5px;">
+                        <div style="font-weight: bold; color: #2c3e50; font-size: 16px; text-align: center;">BADAN</div>
+                        <div style="font-weight: bold; color: #2c3e50; font-size: 16px; text-align: center;">GIZI NASIONAL</div>
+                        <div style="color: #2c3e50; font-size: 12px; text-align: center;">REPUBLIK INDONESIA</div>
+                    </div>
+                </div>
+                
+                <!-- Judul -->
+                <div class="title-container">
+                    <h1>SISTEM ABSENSI RELAWAN BADAN GIZI NASIONAL</h1>
+                    <h2>SPPG GUNUNG PICUNG - YAYASAN MASJID AL-FATTAH CIREENDEU</h2>
+                </div>
+                
+                <!-- Logo Yayasan Masjid -->
+                <div class="logo-wrapper">
+                    <div class="logo-placeholder" style="width: 180px; height: 80px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px; border-radius: 5px;">
+                        <div style="font-weight: bold; color: #2c3e50; font-size: 18px; text-align: center;">MASJID</div>
+                        <div style="font-weight: bold; color: #2c3e50; font-size: 18px; text-align: center;">AL-FATTAH</div>
+                        <div style="color: #2c3e50; font-size: 14px; text-align: center;">CIREUNDEU</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="fas fa-hands-helping me-2"></i>
-                Sistem Absensi Relawan SPPG
+                Sistem Absensi Relawan
             </a>
             <div class="d-flex">
                 <span class="navbar-text me-3 current-time" id="current-date-time"></span>
@@ -299,6 +387,7 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Masukkan password">
+                <div class="form-text">Untuk relawan: password123</div>
             </div>
             <button id="login-btn" class="btn btn-primary w-100">Login</button>
         </div>
@@ -455,6 +544,14 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2023 Sistem Absensi Relawan BGN - SPPG Gunung Picung</p>
+            <p class="mb-0">Yayasan Masjid Al-Fattah Cirendeu</p>
+        </div>
+    </footer>
+
     <!-- Notification Area -->
     <div id="notification-area"></div>
 
@@ -466,60 +563,60 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Data relawan
             const volunteers = [
-    		{ id: 1, name: "YANI HERAWATI", division: "ASLAP", phone: "085715388009", dailySalary: 220000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 2, name: "SUPRIYADI", division: "SECURITY", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 3, name: "RIAN HARYADIN", division: "KA. CUCI OMPRENG", phone: "085715388009", dailySalary: 140000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 4, name: "AZIS JANUAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 5, name: "EVANDI FEBRIANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 6, name: "HADI HIDAYAT", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 7, name: "ILHAM KHOERUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 8, name: "INDRA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 9, name: "MANDAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 10, name: "MUHAMMAD DAVIS PRATAMA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 11, name: "FAHMIRUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 12, name: "RIO FEBRIAN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 13, name: "AHMAD KANJI", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 14, name: "IRWANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 15, name: "JUARIAH", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 16, name: "SARTIKA DEWI", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-    		{ id: 17, name: "IMAM", division: "KEPALA DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 18, name: "SAJA", division: "DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 19, name: "ANGGA FEBRI LUBIS", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 20, name: "DANILLAHMUDIN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 21, name: "IBRAHIM PRATAMA", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 22, name: "ARICK DARMAWAN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 23, name: "AMIRUDIN", division: "KEPALA DAPUR", phone: "085715388009", dailySalary: 200000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 24, name: "ADE", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 25, name: "SANDI IRAWAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 26, name: "MU'AMAR AHMAD RAMADHAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 27, name: "NENENG MINTARSIH", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 28, name: "NENG MEYLIMAWATI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 29, name: "NURIASANAH BT TARJO", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 30, name: "DZOL FAHMI ROBANI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-    		{ id: 31, name: "ANGGI YULIASARI", division: "KEPALA PEMORSIAN", phone: "085715388009", dailySalary: 150000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 32, name: "DAHLIA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 33, name: "EVI MAULINA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 34, name: "MUHAMAD YUNUS", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 35, name: "RATU CIKAL AMALIA LAHMI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 36, name: "RISKIA RAHMAWATI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 37, name: "RIZKI MAULIDA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 38, name: "SALWA SALSABILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 39, name: "SITI KAHLA KAMILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 40, name: "YULIA AGUSTIN", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-    		{ id: 41, name: "NAHDIAH FAULINA BORU LUBIS", division: "KEPALA PERSIAPAN", phone: "085715388009", dailySalary: 140000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 42, name: "AHMAD RIPAI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 43, name: "ELVIONITA BORU LUBIS", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 44, name: "NIA KURNIASHI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 45, name: "SISKA MEILINA WATI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 46, name: "SITI MULIFAH", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 47, name: "JUNAEDI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 48, name: "KARSI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-    		{ id: 49, name: "DONI SEPTIAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
-    		{ id: 50, name: "PAREL BUDIMAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
-    		{ id: 51, name: "ENDANG SUHENDAR", division: "SANITASI & LIMBAH", phone: "085715388009", dailySalary: 150000, schedule: { in: "17:00", out: "00:00" } },
-    		{ id: 52, name: "DARYANA KUSUMA", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "17:00", out: "00:00" } },
-    		{ id: 53, name: "SURYA ADHARI", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "06:00", out: "14:00" } }
-		];
+                { id: 1, name: "YANI HERAWATI", division: "ASLAP", phone: "085715388009", dailySalary: 220000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 2, name: "SUPRIYADI", division: "SECURITY", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 3, name: "RIAN HARYADIN", division: "KA. CUCI OMPRENG", phone: "085715388009", dailySalary: 140000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 4, name: "AZIS JANUAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 5, name: "EVANDI FEBRIANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 6, name: "HADI HIDAYAT", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 7, name: "ILHAM KHOERUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 8, name: "INDRA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 9, name: "MANDAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 10, name: "MUHAMMAD DAVIS PRATAMA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 11, name: "FAHMIRUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 12, name: "RIO FEBRIAN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 13, name: "AHMAD KANJI", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 14, name: "IRWANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 15, name: "JUARIAH", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 16, name: "SARTIKA DEWI", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 17, name: "IMAM", division: "KEPALA DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 18, name: "SAJA", division: "DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 19, name: "ANGGA FEBRI LUBIS", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 20, name: "DANILLAHMUDIN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 21, name: "IBRAHIM PRATAMA", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 22, name: "ARICK DARMAWAN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
+                { id: 23, name: "AMIRUDIN", division: "KEPALA DAPUR", phone: "085715388009", dailySalary: 200000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 24, name: "ADE", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 25, name: "SANDI IRAWAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 26, name: "MU'AMAR AHMAD RAMADHAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 27, name: "NENENG MINTARSIH", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 28, name: "NENG MEYLIMAWATI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 29, name: "NURIASANAH BT TARJO", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 30, name: "DZOL FAHMI ROBANI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
+                { id: 31, name: "ANGGI YULIASARI", division: "KEPALA PEMORSIAN", phone: "085715388009", dailySalary: 150000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 32, name: "DAHLIA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 33, name: "EVI MAULINA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 34, name: "MUHAMAD YUNUS", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 35, name: "RATU CIKAL AMALIA LAHMI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 36, name: "RISKIA RAHMAWATI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 37, name: "RIZKI MAULIDA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 38, name: "SALWA SALSABILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 39, name: "SITI KAHLA KAMILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 40, name: "YULIA AGUSTIN", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
+                { id: 41, name: "NAHDIAH FAULINA BORU LUBIS", division: "KEPALA PERSIAPAN", phone: "085715388009", dailySalary: 140000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 42, name: "AHMAD RIPAI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 43, name: "ELVIONITA BORU LUBIS", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 44, name: "NIA KURNIASHI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 45, name: "SISKA MEILINA WATI", division: "PERSIAPan", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 46, name: "SITI MULIFAH", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 47, name: "JUNAEDI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 48, name: "KARSI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
+                { id: 49, name: "DONI SEPTIAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
+                { id: 50, name: "PAREL BUDIMAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
+                { id: 51, name: "ENDANG SUHENDAR", division: "SANITASI & LIMBAH", phone: "085715388009", dailySalary: 150000, schedule: { in: "17:00", out: "00:00" } },
+                { id: 52, name: "DARYANA KUSUMA", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "17:00", out: "00:00" } },
+                { id: 53, name: "SURYA ADHARI", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "06:00", out: "14:00" } }
+            ];
 
             // Elemen UI
             const loginSection = document.getElementById('login-section');
@@ -1124,12 +1221,12 @@
                 });
                 
                 // Create CSV content
-                let csvContent = "Laporan Absensi Relawan SPPG\n";
+                let csvContent = "Laporan Absensi Relawan SPPG Gunung Picung\n";
                 csvContent += `Periode: ${month !== -1 ? `${month + 1}/${year}` : `Tahun ${year}`}\n`;
                 csvContent += `Tanggal Generate: ${new Date().toLocaleDateString('id-ID')}\n\n`;
                 
                 // Generate CSV for each user
-                for (const userId in groupedData) {
+                for ( const userId in groupedData) {
                     const { volunteer, records } = groupedData[userId];
                     csvContent += `\nNama: ${volunteer.name}\n`;
                     csvContent += `Divisi: ${volunteer.division}\n`;
@@ -1169,7 +1266,7 @@
                 // Add title
                 doc.setFontSize(18);
                 doc.setTextColor(40, 40, 40);
-                doc.text('LAPORAN ABSENSI RELAWAN SPPG', 105, 15, { align: 'center' });
+                doc.text('LAPORAN ABSENSI RELAWAN SPPG GUNUNG PICUNG', 105, 15, { align: 'center' });
                 
                 // Add period
                 doc.setFontSize(12);
@@ -1267,8 +1364,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
