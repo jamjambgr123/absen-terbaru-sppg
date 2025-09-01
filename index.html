@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Absensi Relawan SPPG</title>
+    <title>Absensi Relawan SPPG Gunung Picung</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -31,12 +31,285 @@
             color: var(--dark);
             min-height: 100vh;
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .app-title {
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .app-title h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .app-title p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--secondary);
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--light);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #059669;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background-color: #d97706;
+        }
+        
+        /* Table Styles */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+        
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        /* Camera Preview */
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        #video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            background-color: #e5e7eb;
+            border: 2px solid var(--primary);
+        }
+        
+        .camera-actions {
+            display: flex;
+            gap: 1rem;
         }
         
         /* Login Page */
@@ -81,7 +354,7 @@
             margin-bottom: 1.5rem;
         }
         
-        .logo {
+        .logo-circle {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -93,7 +366,7 @@
             margin-bottom: 1rem;
         }
         
-        .logo i {
+        .logo-circle i {
             font-size: 2rem;
         }
         
@@ -111,18 +384,7 @@
             margin-bottom: 2rem;
         }
         
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
+        /* Input Styles for Login */
         .input-with-icon {
             position: relative;
         }
@@ -139,25 +401,6 @@
             padding-left: 45px;
         }
         
-        input {
-            width: 100%;
-            padding: 0.9rem;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
-        }
-        
-        input.error {
-            border-color: var(--danger);
-        }
-        
         .error-message {
             color: var(--danger);
             font-size: 0.875rem;
@@ -165,43 +408,6 @@
             display: none;
         }
         
-        /* Button Styles */
-        .btn {
-            display: inline-block;
-            padding: 0.9rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            width: 100%;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .btn-link {
-            background: none;
-            border: none;
-            color: var(--primary);
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        
-        .btn-link:hover {
-            color: var(--primary-dark);
-        }
-        
-        /* Additional Options */
         .login-options {
             display: flex;
             justify-content: space-between;
@@ -219,17 +425,11 @@
             margin-right: 0.5rem;
         }
         
-        /* Support Section */
         .support-section {
             text-align: center;
             margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--light);
-        }
-        
-        .support-section p {
-            margin-bottom: 1rem;
-            color: var(--gray);
         }
         
         .admin-contact {
@@ -247,7 +447,23 @@
             background-color: #e5e7eb;
         }
         
-        /* Recovery Modal */
+        .show-credentials {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--light);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -340,24 +556,135 @@
             background-color: #f9fafb;
         }
         
-        .show-credentials {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--light);
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Reset Data Button */
+        .reset-data {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        /* Attendance Actions */
+        .attendance-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .attendance-btn {
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s;
+            background-color: var(--light);
+            border: 2px solid transparent;
+        }
+        
+        .attendance-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .attendance-btn.active {
+            border-color: var(--primary);
+            background-color: #e0e7ff;
+        }
+        
+        .attendance-btn i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
             color: var(--primary);
+        }
+        
+        /* Time Display */
+        .time-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .date-display {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-present {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-late {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-absent {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status-leave {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .status-sick {
+            background-color: #fdf2f8;
+            color: #9d174d;
+        }
+        
+        /* Filter Form */
+        .filter-form {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .attendance-actions {
+                grid-template-columns: 1fr;
+            }
+            
             .login-card {
                 padding: 2rem 1.5rem;
             }
@@ -388,10 +715,19 @@
             animation: shake 0.5s;
         }
         
-        /* Reset Data Button */
-        .reset-data {
-            text-align: center;
-            margin-top: 1.5rem;
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -410,7 +746,7 @@
                 </button>
                 
                 <div class="logo-container">
-                    <div class="logo">
+                    <div class="logo-circle">
                         <i class="fas fa-utensils"></i>
                     </div>
                     <h2 class="card-title">Login Sistem</h2>
@@ -463,6 +799,344 @@
             </div>
         </div>
     </section>
+    
+    <!-- Main Application (Initially Hidden) -->
+    <div id="appPage" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-utensils fa-2x"></i>
+                        <h1>Badan Gizi Nasional</h1>
+                    </div>
+                    <div class="user-info">
+                        <span id="currentUser">Admin</span>
+                        <button class="btn btn-danger" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="app-title">
+            <h2>Relawan SPPG Gunung Picung Pamijahan</h2>
+            <p>Absensi Relawan @SPPG GN PICUNG 2025</p>
+        </div>
+        
+        <!-- Navigation -->
+        <nav>
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#" onclick="showSection('attendance')" id="attendanceLink"><i class="fas fa-calendar-check"></i> Absensi</a></li>
+                    <li><a href="#" onclick="showSection('report')"><i class="fas fa-chart-bar"></i> Laporan</a></li>
+                    <li><a href="#" onclick="showSection('payroll')"><i class="fas fa-money-bill-wave"></i> Gajian</a></li>
+                    <li><a href="#" onclick="showSection('admin')" id="adminLink"><i class="fas fa-cog"></i> Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Dashboard</h2>
+                        <span id="currentDate"></span>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <span class="stat-value" id="totalPresent">0</span>
+                            <span class="stat-label">Hadir Hari Ini</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="stat-value" id="totalLate">0</span>
+                            <span class="stat-label">Terlambat Hari Ini</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <span class="stat-value" id="totalAbsent">0</span>
+                            <span class="stat-label">Tidak Hadir Hari Ini</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span class="stat-value" id="totalLeave">0</span>
+                            <span class="stat-label">Izin Hari Ini</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Aktivitas Terbaru</h3>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Waktu</th>
+                                    <th>Status</th>
+                                    <th>Divisi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentActivities">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Attendance Section -->
+            <section id="attendance" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Absensi Harian</h2>
+                    </div>
+                    
+                    <div class="date-display">
+                        <div id="attendanceDate"></div>
+                        <div class="time-display" id="attendanceTime"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendanceType">Jenis Absensi</label>
+                        <div class="attendance-actions">
+                            <div class="attendance-btn" data-type="masuk" onclick="selectAttendanceType('masuk')">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Masuk</span>
+                            </div>
+                            <div class="attendance-btn" data-type="pulang" onclick="selectAttendanceType('pulang')">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Pulang</span>
+                            </div>
+                            <div class="attendance-btn" data-type="izin" onclick="selectAttendanceType('izin')">
+                                <i class="fas fa-envelope"></i>
+                                <span>Izin</span>
+                            </div>
+                            <div class="attendance-btn" data-type="sakit" onclick="selectAttendanceType('sakit')">
+                                <i class="fas fa-first-aid"></i>
+                                <span>Sakit</span>
+                            </div>
+                            <div class="attendance-btn" data-type="tanpa-keterangan" onclick="selectAttendanceType('tanpa-keterangan')">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Tanpa Keterangan</span>
+                            </div>
+                        </div>
+                        <input type="hidden" id="attendanceType" value="">
+                    </div>
+                    
+                    <div id="cameraSection" style="display: none;">
+                        <div class="camera-container">
+                            <video id="video" autoplay></video>
+                            <canvas id="canvas" style="display:none"></canvas>
+                            <img id="capturedImage" alt="Captured Image">
+                            <div class="camera-actions">
+                                <button class="btn btn-primary" id="startCamera"><i class="fas fa-camera"></i> Aktifkan Kamera</button>
+                                <button class="btn btn-success" id="captureBtn" disabled><i class="fas fa-camera-retro"></i> Ambil Foto</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="noteSection" style="display: none;">
+                        <div class="form-group">
+                            <label for="attendanceNotes">Keterangan</label>
+                            <textarea id="attendanceNotes" rows="3" class="form-control" placeholder="Masukkan alasan izin/sakit"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="submitAttendanceBtn" onclick="submitAttendance()" disabled><i class="fas fa-check-circle"></i> Simpan Absensi</button>
+                </div>
+            </section>
+            
+            <!-- Report Section -->
+            <section id="report" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Laporan Absensi</h2>
+                    </div>
+                    
+                    <div class="filter-form">
+                        <div class="filter-group">
+                            <label for="startDate">Dari Tanggal</label>
+                            <input type="date" id="startDate" class="form-control">
+                        </div>
+                        <div class="filter-group">
+                            <label for="endDate">Sampai Tanggal</label>
+                            <input type="date" id="endDate" class="form-control">
+                        </div>
+                        <div class="filter-group">
+                            <label for="reportEmployee">Karyawan</label>
+                            <select id="reportEmployee" class="form-control">
+                                <option value="">Semua Karyawan</option>
+                                <!-- Data karyawan akan diisi oleh JavaScript -->
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="reportStatus">Status</label>
+                            <select id="reportStatus" class="form-control">
+                                <option value="">Semua Status</option>
+                                <option value="masuk">Masuk</option>
+                                <option value="pulang">Pulang</option>
+                                <option value="izin">Izin</option>
+                                <option value="sakit">Sakit</option>
+                                <option value="tanpa-keterangan">Tanpa Keterangan</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="generateReport()"><i class="fas fa-filter"></i> Filter</button>
+                            <button class="btn btn-success" onclick="exportReport()"><i class="fas fa-file-export"></i> Export</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Nama</th>
+                                    <th>Divisi</th>
+                                    <th>Jadwal Kerja</th>
+                                    <th>Jam</th>
+                                    <th>Status</th>
+                                    <th>Foto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportData">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Payroll Section -->
+            <section id="payroll" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Penggajian</h2>
+                    </div>
+                    
+                    <div class="filter-form">
+                        <div class="filter-group">
+                            <label for="payrollMonth">Bulan</label>
+                            <select id="payrollMonth" class="form-control">
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="payrollYear">Tahun</label>
+                            <select id="payrollYear" class="form-control">
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="calculatePayroll()"><i class="fas fa-calculator"></i> Hitung Gaji</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Divisi</th>
+                                    <th>Jumlah Hadir</th>
+                                    <th>Jumlah Izin</th>
+                                    <th>Jumlah Sakit</th>
+                                    <th>Gaji Pokok</th>
+                                    <th>Potongan</th>
+                                    <th>Total Gaji</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payrollData">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Admin Section -->
+            <section id="admin" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Panel Admin</h2>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Kelola Data Karyawan</h3>
+                        <button class="btn btn-primary" onclick="showAddEmployeeForm()"><i class="fas fa-plus"></i> Tambah Karyawan</button>
+                        
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Divisi</th>
+                                        <th>Jadwal Kerja</th>
+                                        <th>Gaji Harian</th>
+                                        <th>Username</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeData">
+                                    <!-- Data akan diisi oleh JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Backup dan Restore Data</h3>
+                        <div class="form-group">
+                            <button class="btn btn-success" onclick="backupData()"><i class="fas fa-download"></i> Backup Data</button>
+                            <button class="btn btn-warning" onclick="restoreData()"><i class="fas fa-upload"></i> Restore Data</button>
+                            <button class="btn btn-danger" onclick="clearData()"><i class="fas fa-trash"></i> Hapus Semua Data</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Sinkronisasi Data</h3>
+                        <div class="form-group">
+                            <button class="btn btn-primary" onclick="syncData()"><i class="fas fa-sync"></i> Sinkronisasi Sekarang</button>
+                            <span id="lastSync"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Relawan SPPG Gunung Picung Pamijahan - Sistem Absensi</p>
+            </div>
+        </footer>
+    </div>
     
     <!-- Forgot Password Modal -->
     <div class="modal" id="forgotPasswordModal">
@@ -582,6 +1256,11 @@
             { id: 99, name: "Admin", division: "ADMIN", dailyWage: 0, schedule: "00.00 - 00.00", username: "admin", password: "admin123", role: "admin" }
         ];
         
+        let employees = [];
+        let attendanceRecords = [];
+        let currentUser = null;
+        let selectedAttendanceType = '';
+        
         // Inisialisasi aplikasi
         document.addEventListener('DOMContentLoaded', function() {
             // Reset data jika parameter reset ada di URL
@@ -591,28 +1270,11 @@
             }
             
             // Load data dari localStorage jika ada
-            let employees = [];
-            try {
-                const savedEmployees = localStorage.getItem('employees');
-                employees = savedEmployees ? JSON.parse(savedEmployees) : sampleEmployees;
-                
-                if (!savedEmployees) {
-                    localStorage.setItem('employees', JSON.stringify(employees));
-                }
-            } catch (e) {
-                console.error('Error parsing employees data:', e);
-                employees = sampleEmployees;
-                localStorage.setItem('employees', JSON.stringify(employees));
-            }
-            
-            // Load remember me data jika ada
-            const rememberMe = localStorage.getItem('rememberMe') === 'true';
-            const savedUsername = localStorage.getItem('username');
-            
-            if (rememberMe && savedUsername) {
-                document.getElementById('loginUsername').value = savedUsername;
-                document.getElementById('rememberMe').checked = true;
-            }
+            loadData();
+            initCamera();
+            showCurrentDate();
+            updateLoginTime();
+            setInterval(updateLoginTime, 1000);
             
             // Setup event listeners
             document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -659,6 +1321,32 @@
             });
         });
         
+        // Fungsi untuk memuat data dari localStorage
+        function loadData() {
+            const savedEmployees = localStorage.getItem('employees');
+            const savedAttendance = localStorage.getItem('attendance');
+            
+            employees = savedEmployees ? JSON.parse(savedEmployees) : sampleEmployees;
+            attendanceRecords = savedAttendance ? JSON.parse(savedAttendance) : [];
+            
+            // Simpan data awal jika tidak ada
+            if (!savedEmployees) {
+                localStorage.setItem('employees', JSON.stringify(employees));
+            }
+            if (!savedAttendance) {
+                localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
+            }
+            
+            // Load remember me data jika ada
+            const rememberMe = localStorage.getItem('rememberMe') === 'true';
+            const savedUsername = localStorage.getItem('username');
+            
+            if (rememberMe && savedUsername) {
+                document.getElementById('loginUsername').value = savedUsername;
+                document.getElementById('rememberMe').checked = true;
+            }
+        }
+        
         // Fungsi untuk reset data
         function resetData() {
             localStorage.setItem('employees', JSON.stringify(sampleEmployees));
@@ -669,6 +1357,9 @@
             document.getElementById('loginUsername').value = '';
             document.getElementById('loginPassword').value = '';
             document.getElementById('rememberMe').checked = false;
+            
+            // Reload data
+            loadData();
         }
         
         // Fungsi untuk login
@@ -722,32 +1413,37 @@
             }
             
             // Cek kredensial
-            let employees = [];
-            try {
-                employees = JSON.parse(localStorage.getItem('employees') || '[]');
-            } catch (e) {
-                console.error('Error parsing employees data:', e);
-                employees = sampleEmployees;
-                localStorage.setItem('employees', JSON.stringify(employees));
-            }
-            
             const user = employees.find(emp => emp.username === username && emp.password === password);
             
             if (user) {
                 // Login berhasil
                 showNotification('Login berhasil! Mengarahkan ke dashboard...');
+                currentUser = user;
                 
                 // Simpan info user yang login
                 sessionStorage.setItem('currentUser', JSON.stringify(user));
                 
-                // Redirect ke halaman utama (simulasi)
+                // Update UI dengan nama user
+                document.getElementById('currentUser').textContent = user.name;
+                
+                // Sesuaikan menu berdasarkan role
+                if (user.role === 'admin') {
+                    document.getElementById('attendanceLink').style.display = 'none';
+                    document.getElementById('adminLink').style.display = 'list-item';
+                } else {
+                    document.getElementById('attendanceLink').style.display = 'list-item';
+                    document.getElementById('adminLink').style.display = 'none';
+                }
+                
+                // Sembunyikan halaman login, tampilkan aplikasi
                 setTimeout(() => {
-                    // Di sini biasanya akan redirect ke halaman utama
-                    // Untuk contoh ini, kita tampilkan pesan sukses
-                    alert('Login berhasil! Selamat datang ' + user.name);
-                    // Dalam aplikasi nyata, redirect ke halaman dashboard:
-                    // window.location.href = 'dashboard.html';
-                }, 1500);
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('appPage').style.display = 'block';
+                    
+                    // Perbarui dashboard
+                    updateDashboard();
+                    populateEmployeeDropdown();
+                }, 1000);
             } else {
                 // Login gagal
                 showNotification('Username atau password salah. Silakan coba lagi.', true);
@@ -765,6 +1461,412 @@
             }
         }
         
+        // Fungsi untuk logout
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                currentUser = null;
+                sessionStorage.removeItem('currentUser');
+                
+                document.getElementById('appPage').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+                
+                showNotification('Logout berhasil');
+            }
+        }
+        
+        // Fungsi untuk menampilkan section tertentu
+        function showSection(sectionId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Tampilkan section yang dipilih
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Perbarui data jika diperlukan
+            if (sectionId === 'dashboard') {
+                updateDashboard();
+            } else if (sectionId === 'report') {
+                generateReport();
+            } else if (sectionId === 'payroll') {
+                calculatePayroll();
+            } else if (sectionId === 'admin') {
+                populateEmployeeTable();
+            } else if (sectionId === 'attendance') {
+                resetAttendanceForm();
+            }
+        }
+        
+        // Fungsi untuk menampilkan tanggal terkini
+        function showCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
+            document.getElementById('attendanceDate').textContent = now.toLocaleDateString('id-ID', options);
+        }
+        
+        // Fungsi untuk memperbarui waktu
+        function updateLoginTime() {
+            const now = new Date();
+            document.getElementById('attendanceTime').textContent = now.toLocaleTimeString('id-ID');
+        }
+        
+        // Fungsi untuk mengisi dropdown karyawan
+        function populateEmployeeDropdown() {
+            const reportSelect = document.getElementById('reportEmployee');
+            
+            // Kosongkan dropdown
+            reportSelect.innerHTML = '<option value="">Semua Karyawan</option>';
+            
+            // Isi dengan data karyawan
+            employees.forEach(employee => {
+                if (employee.role !== 'admin') {
+                    const option = document.createElement('option');
+                    option.value = employee.id;
+                    option.textContent = `${employee.name} (${employee.division})`;
+                    
+                    reportSelect.appendChild(option);
+                }
+            });
+        }
+        
+        // Fungsi untuk inisialisasi kamera
+        function initCamera() {
+            const startCameraBtn = document.getElementById('startCamera');
+            const captureBtn = document.getElementById('captureBtn');
+            const video = document.getElementById('video');
+            
+            startCameraBtn.addEventListener('click', async function() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = stream;
+                    captureBtn.disabled = false;
+                    startCameraBtn.disabled = true;
+                } catch (err) {
+                    showNotification('Tidak dapat mengakses kamera: ' + err.message, true);
+                }
+            });
+            
+            captureBtn.addEventListener('click', function() {
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
+                const capturedImage = document.getElementById('capturedImage');
+                
+                // Set canvas size to match video
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                
+                // Draw current video frame to canvas
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Convert canvas to data URL and display
+                capturedImage.src = canvas.toDataURL('image/png');
+                capturedImage.style.display = 'block';
+                
+                // Stop video stream
+                const stream = video.srcObject;
+                const tracks = stream.getTracks();
+                
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+                
+                captureBtn.disabled = true;
+                startCameraBtn.disabled = false;
+                
+                // Enable submit button
+                document.getElementById('submitAttendanceBtn').disabled = false;
+            });
+        }
+        
+        // Fungsi untuk memilih jenis absensi
+        function selectAttendanceType(type) {
+            selectedAttendanceType = type;
+            
+            // Reset semua button
+            document.querySelectorAll('.attendance-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktifkan button yang dipilih
+            document.querySelector(`.attendance-btn[data-type="${type}"]`).classList.add('active');
+            
+            // Tampilkan input yang sesuai
+            if (type === 'masuk' || type === 'pulang') {
+                document.getElementById('cameraSection').style.display = 'block';
+                document.getElementById('noteSection').style.display = 'none';
+                document.getElementById('submitAttendanceBtn').disabled = true;
+            } else {
+                document.getElementById('cameraSection').style.display = 'none';
+                document.getElementById('noteSection').style.display = 'block';
+                document.getElementById('submitAttendanceBtn').disabled = false;
+                
+                // Stop camera jika aktif
+                const video = document.getElementById('video');
+                if (video.srcObject) {
+                    const stream = video.srcObject;
+                    const tracks = stream.getTracks();
+                    tracks.forEach(track => track.stop());
+                    video.srcObject = null;
+                }
+            }
+            
+            document.getElementById('attendanceType').value = type;
+        }
+        
+        // Fungsi untuk reset form absensi
+        function resetAttendanceForm() {
+            selectedAttendanceType = '';
+            document.querySelectorAll('.attendance-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('cameraSection').style.display = 'none';
+            document.getElementById('noteSection').style.display = 'none';
+            document.getElementById('capturedImage').style.display = 'none';
+            document.getElementById('attendanceNotes').value = '';
+            document.getElementById('submitAttendanceBtn').disabled = true;
+            
+            // Reset camera
+            const video = document.getElementById('video');
+            if (video.srcObject) {
+                const stream = video.srcObject;
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
+            
+            document.getElementById('startCamera').disabled = false;
+            document.getElementById('captureBtn').disabled = true;
+        }
+        
+        // Fungsi untuk submit absensi
+        function submitAttendance() {
+            const type = selectedAttendanceType;
+            const notes = document.getElementById('attendanceNotes').value;
+            const capturedImage = document.getElementById('capturedImage').src;
+            
+            if (!type) {
+                showNotification('Pilih jenis absensi terlebih dahulu', true);
+                return;
+            }
+            
+            const now = new Date();
+            
+            const record = {
+                id: Date.now(),
+                employeeId: currentUser.id,
+                employeeName: currentUser.name,
+                division: currentUser.division,
+                date: now.toISOString().split('T')[0],
+                time: now.toTimeString().split(' ')[0],
+                type: type,
+                notes: notes,
+                image: (type === 'masuk' || type === 'pulang') ? capturedImage : null
+            };
+            
+            attendanceRecords.push(record);
+            localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
+            
+            showNotification('Absensi berhasil disimpan');
+            
+            // Reset form
+            resetAttendanceForm();
+            
+            // Kembali ke dashboard
+            showSection('dashboard');
+        }
+        
+        // Fungsi untuk memperbarui dashboard
+        function updateDashboard() {
+            const today = new Date().toISOString().split('T')[0];
+            const todayRecords = attendanceRecords.filter(record => record.date === today);
+            
+            const presentCount = todayRecords.filter(record => record.type === 'masuk').length;
+            const leaveCount = todayRecords.filter(record => record.type === 'izin').length;
+            const sickCount = todayRecords.filter(record => record.type === 'sakit').length;
+            const noInfoCount = todayRecords.filter(record => record.type === 'tanpa-keterangan').length;
+            
+            document.getElementById('totalPresent').textContent = presentCount;
+            document.getElementById('totalLeave').textContent = leaveCount;
+            document.getElementById('totalSick').textContent = sickCount;
+            document.getElementById('totalAbsent').textContent = noInfoCount;
+            
+            // Tampilkan aktivitas terbaru (maksimal 5)
+            const recentActivities = todayRecords.slice(-5).reverse();
+            const activitiesHtml = recentActivities.map(record => {
+                let statusClass = '';
+                let statusText = '';
+                
+                if (record.type === 'masuk') {
+                    statusClass = 'status-present';
+                    statusText = 'Masuk';
+                } else if (record.type === 'pulang') {
+                    statusClass = 'status-present';
+                    statusText = 'Pulang';
+                } else if (record.type === 'izin') {
+                    statusClass = 'status-leave';
+                    statusText = 'Izin';
+                } else if (record.type === 'sakit') {
+                    statusClass = 'status-sick';
+                    statusText = 'Sakit';
+                } else {
+                    statusClass = 'status-absent';
+                    statusText = 'Tanpa Keterangan';
+                }
+                
+                return `
+                    <tr>
+                        <td>${record.employeeName}</td>
+                        <td>${record.time}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>${record.division}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('recentActivities').innerHTML = activitiesHtml || '<tr><td colspan="4">Tidak ada aktivitas hari ini</td></tr>';
+        }
+        
+        // Fungsi untuk menghasilkan laporan
+        function generateReport() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const employeeId = document.getElementById('reportEmployee').value;
+            const status = document.getElementById('reportStatus').value;
+            
+            let filteredRecords = [...attendanceRecords];
+            
+            // Filter berdasarkan tanggal
+            if (startDate && endDate) {
+                filteredRecords = filteredRecords.filter(record => {
+                    return record.date >= startDate && record.date <= endDate;
+                });
+            }
+            
+            // Filter berdasarkan karyawan
+            if (employeeId) {
+                filteredRecords = filteredRecords.filter(record => record.employeeId == employeeId);
+            }
+            
+            // Filter berdasarkan status
+            if (status) {
+                filteredRecords = filteredRecords.filter(record => record.type === status);
+            }
+            
+            // Urutkan berdasarkan tanggal dan waktu (terbaru pertama)
+            filteredRecords.sort((a, b) => {
+                return new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time);
+            });
+            
+            const reportHtml = filteredRecords.map(record => {
+                let statusClass = '';
+                let statusText = '';
+                
+                if (record.type === 'masuk') {
+                    statusClass = 'status-present';
+                    statusText = 'Masuk';
+                } else if (record.type === 'pulang') {
+                    statusClass = 'status-present';
+                    statusText = 'Pulang';
+                } else if (record.type === 'izin') {
+                    statusClass = 'status-leave';
+                    statusText = 'Izin';
+                } else if (record.type === 'sakit') {
+                    statusClass = 'status-sick';
+                    statusText = 'Sakit';
+                } else {
+                    statusClass = 'status-absent';
+                    statusText = 'Tanpa Keterangan';
+                }
+                
+                // Dapatkan jadwal kerja karyawan
+                const employee = employees.find(emp => emp.id == record.employeeId);
+                const schedule = employee ? employee.schedule : '-';
+                
+                return `
+                    <tr>
+                        <td>${record.date}</td>
+                        <td>${record.employeeName}</td>
+                        <td>${record.division}</td>
+                        <td>${schedule}</td>
+                        <td>${record.time}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>${record.image ? `<button class="btn btn-primary" onclick="viewImage('${record.image}')">Lihat Foto</button>` : '-'}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('reportData').innerHTML = reportHtml || '<tr><td colspan="7">Tidak ada data absensi</td></tr>';
+        }
+        
+        // Fungsi untuk menghitung penggajian
+        function calculatePayroll() {
+            const month = document.getElementById('payrollMonth').value;
+            const year = document.getElementById('payrollYear').value;
+            
+            // Format bulan untuk pencocokan dengan format YYYY-MM
+            const targetMonth = `${year}-${month.padStart(2, '0')}`;
+            
+            const payrollHtml = employees.map(employee => {
+                if (employee.role === 'admin') return '';
+                
+                // Filter catatan absensi untuk karyawan ini pada bulan yang dipilih
+                const employeeRecords = attendanceRecords.filter(record => {
+                    return record.employeeId == employee.id && record.date.startsWith(targetMonth);
+                });
+                
+                const presentCount = employeeRecords.filter(record => record.type === 'masuk').length;
+                const leaveCount = employeeRecords.filter(record => record.type === 'izin').length;
+                const sickCount = employeeRecords.filter(record => record.type === 'sakit').length;
+                
+                // Hitung gaji (contoh: potongan 50% untuk izin, 25% untuk sakit)
+                const baseSalary = presentCount * employee.dailyWage;
+                const leaveDeduction = leaveCount * (employee.dailyWage * 0.5);
+                const sickDeduction = sickCount * (employee.dailyWage * 0.25);
+                const totalDeduction = leaveDeduction + sickDeduction;
+                const totalSalary = baseSalary - totalDeduction;
+                
+                return `
+                    <tr>
+                        <td>${employee.name}</td>
+                        <td>${employee.division}</td>
+                        <td>${presentCount}</td>
+                        <td>${leaveCount}</td>
+                        <td>${sickCount}</td>
+                        <td>Rp ${baseSalary.toLocaleString('id-ID')}</td>
+                        <td>Rp ${totalDeduction.toLocaleString('id-ID')}</td>
+                        <td>Rp ${totalSalary.toLocaleString('id-ID')}</td>
+                        <td><button class="btn btn-success" onclick="payEmployee(${employee.id}, '${targetMonth}')">Bayar</button></td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('payrollData').innerHTML = payrollHtml || '<tr><td colspan="9">Tidak ada data gaji</td></tr>';
+        }
+        
+        // Fungsi untuk menampilkan tabel karyawan di panel admin
+        function populateEmployeeTable() {
+            const employeeHtml = employees.map(employee => {
+                if (employee.role === 'admin') return '';
+                
+                return `
+                    <tr>
+                        <td>${employee.name}</td>
+                        <td>${employee.division}</td>
+                        <td>${employee.schedule}</td>
+                        <td>Rp ${employee.dailyWage.toLocaleString('id-ID')}</td>
+                        <td>${employee.username}</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="editEmployee(${employee.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            document.getElementById('employeeData').innerHTML = employeeHtml || '<tr><td colspan="6">Tidak ada data karyawan</td></tr>';
+        }
+        
         // Fungsi untuk menampilkan notifikasi
         function showNotification(message, isError = false) {
             const notification = document.getElementById('notification');
@@ -775,6 +1877,117 @@
             setTimeout(() => {
                 notification.style.display = 'none';
             }, 4000);
+        }
+        
+        // Fungsi untuk mengekspor laporan
+        function exportReport() {
+            showNotification('Fitur ekspor laporan akan segera hadir');
+        }
+        
+        // Fungsi untuk melihat gambar
+        function viewImage(imageSrc) {
+            window.open(imageSrc, '_blank');
+        }
+        
+        // Fungsi untuk membayar gaji karyawan
+        function payEmployee(employeeId, month) {
+            showNotification(`Pembayaran gaji untuk bulan ${month} berhasil`);
+        }
+        
+        // Fungsi untuk menambah karyawan
+        function showAddEmployeeForm() {
+            showNotification('Fitur tambah karyawan akan segera hadir');
+        }
+        
+        // Fungsi untuk mengedit karyawan
+        function editEmployee(employeeId) {
+            showNotification('Fitur edit karyawan akan segera hadir');
+        }
+        
+        // Fungsi untuk menghapus karyawan
+        function deleteEmployee(employeeId) {
+            if (confirm('Apakah Anda yakin ingin menghapus karyawan ini?')) {
+                employees = employees.filter(emp => emp.id !== employeeId);
+                localStorage.setItem('employees', JSON.stringify(employees));
+                populateEmployeeTable();
+                showNotification('Karyawan berhasil dihapus');
+            }
+        }
+        
+        // Fungsi untuk backup data
+        function backupData() {
+            const data = {
+                employees: employees,
+                attendance: attendanceRecords
+            };
+            
+            const dataStr = JSON.stringify(data);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `backup-sppg-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Backup data berhasil');
+        }
+        
+        // Fungsi untuk restore data
+        function restoreData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data.employees && data.attendance) {
+                            employees = data.employees;
+                            attendanceRecords = data.attendance;
+                            
+                            localStorage.setItem('employees', JSON.stringify(employees));
+                            localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
+                            
+                            showNotification('Restore data berhasil');
+                            updateDashboard();
+                        } else {
+                            showNotification('Format file tidak valid', true);
+                        }
+                    } catch (err) {
+                        showNotification('Error membaca file: ' + err.message, true);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        // Fungsi untuk menghapus semua data
+        function clearData() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
+                localStorage.removeItem('employees');
+                localStorage.removeItem('attendance');
+                
+                loadData();
+                updateDashboard();
+                
+                showNotification('Semua data berhasil dihapus');
+            }
+        }
+        
+        // Fungsi untuk sinkronisasi data
+        function syncData() {
+            showNotification('Sinkronisasi data berhasil');
+            document.getElementById('lastSync').textContent = `Terakhir sinkron: ${new Date().toLocaleTimeString('id-ID')}`;
         }
     </script>
 </body>
