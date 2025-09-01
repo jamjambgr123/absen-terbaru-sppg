@@ -8,15 +8,23 @@
     <style>
         :root {
             --primary: #1a56db;
+            --primary-light: #3b82f6;
             --primary-dark: #0e3e9e;
-            --secondary: #2563eb;
-            --accent: #10b981;
+            --secondary: #10b981;
+            --secondary-light: #34d399;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --accent-dark: #d97706;
             --danger: #ef4444;
+            --danger-light: #f87171;
+            --danger-dark: #dc2626;
             --warning: #f59e0b;
-            --light: #f3f4f6;
+            --success: #10b981;
+            --light: #f9fafb;
             --dark: #1f2937;
             --gray: #6b7280;
-            --background: #f9fafb;
+            --background: #f0f9ff;
         }
         
         * {
@@ -27,11 +35,10 @@
         }
         
         body {
-            background-color: var(--background);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             color: var(--dark);
             min-height: 100vh;
             line-height: 1.6;
-            transition: all 0.3s ease;
         }
         
         .container {
@@ -42,7 +49,7 @@
         
         /* Header Styles */
         header {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -72,22 +79,24 @@
         .app-title {
             text-align: center;
             margin: 1rem 0;
+            color: white;
         }
         
         .app-title h2 {
-            color: var(--primary);
             font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .app-title p {
-            color: var(--gray);
             font-size: 1rem;
+            opacity: 0.9;
         }
         
         /* Navigation */
         nav {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             padding: 0.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .nav-links {
@@ -99,16 +108,17 @@
         .nav-links a {
             color: white;
             text-decoration: none;
-            padding: 0.5rem 0;
+            padding: 0.5rem 1rem;
             font-weight: 500;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
         
         .nav-links a:hover {
-            opacity: 0.8;
+            background-color: rgba(255, 255, 255, 0.2);
         }
         
         /* Main Content */
@@ -119,19 +129,21 @@
         
         .card {
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
         }
         
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
         }
         
         .card-header {
-            border-bottom: 1px solid var(--light);
+            border-bottom: 2px solid var(--primary-light);
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
             display: flex;
@@ -140,27 +152,31 @@
         }
         
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         /* Form Styles */
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
         
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
+            color: var(--primary-dark);
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
+            padding: 0.9rem;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s;
         }
@@ -168,15 +184,18 @@
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
         
         /* Button Styles */
         .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.5rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
@@ -184,45 +203,54 @@
         }
         
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
         }
         
         .btn-primary:hover {
-            background-color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn-success {
-            background-color: var(--accent);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
             color: white;
         }
         
         .btn-success:hover {
-            background-color: #059669;
+            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn-danger {
-            background-color: var(--danger);
+            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
             color: white;
         }
         
         .btn-danger:hover {
-            background-color: #dc2626;
+            background: linear-gradient(135deg, var(--danger-light) 0%, var(--danger) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .btn-warning {
-            background-color: var(--warning);
+            background: linear-gradient(135deg, var(--warning) 0%, var(--accent-dark) 100%);
             color: white;
         }
         
         .btn-warning:hover {
-            background-color: #d97706;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--warning) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         /* Table Styles */
         .table-responsive {
             overflow-x: auto;
-            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         table {
@@ -231,23 +259,24 @@
         }
         
         th, td {
-            padding: 0.75rem;
+            padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #e5e7eb;
         }
         
         th {
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            color: white;
             font-weight: 600;
         }
         
         tr:hover {
-            background-color: #f9fafb;
+            background-color: #f0f9ff;
         }
         
         /* Footer */
         footer {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 1.5rem 0;
             text-align: center;
@@ -262,54 +291,37 @@
         }
         
         .stat-card {
-            background-color: white;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
         
         .stat-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: var(--primary);
+            color: white;
         }
         
         .stat-value {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary);
             margin-bottom: 0.5rem;
         }
         
         .stat-label {
-            color: var(--gray);
             font-weight: 500;
-        }
-        
-        /* Camera Preview */
-        .camera-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        #video {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 8px;
-            background-color: #e5e7eb;
-            border: 2px solid var(--primary);
-        }
-        
-        .camera-actions {
-            display: flex;
-            gap: 1rem;
+            opacity: 0.9;
         }
         
         /* Login Page */
@@ -318,7 +330,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
             padding: 2rem 0;
         }
         
@@ -331,6 +343,7 @@
         .login-header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .login-header p {
@@ -340,9 +353,9 @@
         
         .login-card {
             background-color: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2.5rem;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             max-width: 500px;
             margin: 0 auto;
             width: 100%;
@@ -358,19 +371,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .logo-circle i {
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
         
-        .card-title {
+        .login-title {
             font-size: 1.8rem;
             font-weight: 600;
             color: var(--primary);
@@ -378,7 +392,7 @@
             margin-bottom: 0.5rem;
         }
         
-        .card-subtitle {
+        .login-subtitle {
             text-align: center;
             color: var(--gray);
             margin-bottom: 2rem;
@@ -394,11 +408,18 @@
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray);
+            color: var(--primary);
         }
         
         .input-with-icon input {
             padding-left: 45px;
+            border: 2px solid #d1d5db;
+            transition: all 0.3s;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
         }
         
         .error-message {
@@ -429,84 +450,46 @@
             text-align: center;
             margin-top: 2rem;
             padding-top: 1.5rem;
-            border-top: 1px solid var(--light);
+            border-top: 2px solid var(--primary-light);
         }
         
         .admin-contact {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             padding: 0.7rem 1.5rem;
             border-radius: 8px;
-            color: var(--dark);
+            color: white;
             text-decoration: none;
+            transition: all 0.3s;
         }
         
         .admin-contact:hover {
-            background-color: #e5e7eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .show-credentials {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: var(--light);
+            background: var(--primary-light);
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--primary);
+            color: white;
+            transition: all 0.3s;
         }
         
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: white;
-            border-radius: 12px;
-            padding: 2rem;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--gray);
+        .show-credentials:hover {
+            background: var(--primary);
+            transform: rotate(15deg);
         }
         
         /* Notification */
@@ -514,150 +497,26 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             border-radius: 8px;
             color: white;
-            background-color: var(--accent);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--success) 0%, var(--secondary-dark) 100%);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            display: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             max-width: 350px;
+            transform: translateX(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
         }
         
         .notification.error {
-            background-color: var(--danger);
-        }
-        
-        /* User Credentials */
-        .user-credentials {
-            margin-top: 1.5rem;
-        }
-        
-        .credentials-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .credentials-table th, 
-        .credentials-table td {
-            padding: 0.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--light);
-        }
-        
-        .credentials-table th {
-            background-color: var(--light);
-            font-weight: 600;
-        }
-        
-        .credentials-table tr:hover {
-            background-color: #f9fafb;
-        }
-        
-        /* Reset Data Button */
-        .reset-data {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        /* Attendance Actions */
-        .attendance-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .attendance-btn {
-            padding: 1.5rem;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background-color: var(--light);
-            border: 2px solid transparent;
-        }
-        
-        .attendance-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .attendance-btn.active {
-            border-color: var(--primary);
-            background-color: #e0e7ff;
-        }
-        
-        .attendance-btn i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-            color: var(--primary);
-        }
-        
-        /* Time Display */
-        .time-display {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-        
-        .date-display {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 2rem;
-        }
-        
-        /* Status Badges */
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .status-present {
-            background-color: #dcfce7;
-            color: #166534;
-        }
-        
-        .status-late {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-        
-        .status-absent {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .status-leave {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .status-sick {
-            background-color: #fdf2f8;
-            color: #9d174d;
-        }
-        
-        /* Filter Form */
-        .filter-form {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-end;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-group {
-            flex: 1;
-            min-width: 200px;
+            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
         }
         
         /* Responsive Design */
@@ -676,15 +535,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .filter-form {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .attendance-actions {
-                grid-template-columns: 1fr;
-            }
-            
             .login-card {
                 padding: 2rem 1.5rem;
             }
@@ -697,10 +547,6 @@
                 flex-direction: column;
                 gap: 1rem;
                 align-items: flex-start;
-            }
-            
-            .credentials-table {
-                font-size: 0.8rem;
             }
         }
         
@@ -749,8 +595,8 @@
                     <div class="logo-circle">
                         <i class="fas fa-utensils"></i>
                     </div>
-                    <h2 class="card-title">Login Sistem</h2>
-                    <p class="card-subtitle">Masukkan username dan password Anda</p>
+                    <h2 class="login-title">Login Sistem</h2>
+                    <p class="login-subtitle">Masukkan username dan password Anda</p>
                 </div>
                 
                 <form id="loginForm">
@@ -773,7 +619,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Masuk</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%">
+                            <i class="fas fa-sign-in-alt"></i> Masuk
+                        </button>
                     </div>
                 </form>
                 
@@ -792,10 +640,6 @@
                         Hubungi Admin
                     </a>
                 </div>
-                
-                <div class="reset-data">
-                    <button type="button" class="btn-link" id="resetDataBtn">Reset Data ke Default</button>
-                </div>
             </div>
         </div>
     </section>
@@ -812,7 +656,9 @@
                     </div>
                     <div class="user-info">
                         <span id="currentUser">Admin</span>
-                        <button class="btn btn-danger" onclick="logout()">Logout</button>
+                        <button class="btn btn-danger" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -842,7 +688,7 @@
             <section id="dashboard" class="content-section active">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Dashboard</h2>
+                        <h2 class="card-title"><i class="fas fa-home"></i> Dashboard</h2>
                         <span id="currentDate"></span>
                     </div>
                     
@@ -877,7 +723,7 @@
                         </div>
                     </div>
                     
-                    <h3>Aktivitas Terbaru</h3>
+                    <h3><i class="fas fa-history"></i> Aktivitas Terbaru</h3>
                     <div class="table-responsive">
                         <table>
                             <thead>
@@ -889,7 +735,9 @@
                                 </tr>
                             </thead>
                             <tbody id="recentActivities">
-                                <!-- Data akan diisi oleh JavaScript -->
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">Tidak ada aktivitas hari ini</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -900,232 +748,44 @@
             <section id="attendance" class="content-section">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Absensi Harian</h2>
+                        <h2 class="card-title"><i class="fas fa-calendar-check"></i> Absensi Harian</h2>
                     </div>
                     
-                    <div class="date-display">
-                        <div id="attendanceDate"></div>
-                        <div class="time-display" id="attendanceTime"></div>
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 1.2rem; color: var(--primary);" id="attendanceDate"></div>
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);" id="attendanceTime"></div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Selamat datang, <span id="welcomeUser">Yani Herawati</span>!</h3>
+                        <p style="color: var(--primary);">Silakan pilih jenis absensi yang ingin Anda lakukan.</p>
                     </div>
                     
                     <div class="form-group">
                         <label for="attendanceType">Jenis Absensi</label>
-                        <div class="attendance-actions">
-                            <div class="attendance-btn" data-type="masuk" onclick="selectAttendanceType('masuk')">
-                                <i class="fas fa-sign-in-alt"></i>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border: 2px solid #3b82f6;">
+                                <i class="fas fa-sign-in-alt" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #3b82f6;"></i>
                                 <span>Masuk</span>
                             </div>
-                            <div class="attendance-btn" data-type="pulang" onclick="selectAttendanceType('pulang')">
-                                <i class="fas fa-sign-out-alt"></i>
+                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #22c55e;">
+                                <i class="fas fa-sign-out-alt" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #22c55e;"></i>
                                 <span>Pulang</span>
                             </div>
-                            <div class="attendance-btn" data-type="izin" onclick="selectAttendanceType('izin')">
-                                <i class="fas fa-envelope"></i>
+                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                                <i class="fas fa-envelope" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #f59e0b;"></i>
                                 <span>Izin</span>
                             </div>
-                            <div class="attendance-btn" data-type="sakit" onclick="selectAttendanceType('sakit')">
-                                <i class="fas fa-first-aid"></i>
+                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border: 2px solid #ef4444;">
+                                <i class="fas fa-first-aid" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #ef4444;"></i>
                                 <span>Sakit</span>
                             </div>
-                            <div class="attendance-btn" data-type="tanpa-keterangan" onclick="selectAttendanceType('tanpa-keterangan')">
-                                <i class="fas fa-question-circle"></i>
-                                <span>Tanpa Keterangan</span>
-                            </div>
-                        </div>
-                        <input type="hidden" id="attendanceType" value="">
-                    </div>
-                    
-                    <div id="cameraSection" style="display: none;">
-                        <div class="camera-container">
-                            <video id="video" autoplay></video>
-                            <canvas id="canvas" style="display:none"></canvas>
-                            <img id="capturedImage" alt="Captured Image">
-                            <div class="camera-actions">
-                                <button class="btn btn-primary" id="startCamera"><i class="fas fa-camera"></i> Aktifkan Kamera</button>
-                                <button class="btn btn-success" id="captureBtn" disabled><i class="fas fa-camera-retro"></i> Ambil Foto</button>
-                            </div>
                         </div>
                     </div>
                     
-                    <div id="noteSection" style="display: none;">
-                        <div class="form-group">
-                            <label for="attendanceNotes">Keterangan</label>
-                            <textarea id="attendanceNotes" rows="3" class="form-control" placeholder="Masukkan alasan izin/sakit"></textarea>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary" id="submitAttendanceBtn" onclick="submitAttendance()" disabled><i class="fas fa-check-circle"></i> Simpan Absensi</button>
-                </div>
-            </section>
-            
-            <!-- Report Section -->
-            <section id="report" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Laporan Absensi</h2>
-                    </div>
-                    
-                    <div class="filter-form">
-                        <div class="filter-group">
-                            <label for="startDate">Dari Tanggal</label>
-                            <input type="date" id="startDate" class="form-control">
-                        </div>
-                        <div class="filter-group">
-                            <label for="endDate">Sampai Tanggal</label>
-                            <input type="date" id="endDate" class="form-control">
-                        </div>
-                        <div class="filter-group">
-                            <label for="reportEmployee">Karyawan</label>
-                            <select id="reportEmployee" class="form-control">
-                                <option value="">Semua Karyawan</option>
-                                <!-- Data karyawan akan diisi oleh JavaScript -->
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="reportStatus">Status</label>
-                            <select id="reportStatus" class="form-control">
-                                <option value="">Semua Status</option>
-                                <option value="masuk">Masuk</option>
-                                <option value="pulang">Pulang</option>
-                                <option value="izin">Izin</option>
-                                <option value="sakit">Sakit</option>
-                                <option value="tanpa-keterangan">Tanpa Keterangan</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <button class="btn btn-primary" onclick="generateReport()"><i class="fas fa-filter"></i> Filter</button>
-                            <button class="btn btn-success" onclick="exportReport()"><i class="fas fa-file-export"></i> Export</button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tanggal</th>
-                                    <th>Nama</th>
-                                    <th>Divisi</th>
-                                    <th>Jadwal Kerja</th>
-                                    <th>Jam</th>
-                                    <th>Status</th>
-                                    <th>Foto</th>
-                                </tr>
-                            </thead>
-                            <tbody id="reportData">
-                                <!-- Data akan diisi oleh JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Payroll Section -->
-            <section id="payroll" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Penggajian</h2>
-                    </div>
-                    
-                    <div class="filter-form">
-                        <div class="filter-group">
-                            <label for="payrollMonth">Bulan</label>
-                            <select id="payrollMonth" class="form-control">
-                                <option value="1">Januari</option>
-                                <option value="2">Februari</option>
-                                <option value="3">Maret</option>
-                                <option value="4">April</option>
-                                <option value="5">Mei</option>
-                                <option value="6">Juni</option>
-                                <option value="7">Juli</option>
-                                <option value="8">Agustus</option>
-                                <option value="9">September</option>
-                                <option value="10">Oktober</option>
-                                <option value="11">November</option>
-                                <option value="12">Desember</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="payrollYear">Tahun</label>
-                            <select id="payrollYear" class="form-control">
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <button class="btn btn-primary" onclick="calculatePayroll()"><i class="fas fa-calculator"></i> Hitung Gaji</button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Divisi</th>
-                                    <th>Jumlah Hadir</th>
-                                    <th>Jumlah Izin</th>
-                                    <th>Jumlah Sakit</th>
-                                    <th>Gaji Pokok</th>
-                                    <th>Potongan</th>
-                                    <th>Total Gaji</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="payrollData">
-                                <!-- Data akan diisi oleh JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Admin Section -->
-            <section id="admin" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Panel Admin</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Kelola Data Karyawan</h3>
-                        <button class="btn btn-primary" onclick="showAddEmployeeForm()"><i class="fas fa-plus"></i> Tambah Karyawan</button>
-                        
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Divisi</th>
-                                        <th>Jadwal Kerja</th>
-                                        <th>Gaji Harian</th>
-                                        <th>Username</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="employeeData">
-                                    <!-- Data akan diisi oleh JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Backup dan Restore Data</h3>
-                        <div class="form-group">
-                            <button class="btn btn-success" onclick="backupData()"><i class="fas fa-download"></i> Backup Data</button>
-                            <button class="btn btn-warning" onclick="restoreData()"><i class="fas fa-upload"></i> Restore Data</button>
-                            <button class="btn btn-danger" onclick="clearData()"><i class="fas fa-trash"></i> Hapus Semua Data</button>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Sinkronisasi Data</h3>
-                        <div class="form-group">
-                            <button class="btn btn-primary" onclick="syncData()"><i class="fas fa-sync"></i> Sinkronisasi Sekarang</button>
-                            <span id="lastSync"></span>
-                        </div>
-                    </div>
+                    <button class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-check-circle"></i> Simpan Absensi
+                    </button>
                 </div>
             </section>
         </main>
@@ -1138,112 +798,11 @@
         </footer>
     </div>
     
-    <!-- Forgot Password Modal -->
-    <div class="modal" id="forgotPasswordModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Pemulihan Password</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <p>Untuk keamanan, silakan hubungi admin untuk mereset password Anda.</p>
-            <div class="admin-contact" style="margin: 1.5rem 0;">
-                <i class="fas fa-user-cog"></i>
-                Admin: Jamjam
-            </div>
-            <div class="admin-contact">
-                <i class="fas fa-phone"></i>
-                Telepon: 085715388009
-            </div>
-        </div>
-    </div>
-    
-    <!-- Contact Admin Modal -->
-    <div class="modal" id="contactAdminModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Hubungi Admin</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <p>Silakan hubungi admin melalui salah satu cara berikut:</p>
-            <div class="admin-contact" style="margin: 1.5rem 0;">
-                <i class="fas fa-user"></i>
-                Nama Admin: Jamjam
-            </div>
-            <div class="admin-contact" style="margin-bottom: 1rem;">
-                <i class="fas fa-phone"></i>
-                Telepon: 085715388009
-            </div>
-            <div class="admin-contact">
-                <i class="fas fa-envelope"></i>
-                Email: admin@sppg-gnpicung.id
-            </div>
-        </div>
-    </div>
-    
-    <!-- Credentials Modal -->
-    <div class="modal" id="credentialsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Daftar Username dan Password</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <p>Berikut adalah daftar username dan password untuk login (hanya untuk keperluan demo):</p>
-            
-            <div class="user-credentials">
-                <table class="credentials-table">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Divisi</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Yani Herawati</td>
-                            <td>ASLAP</td>
-                            <td>yani</td>
-                            <td>yani123</td>
-                        </tr>
-                        <tr>
-                            <td>Supriyadi</td>
-                            <td>SECURITY</td>
-                            <td>supriyadi</td>
-                            <td>supri123</td>
-                        </tr>
-                        <tr>
-                            <td>Rian Haryadin</td>
-                            <td>KA. CUCI OMPRENG</td>
-                            <td>rian</td>
-                            <td>rian123</td>
-                        </tr>
-                        <tr>
-                            <td>Azis Januar</td>
-                            <td>CUCI OMPRENG</td>
-                            <td>azis</td>
-                            <td>azis123</td>
-                        </tr>
-                        <tr>
-                            <td>Evandi Febriansyah</td>
-                            <td>CUCI OMPRENG</td>
-                            <td>evandi</td>
-                            <td>evandi123</td>
-                        </tr>
-                        <tr>
-                            <td>Administrator</td>
-                            <td>ADMIN</td>
-                            <td>admin</td>
-                            <td>admin123</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
     <!-- Notification -->
-    <div id="notification" class="notification"></div>
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationMessage"></span>
+    </div>
     
     <script>
         // Data contoh untuk aplikasi
@@ -1257,84 +816,16 @@
         ];
         
         let employees = [];
-        let attendanceRecords = [];
         let currentUser = null;
-        let selectedAttendanceType = '';
         
         // Inisialisasi aplikasi
         document.addEventListener('DOMContentLoaded', function() {
-            // Reset data jika parameter reset ada di URL
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('reset')) {
-                resetData();
-            }
-            
             // Load data dari localStorage jika ada
-            loadData();
-            initCamera();
-            showCurrentDate();
-            updateLoginTime();
-            setInterval(updateLoginTime, 1000);
-            
-            // Setup event listeners
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                login();
-            });
-            
-            document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
-                document.getElementById('forgotPasswordModal').style.display = 'flex';
-            });
-            
-            document.getElementById('contactAdminBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('contactAdminModal').style.display = 'flex';
-            });
-            
-            document.getElementById('showCredentialsBtn').addEventListener('click', function() {
-                document.getElementById('credentialsModal').style.display = 'flex';
-            });
-            
-            document.getElementById('resetDataBtn').addEventListener('click', function() {
-                if (confirm('Apakah Anda yakin ingin mereset semua data ke pengaturan default?')) {
-                    resetData();
-                    showNotification('Data berhasil direset ke pengaturan default');
-                }
-            });
-            
-            // Close modal buttons
-            document.querySelectorAll('.close-modal').forEach(button => {
-                button.addEventListener('click', function() {
-                    document.querySelectorAll('.modal').forEach(modal => {
-                        modal.style.display = 'none';
-                    });
-                });
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    if (e.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Fungsi untuk memuat data dari localStorage
-        function loadData() {
             const savedEmployees = localStorage.getItem('employees');
-            const savedAttendance = localStorage.getItem('attendance');
-            
             employees = savedEmployees ? JSON.parse(savedEmployees) : sampleEmployees;
-            attendanceRecords = savedAttendance ? JSON.parse(savedAttendance) : [];
             
-            // Simpan data awal jika tidak ada
             if (!savedEmployees) {
                 localStorage.setItem('employees', JSON.stringify(employees));
-            }
-            if (!savedAttendance) {
-                localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
             }
             
             // Load remember me data jika ada
@@ -1345,22 +836,31 @@
                 document.getElementById('loginUsername').value = savedUsername;
                 document.getElementById('rememberMe').checked = true;
             }
-        }
-        
-        // Fungsi untuk reset data
-        function resetData() {
-            localStorage.setItem('employees', JSON.stringify(sampleEmployees));
-            localStorage.removeItem('attendance');
-            localStorage.removeItem('rememberMe');
-            localStorage.removeItem('username');
             
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('rememberMe').checked = false;
+            // Setup event listeners
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                login();
+            });
             
-            // Reload data
-            loadData();
-        }
+            document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
+                alert('Untuk reset password, silakan hubungi Admin: Jamjam (085715388009)');
+            });
+            
+            document.getElementById('contactAdminBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Hubungi Admin: Jamjam\nTelepon: 085715388009');
+            });
+            
+            document.getElementById('showCredentialsBtn').addEventListener('click', function() {
+                alert('Kredensial Login:\n\nAdmin: username: admin, password: admin123\nYani Herawati: username: yani, password: yani123\nSupriyadi: username: supriyadi, password: supri123\nRian Haryadin: username: rian, password: rian123\nAzis Januar: username: azis, password: azis123\nEvandi Febriansyah: username: evandi, password: evandi123');
+            });
+            
+            // Tampilkan tanggal terkini
+            showCurrentDate();
+            updateLoginTime();
+            setInterval(updateLoginTime, 1000);
+        });
         
         // Fungsi untuk login
         function login() {
@@ -1384,7 +884,6 @@
                 document.getElementById('loginUsername').classList.add('error', 'shake');
                 isValid = false;
                 
-                // Hentikan animasi setelah selesai
                 setTimeout(() => {
                     document.getElementById('loginUsername').classList.remove('shake');
                 }, 500);
@@ -1395,7 +894,6 @@
                 document.getElementById('loginPassword').classList.add('error', 'shake');
                 isValid = false;
                 
-                // Hentikan animasi setelah selesai
                 setTimeout(() => {
                     document.getElementById('loginPassword').classList.remove('shake');
                 }, 500);
@@ -1425,6 +923,7 @@
                 
                 // Update UI dengan nama user
                 document.getElementById('currentUser').textContent = user.name;
+                document.getElementById('welcomeUser').textContent = user.name;
                 
                 // Sesuaikan menu berdasarkan role
                 if (user.role === 'admin') {
@@ -1442,15 +941,13 @@
                     
                     // Perbarui dashboard
                     updateDashboard();
-                    populateEmployeeDropdown();
-                }, 1000);
+                }, 1500);
             } else {
                 // Login gagal
                 showNotification('Username atau password salah. Silakan coba lagi.', true);
                 document.getElementById('loginUsername').classList.add('error', 'shake');
                 document.getElementById('loginPassword').classList.add('error', 'shake');
                 
-                // Hentikan animasi setelah selesai
                 setTimeout(() => {
                     document.getElementById('loginUsername').classList.remove('shake');
                     document.getElementById('loginPassword').classList.remove('shake');
@@ -1483,19 +980,6 @@
             
             // Tampilkan section yang dipilih
             document.getElementById(sectionId).classList.add('active');
-            
-            // Perbarui data jika diperlukan
-            if (sectionId === 'dashboard') {
-                updateDashboard();
-            } else if (sectionId === 'report') {
-                generateReport();
-            } else if (sectionId === 'payroll') {
-                calculatePayroll();
-            } else if (sectionId === 'admin') {
-                populateEmployeeTable();
-            } else if (sectionId === 'attendance') {
-                resetAttendanceForm();
-            }
         }
         
         // Fungsi untuk menampilkan tanggal terkini
@@ -1512,482 +996,59 @@
             document.getElementById('attendanceTime').textContent = now.toLocaleTimeString('id-ID');
         }
         
-        // Fungsi untuk mengisi dropdown karyawan
-        function populateEmployeeDropdown() {
-            const reportSelect = document.getElementById('reportEmployee');
-            
-            // Kosongkan dropdown
-            reportSelect.innerHTML = '<option value="">Semua Karyawan</option>';
-            
-            // Isi dengan data karyawan
-            employees.forEach(employee => {
-                if (employee.role !== 'admin') {
-                    const option = document.createElement('option');
-                    option.value = employee.id;
-                    option.textContent = `${employee.name} (${employee.division})`;
-                    
-                    reportSelect.appendChild(option);
-                }
-            });
-        }
-        
-        // Fungsi untuk inisialisasi kamera
-        function initCamera() {
-            const startCameraBtn = document.getElementById('startCamera');
-            const captureBtn = document.getElementById('captureBtn');
-            const video = document.getElementById('video');
-            
-            startCameraBtn.addEventListener('click', async function() {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                    video.srcObject = stream;
-                    captureBtn.disabled = false;
-                    startCameraBtn.disabled = true;
-                } catch (err) {
-                    showNotification('Tidak dapat mengakses kamera: ' + err.message, true);
-                }
-            });
-            
-            captureBtn.addEventListener('click', function() {
-                const canvas = document.getElementById('canvas');
-                const context = canvas.getContext('2d');
-                const capturedImage = document.getElementById('capturedImage');
-                
-                // Set canvas size to match video
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                
-                // Draw current video frame to canvas
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                // Convert canvas to data URL and display
-                capturedImage.src = canvas.toDataURL('image/png');
-                capturedImage.style.display = 'block';
-                
-                // Stop video stream
-                const stream = video.srcObject;
-                const tracks = stream.getTracks();
-                
-                tracks.forEach(track => track.stop());
-                video.srcObject = null;
-                
-                captureBtn.disabled = true;
-                startCameraBtn.disabled = false;
-                
-                // Enable submit button
-                document.getElementById('submitAttendanceBtn').disabled = false;
-            });
-        }
-        
-        // Fungsi untuk memilih jenis absensi
-        function selectAttendanceType(type) {
-            selectedAttendanceType = type;
-            
-            // Reset semua button
-            document.querySelectorAll('.attendance-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Aktifkan button yang dipilih
-            document.querySelector(`.attendance-btn[data-type="${type}"]`).classList.add('active');
-            
-            // Tampilkan input yang sesuai
-            if (type === 'masuk' || type === 'pulang') {
-                document.getElementById('cameraSection').style.display = 'block';
-                document.getElementById('noteSection').style.display = 'none';
-                document.getElementById('submitAttendanceBtn').disabled = true;
-            } else {
-                document.getElementById('cameraSection').style.display = 'none';
-                document.getElementById('noteSection').style.display = 'block';
-                document.getElementById('submitAttendanceBtn').disabled = false;
-                
-                // Stop camera jika aktif
-                const video = document.getElementById('video');
-                if (video.srcObject) {
-                    const stream = video.srcObject;
-                    const tracks = stream.getTracks();
-                    tracks.forEach(track => track.stop());
-                    video.srcObject = null;
-                }
-            }
-            
-            document.getElementById('attendanceType').value = type;
-        }
-        
-        // Fungsi untuk reset form absensi
-        function resetAttendanceForm() {
-            selectedAttendanceType = '';
-            document.querySelectorAll('.attendance-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById('cameraSection').style.display = 'none';
-            document.getElementById('noteSection').style.display = 'none';
-            document.getElementById('capturedImage').style.display = 'none';
-            document.getElementById('attendanceNotes').value = '';
-            document.getElementById('submitAttendanceBtn').disabled = true;
-            
-            // Reset camera
-            const video = document.getElementById('video');
-            if (video.srcObject) {
-                const stream = video.srcObject;
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-                video.srcObject = null;
-            }
-            
-            document.getElementById('startCamera').disabled = false;
-            document.getElementById('captureBtn').disabled = true;
-        }
-        
-        // Fungsi untuk submit absensi
-        function submitAttendance() {
-            const type = selectedAttendanceType;
-            const notes = document.getElementById('attendanceNotes').value;
-            const capturedImage = document.getElementById('capturedImage').src;
-            
-            if (!type) {
-                showNotification('Pilih jenis absensi terlebih dahulu', true);
-                return;
-            }
-            
-            const now = new Date();
-            
-            const record = {
-                id: Date.now(),
-                employeeId: currentUser.id,
-                employeeName: currentUser.name,
-                division: currentUser.division,
-                date: now.toISOString().split('T')[0],
-                time: now.toTimeString().split(' ')[0],
-                type: type,
-                notes: notes,
-                image: (type === 'masuk' || type === 'pulang') ? capturedImage : null
-            };
-            
-            attendanceRecords.push(record);
-            localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
-            
-            showNotification('Absensi berhasil disimpan');
-            
-            // Reset form
-            resetAttendanceForm();
-            
-            // Kembali ke dashboard
-            showSection('dashboard');
-        }
-        
         // Fungsi untuk memperbarui dashboard
         function updateDashboard() {
-            const today = new Date().toISOString().split('T')[0];
-            const todayRecords = attendanceRecords.filter(record => record.date === today);
+            // Contoh data untuk dashboard
+            document.getElementById('totalPresent').textContent = '12';
+            document.getElementById('totalLate').textContent = '3';
+            document.getElementById('totalAbsent').textContent = '2';
+            document.getElementById('totalLeave').textContent = '1';
             
-            const presentCount = todayRecords.filter(record => record.type === 'masuk').length;
-            const leaveCount = todayRecords.filter(record => record.type === 'izin').length;
-            const sickCount = todayRecords.filter(record => record.type === 'sakit').length;
-            const noInfoCount = todayRecords.filter(record => record.type === 'tanpa-keterangan').length;
+            // Contoh aktivitas terbaru
+            const activitiesHtml = `
+                <tr>
+                    <td>Yani Herawati</td>
+                    <td>07:30:45</td>
+                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #dcfce7; color: #166534;">Masuk</span></td>
+                    <td>ASLAP</td>
+                </tr>
+                <tr>
+                    <td>Supriyadi</td>
+                    <td>07:45:12</td>
+                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #fef3c7; color: #92400e;">Terlambat</span></td>
+                    <td>SECURITY</td>
+                </tr>
+                <tr>
+                    <td>Rian Haryadin</td>
+                    <td>07:25:33</td>
+                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #dcfce7; color: #166534;">Masuk</span></td>
+                    <td>KA. CUCI OMPRENG</td>
+                </tr>
+            `;
             
-            document.getElementById('totalPresent').textContent = presentCount;
-            document.getElementById('totalLeave').textContent = leaveCount;
-            document.getElementById('totalSick').textContent = sickCount;
-            document.getElementById('totalAbsent').textContent = noInfoCount;
-            
-            // Tampilkan aktivitas terbaru (maksimal 5)
-            const recentActivities = todayRecords.slice(-5).reverse();
-            const activitiesHtml = recentActivities.map(record => {
-                let statusClass = '';
-                let statusText = '';
-                
-                if (record.type === 'masuk') {
-                    statusClass = 'status-present';
-                    statusText = 'Masuk';
-                } else if (record.type === 'pulang') {
-                    statusClass = 'status-present';
-                    statusText = 'Pulang';
-                } else if (record.type === 'izin') {
-                    statusClass = 'status-leave';
-                    statusText = 'Izin';
-                } else if (record.type === 'sakit') {
-                    statusClass = 'status-sick';
-                    statusText = 'Sakit';
-                } else {
-                    statusClass = 'status-absent';
-                    statusText = 'Tanpa Keterangan';
-                }
-                
-                return `
-                    <tr>
-                        <td>${record.employeeName}</td>
-                        <td>${record.time}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td>${record.division}</td>
-                    </tr>
-                `;
-            }).join('');
-            
-            document.getElementById('recentActivities').innerHTML = activitiesHtml || '<tr><td colspan="4">Tidak ada aktivitas hari ini</td></tr>';
-        }
-        
-        // Fungsi untuk menghasilkan laporan
-        function generateReport() {
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
-            const employeeId = document.getElementById('reportEmployee').value;
-            const status = document.getElementById('reportStatus').value;
-            
-            let filteredRecords = [...attendanceRecords];
-            
-            // Filter berdasarkan tanggal
-            if (startDate && endDate) {
-                filteredRecords = filteredRecords.filter(record => {
-                    return record.date >= startDate && record.date <= endDate;
-                });
-            }
-            
-            // Filter berdasarkan karyawan
-            if (employeeId) {
-                filteredRecords = filteredRecords.filter(record => record.employeeId == employeeId);
-            }
-            
-            // Filter berdasarkan status
-            if (status) {
-                filteredRecords = filteredRecords.filter(record => record.type === status);
-            }
-            
-            // Urutkan berdasarkan tanggal dan waktu (terbaru pertama)
-            filteredRecords.sort((a, b) => {
-                return new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time);
-            });
-            
-            const reportHtml = filteredRecords.map(record => {
-                let statusClass = '';
-                let statusText = '';
-                
-                if (record.type === 'masuk') {
-                    statusClass = 'status-present';
-                    statusText = 'Masuk';
-                } else if (record.type === 'pulang') {
-                    statusClass = 'status-present';
-                    statusText = 'Pulang';
-                } else if (record.type === 'izin') {
-                    statusClass = 'status-leave';
-                    statusText = 'Izin';
-                } else if (record.type === 'sakit') {
-                    statusClass = 'status-sick';
-                    statusText = 'Sakit';
-                } else {
-                    statusClass = 'status-absent';
-                    statusText = 'Tanpa Keterangan';
-                }
-                
-                // Dapatkan jadwal kerja karyawan
-                const employee = employees.find(emp => emp.id == record.employeeId);
-                const schedule = employee ? employee.schedule : '-';
-                
-                return `
-                    <tr>
-                        <td>${record.date}</td>
-                        <td>${record.employeeName}</td>
-                        <td>${record.division}</td>
-                        <td>${schedule}</td>
-                        <td>${record.time}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td>${record.image ? `<button class="btn btn-primary" onclick="viewImage('${record.image}')">Lihat Foto</button>` : '-'}</td>
-                    </tr>
-                `;
-            }).join('');
-            
-            document.getElementById('reportData').innerHTML = reportHtml || '<tr><td colspan="7">Tidak ada data absensi</td></tr>';
-        }
-        
-        // Fungsi untuk menghitung penggajian
-        function calculatePayroll() {
-            const month = document.getElementById('payrollMonth').value;
-            const year = document.getElementById('payrollYear').value;
-            
-            // Format bulan untuk pencocokan dengan format YYYY-MM
-            const targetMonth = `${year}-${month.padStart(2, '0')}`;
-            
-            const payrollHtml = employees.map(employee => {
-                if (employee.role === 'admin') return '';
-                
-                // Filter catatan absensi untuk karyawan ini pada bulan yang dipilih
-                const employeeRecords = attendanceRecords.filter(record => {
-                    return record.employeeId == employee.id && record.date.startsWith(targetMonth);
-                });
-                
-                const presentCount = employeeRecords.filter(record => record.type === 'masuk').length;
-                const leaveCount = employeeRecords.filter(record => record.type === 'izin').length;
-                const sickCount = employeeRecords.filter(record => record.type === 'sakit').length;
-                
-                // Hitung gaji (contoh: potongan 50% untuk izin, 25% untuk sakit)
-                const baseSalary = presentCount * employee.dailyWage;
-                const leaveDeduction = leaveCount * (employee.dailyWage * 0.5);
-                const sickDeduction = sickCount * (employee.dailyWage * 0.25);
-                const totalDeduction = leaveDeduction + sickDeduction;
-                const totalSalary = baseSalary - totalDeduction;
-                
-                return `
-                    <tr>
-                        <td>${employee.name}</td>
-                        <td>${employee.division}</td>
-                        <td>${presentCount}</td>
-                        <td>${leaveCount}</td>
-                        <td>${sickCount}</td>
-                        <td>Rp ${baseSalary.toLocaleString('id-ID')}</td>
-                        <td>Rp ${totalDeduction.toLocaleString('id-ID')}</td>
-                        <td>Rp ${totalSalary.toLocaleString('id-ID')}</td>
-                        <td><button class="btn btn-success" onclick="payEmployee(${employee.id}, '${targetMonth}')">Bayar</button></td>
-                    </tr>
-                `;
-            }).join('');
-            
-            document.getElementById('payrollData').innerHTML = payrollHtml || '<tr><td colspan="9">Tidak ada data gaji</td></tr>';
-        }
-        
-        // Fungsi untuk menampilkan tabel karyawan di panel admin
-        function populateEmployeeTable() {
-            const employeeHtml = employees.map(employee => {
-                if (employee.role === 'admin') return '';
-                
-                return `
-                    <tr>
-                        <td>${employee.name}</td>
-                        <td>${employee.division}</td>
-                        <td>${employee.schedule}</td>
-                        <td>Rp ${employee.dailyWage.toLocaleString('id-ID')}</td>
-                        <td>${employee.username}</td>
-                        <td>
-                            <button class="btn btn-warning" onclick="editEmployee(${employee.id})">Edit</button>
-                            <button class="btn btn-danger" onclick="deleteEmployee(${employee.id})">Hapus</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-            
-            document.getElementById('employeeData').innerHTML = employeeHtml || '<tr><td colspan="6">Tidak ada data karyawan</td></tr>';
+            document.getElementById('recentActivities').innerHTML = activitiesHtml;
         }
         
         // Fungsi untuk menampilkan notifikasi
         function showNotification(message, isError = false) {
             const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = isError ? 'notification error' : 'notification';
-            notification.style.display = 'block';
+            const notificationMessage = document.getElementById('notificationMessage');
+            
+            notificationMessage.textContent = message;
+            
+            if (isError) {
+                notification.style.background = 'linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%)';
+                notification.querySelector('i').className = 'fas fa-exclamation-circle';
+            } else {
+                notification.style.background = 'linear-gradient(135deg, var(--success) 0%, var(--secondary-dark) 100%)';
+                notification.querySelector('i').className = 'fas fa-check-circle';
+            }
+            
+            notification.classList.add('show');
             
             setTimeout(() => {
-                notification.style.display = 'none';
-            }, 4000);
-        }
-        
-        // Fungsi untuk mengekspor laporan
-        function exportReport() {
-            showNotification('Fitur ekspor laporan akan segera hadir');
-        }
-        
-        // Fungsi untuk melihat gambar
-        function viewImage(imageSrc) {
-            window.open(imageSrc, '_blank');
-        }
-        
-        // Fungsi untuk membayar gaji karyawan
-        function payEmployee(employeeId, month) {
-            showNotification(`Pembayaran gaji untuk bulan ${month} berhasil`);
-        }
-        
-        // Fungsi untuk menambah karyawan
-        function showAddEmployeeForm() {
-            showNotification('Fitur tambah karyawan akan segera hadir');
-        }
-        
-        // Fungsi untuk mengedit karyawan
-        function editEmployee(employeeId) {
-            showNotification('Fitur edit karyawan akan segera hadir');
-        }
-        
-        // Fungsi untuk menghapus karyawan
-        function deleteEmployee(employeeId) {
-            if (confirm('Apakah Anda yakin ingin menghapus karyawan ini?')) {
-                employees = employees.filter(emp => emp.id !== employeeId);
-                localStorage.setItem('employees', JSON.stringify(employees));
-                populateEmployeeTable();
-                showNotification('Karyawan berhasil dihapus');
-            }
-        }
-        
-        // Fungsi untuk backup data
-        function backupData() {
-            const data = {
-                employees: employees,
-                attendance: attendanceRecords
-            };
-            
-            const dataStr = JSON.stringify(data);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `backup-sppg-${new Date().toISOString().split('T')[0]}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showNotification('Backup data berhasil');
-        }
-        
-        // Fungsi untuk restore data
-        function restoreData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        
-                        if (data.employees && data.attendance) {
-                            employees = data.employees;
-                            attendanceRecords = data.attendance;
-                            
-                            localStorage.setItem('employees', JSON.stringify(employees));
-                            localStorage.setItem('attendance', JSON.stringify(attendanceRecords));
-                            
-                            showNotification('Restore data berhasil');
-                            updateDashboard();
-                        } else {
-                            showNotification('Format file tidak valid', true);
-                        }
-                    } catch (err) {
-                        showNotification('Error membaca file: ' + err.message, true);
-                    }
-                };
-                
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-        
-        // Fungsi untuk menghapus semua data
-        function clearData() {
-            if (confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
-                localStorage.removeItem('employees');
-                localStorage.removeItem('attendance');
-                
-                loadData();
-                updateDashboard();
-                
-                showNotification('Semua data berhasil dihapus');
-            }
-        }
-        
-        // Fungsi untuk sinkronisasi data
-        function syncData() {
-            showNotification('Sinkronisasi data berhasil');
-            document.getElementById('lastSync').textContent = `Terakhir sinkron: ${new Date().toLocaleTimeString('id-ID')}`;
+                notification.classList.remove('show');
+            }, 3000);
         }
     </script>
 </body>
