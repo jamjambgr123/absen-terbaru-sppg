@@ -290,6 +290,14 @@
             margin-top: 40px;
         }
         
+        .backup-section {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .login-container {
@@ -345,7 +353,7 @@
                 <!-- Judul -->
                 <div class="title-container">
                     <h1>SISTEM ABSENSI RELAWAN BADAN GIZI NASIONAL</h1>
-                    <h2>SPPG GUNUNG PICUNG - YAYASAN MASJID AL-FATTAH CIREENDEU</h2>
+                    <h2>SPPG GUNUNG PICUNG - YAYasan MASJID AL-FATTAH CIREENDEU</h2>
                 </div>
                 
                 <!-- Logo Yayasan Masjid -->
@@ -360,22 +368,6 @@
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-hands-helping me-2"></i>
-                Sistem Absensi Relawan
-            </a>
-            <div class="d-flex">
-                <span class="navbar-text me-3 current-time" id="current-date-time"></span>
-                <button class="btn btn-outline-light btn-sm" id="logout-btn">
-                    <i class="fas fa-sign-out-alt me-1"></i>Logout
-                </button>
-            </div>
-        </div>
-    </nav>
-
     <!-- Login Section -->
     <div id="login-section" class="container">
         <div class="login-container">
@@ -387,9 +379,12 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Masukkan password">
-                <div class="form-text">Untuk relawan: password123</div>
+                <div class="form-text">Untuk admin: Hesoyam123@ | Untuk relawan: password123</div>
             </div>
             <button id="login-btn" class="btn btn-primary w-100">Login</button>
+            <div class="text-center mt-3">
+                <small>Contoh username relawan: YANI HERAWATI</small>
+            </div>
         </div>
     </div>
 
@@ -540,6 +535,28 @@
                         Fitur ini hanya tersedia untuk admin. Laporan akan berisi data absensi semua relawan.
                     </div>
                 </div>
+
+                <!-- Backup Section (Admin Only) -->
+                <div class="backup-section admin-only d-none" id="backup-section">
+                    <h4 class="mb-4"><i class="fas fa-database me-2"></i>Admin - Backup Data</h4>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Backup data absensi ke komputer lokal. File backup berformat JSON dan dapat di-restore kapan saja.
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button id="backup-btn" class="btn btn-success">
+                            <i class="fas fa-download me-2"></i>Backup Data ke File
+                        </button>
+                        <div class="mb-3 mt-3">
+                            <label for="restore-file" class="form-label">Restore Data dari File</label>
+                            <input class="form-control" type="file" id="restore-file" accept=".json">
+                        </div>
+                        <button id="restore-btn" class="btn btn-warning">
+                            <i class="fas fa-upload me-2"></i>Restore Data
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -547,7 +564,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p class="mb-0">© 2025 Sistem Absensi Relawan BGN - SPPG Gunung Picung</p>
+            <p class="mb-0">© 2023 Sistem Absensi Relawan BGN - SPPG Gunung Picung</p>
             <p class="mb-0">Yayasan Masjid Al-Fattah Cirendeu</p>
         </div>
     </footer>
@@ -557,9 +574,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize jsPDF
-        window.jsPDF = window.jspdf.jsPDF;
-
         document.addEventListener('DOMContentLoaded', function() {
             // Data relawan
             const volunteers = [
@@ -572,159 +586,32 @@
                 { id: 7, name: "ILHAM KHOERUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
                 { id: 8, name: "INDRA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
                 { id: 9, name: "MANDAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 10, name: "MUHAMMAD DAVIS PRATAMA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 11, name: "FAHMIRUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 12, name: "RIO FEBRIAN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 13, name: "AHMAD KANJI", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 14, name: "IRWANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 15, name: "JUARIAH", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 16, name: "SARTIKA DEWI", division: "CUCI OMPRENG/ALAT MASAK", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 17, name: "IMAM", division: "KEPALA DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 18, name: "SAJA", division: "DRIVER", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 19, name: "ANGGA FEBRI LUBIS", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 20, name: "DANILLAHMUDIN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 21, name: "IBRAHIM PRATAMA", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 22, name: "ARICK DARMAWAN", division: "KENEK", phone: "085715388009", dailySalary: 115000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 23, name: "AMIRUDIN", division: "KEPALA DAPUR", phone: "085715388009", dailySalary: 200000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 24, name: "ADE", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 25, name: "SANDI IRAWAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 26, name: "MU'AMAR AHMAD RAMADHAN", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 27, name: "NENENG MINTARSIH", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 28, name: "NENG MEYLIMAWATI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 29, name: "NURIASANAH BT TARJO", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 30, name: "DZOL FAHMI ROBANI", division: "MASAK", phone: "085715388009", dailySalary: 150000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 31, name: "ANGGI YULIASARI", division: "KEPALA PEMORSIAN", phone: "085715388009", dailySalary: 150000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 32, name: "DAHLIA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 33, name: "EVI MAULINA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 34, name: "MUHAMAD YUNUS", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 35, name: "RATU CIKAL AMALIA LAHMI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 36, name: "RISKIA RAHMAWATI", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 37, name: "RIZKI MAULIDA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 38, name: "SALWA SALSABILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 39, name: "SITI KAHLA KAMILA", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 40, name: "YULIA AGUSTIN", division: "PEMORSIAN", phone: "085715388009", dailySalary: 120000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 41, name: "NAHDIAH FAULINA BORU LUBIS", division: "KEPALA PERSIAPAN", phone: "085715388009", dailySalary: 140000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 42, name: "AHMAD RIPAI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 43, name: "ELVIONITA BORU LUBIS", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 44, name: "NIA KURNIASHI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 45, name: "SISKA MEILINA WATI", division: "PERSIAPan", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 46, name: "SITI MULIFAH", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 47, name: "JUNAEDI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 48, name: "KARSI", division: "PERSIAPAN", phone: "085715388009", dailySalary: 115000, schedule: { in: "16:00", out: "24:00" } },
-                { id: 49, name: "DONI SEPTIAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
-                { id: 50, name: "PAREL BUDIMAN", division: "PENGIKATAN", phone: "085715388009", dailySalary: 110000, schedule: { in: "05:00", out: "13:00" } },
-                { id: 51, name: "ENDANG SUHENDAR", division: "SANITASI & LIMBAH", phone: "085715388009", dailySalary: 150000, schedule: { in: "17:00", out: "00:00" } },
-                { id: 52, name: "DARYANA KUSUMA", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "17:00", out: "00:00" } },
-                { id: 53, name: "SURYA ADHARI", division: "OB", phone: "085715388009", dailySalary: 115000, schedule: { in: "06:00", out: "14:00" } }
+                { id: 10, name: "MUHAMMAD DAVIS PRATAMA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } }
             ];
 
             // Elemen UI
             const loginSection = document.getElementById('login-section');
             const mainSection = document.getElementById('main-section');
             const loginBtn = document.getElementById('login-btn');
-            const logoutBtn = document.getElementById('logout-btn');
-            const checkInBtn = document.getElementById('check-in-btn');
-            const checkOutBtn = document.getElementById('check-out-btn');
-            const currentDateTime = document.getElementById('current-date-time');
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const notificationArea = document.getElementById('notification-area');
+            const adminSection = document.getElementById('admin-section');
+            const backupSection = document.getElementById('backup-section');
             const profileName = document.getElementById('profile-name');
             const profileDivision = document.getElementById('profile-division');
             const profileSalary = document.getElementById('profile-salary');
             const scheduleIn = document.getElementById('schedule-in');
             const scheduleOut = document.getElementById('schedule-out');
-            const attendanceStatus = document.getElementById('attendance-status');
-            const lateWarning = document.getElementById('late-warning');
-            const attendanceHistory = document.getElementById('attendance-history');
-            const monthSelect = document.getElementById('month-select');
-            const yearSelect = document.getElementById('year-select');
-            const notificationArea = document.getElementById('notification-area');
-            const exportBtn = document.getElementById('export-btn');
-            const generateReportBtn = document.getElementById('generate-report');
-            const reportMonth = document.getElementById('report-month');
-            const reportYear = document.getElementById('report-year');
-            const reportFormat = document.getElementById('report-format');
-            const adminSection = document.getElementById('admin-section');
-            const startCameraBtn = document.getElementById('start-camera');
-            const takePhotoBtn = document.getElementById('take-photo');
-            const retakePhotoBtn = document.getElementById('retake-photo');
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
             const profileImage = document.getElementById('profile-image');
+            const checkInBtn = document.getElementById('check-in-btn');
+            const checkOutBtn = document.getElementById('check-out-btn');
+            const startCameraBtn = document.getElementById('start-camera');
 
             // State aplikasi
             let currentUser = null;
             let isAdmin = false;
             let attendanceData = [];
-            let stream = null;
-            let currentPhoto = null;
-
-            // Update waktu secara real-time
-            function updateDateTime() {
-                const now = new Date();
-                const options = { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                };
-                currentDateTime.textContent = now.toLocaleDateString('id-ID', options);
-            }
-            setInterval(updateDateTime, 1000);
-            updateDateTime();
-
-            // Inisialisasi data dari localStorage
-            function initData() {
-                const savedData = localStorage.getItem('attendanceData');
-                if (savedData) {
-                    attendanceData = JSON.parse(savedData);
-                } else {
-                    // Data contoh untuk demo
-                    const today = new Date();
-                    const lastWeek = new Date();
-                    lastWeek.setDate(today.getDate() - 7);
-                    
-                    for (let i = 0; i < 7; i++) {
-                        const date = new Date(lastWeek);
-                        date.setDate(lastWeek.getDate() + i);
-                        const dateStr = date.toISOString().split('T')[0];
-                        
-                        volunteers.forEach(volunteer => {
-                            if (Math.random() > 0.3) { // 70% kemungkinan hadir
-                                const checkInTime = volunteer.schedule.in;
-                                const isLate = Math.random() > 0.7; // 30% kemungkinan terlambat
-                                
-                                attendanceData.push({
-                                    userId: volunteer.id,
-                                    date: dateStr,
-                                    checkIn: isLate ? 
-                                        `${parseInt(checkInTime.split(':')[0]) + 1}:${checkInTime.split(':')[1]}` : 
-                                        checkInTime,
-                                    checkOut: volunteer.schedule.out,
-                                    status: isLate ? 'Terlambat' : 'Tepat Waktu',
-                                    notes: isLate ? 'Terlambat 1 jam' : '',
-                                    photo: null
-                                });
-                            }
-                        });
-                    }
-                    
-                    saveData();
-                }
-                
-                // Set bulan dan tahun saat ini
-                const now = new Date();
-                monthSelect.value = now.getMonth();
-                yearSelect.value = now.getFullYear();
-                reportMonth.value = now.getMonth();
-                reportYear.value = now.getFullYear();
-            }
-
-            // Simpan data ke localStorage
-            function saveData() {
-                localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
-            }
 
             // Tampilkan notifikasi
             function showNotification(message, type = 'info') {
@@ -746,8 +633,8 @@
 
             // Handle login
             loginBtn.addEventListener('click', function() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
                 
                 // Validasi sederhana
                 if (!username || !password) {
@@ -770,6 +657,7 @@
                     loginSection.classList.add('d-none');
                     mainSection.classList.remove('d-none');
                     adminSection.classList.remove('d-none');
+                    backupSection.classList.remove('d-none');
                     
                     // Update profil
                     profileName.textContent = currentUser.name;
@@ -796,8 +684,10 @@
                     return;
                 }
                 
-                // Cari relawan berdasarkan nama
-                const user = volunteers.find(v => v.name.toLowerCase() === username.toLowerCase());
+                // Cari relawan berdasarkan nama (case insensitive)
+                const user = volunteers.find(v => 
+                    v.name.toLowerCase() === username.toLowerCase()
+                );
                 
                 if (user) {
                     isAdmin = false;
@@ -805,6 +695,7 @@
                     loginSection.classList.add('d-none');
                     mainSection.classList.remove('d-none');
                     adminSection.classList.add('d-none');
+                    backupSection.classList.add('d-none');
                     
                     // Update profil
                     profileName.textContent = user.name;
@@ -821,12 +712,6 @@
                     checkOutBtn.disabled = false;
                     startCameraBtn.disabled = false;
                     
-                    // Load riwayat absensi
-                    loadAttendanceHistory();
-                    
-                    // Update status kehadiran hari ini
-                    updateAttendanceStatus();
-                    
                     showNotification(`Selamat datang, ${user.name}!`, 'success');
                 } else {
                     showNotification('Login gagal. Periksa username Anda.', 'danger');
@@ -834,535 +719,27 @@
             });
 
             // Handle logout
-            logoutBtn.addEventListener('click', function() {
-                // Stop camera if active
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                }
-                
-                currentUser = null;
-                isAdmin = false;
-                mainSection.classList.add('d-none');
-                adminSection.classList.add('d-none');
-                loginSection.classList.remove('d-none');
-                document.getElementById('username').value = '';
-                document.getElementById('password').value = '';
-                
-                showNotification('Anda telah logout', 'info');
-            });
-
-            // Handle camera
-            startCameraBtn.addEventListener('click', function() {
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function(mediaStream) {
-                            stream = mediaStream;
-                            video.srcObject = mediaStream;
-                            video.classList.remove('d-none');
-                            startCameraBtn.classList.add('d-none');
-                            takePhotoBtn.classList.remove('d-none');
-                        })
-                        .catch(function(error) {
-                            showNotification('Tidak dapat mengakses kamera: ' + error.message, 'danger');
-                        });
-                } else {
-                    showNotification('Browser tidak mendukung akses kamera', 'danger');
-                }
-            });
-
-            takePhotoBtn.addEventListener('click', function() {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                // Convert to data URL
-                currentPhoto = canvas.toDataURL('image/png');
-                
-                // Stop video stream
-                if (stream) {
-                    stream.getTracks().forEach(track => track.stop());
-                }
-                
-                video.classList.add('d-none');
-                takePhotoBtn.classList.add('d-none');
-                retakePhotoBtn.classList.remove('d-none');
-                
-                // Show preview
-                profileImage.src = currentPhoto;
-                
-                showNotification('Foto berhasil diambil', 'success');
-            });
-
-            retakePhotoBtn.addEventListener('click', function() {
-                currentPhoto = null;
-                profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=3498db&color=fff`;
-                retakePhotoBtn.classList.add('d-none');
-                startCameraBtn.classList.remove('d-none');
-                
-                showNotification('Silakan ambil foto kembali', 'info');
-            });
-
-            // Handle absensi masuk
-            checkInBtn.addEventListener('click', function() {
-                if (!currentUser || isAdmin) return;
-                
-                if (!currentPhoto) {
-                    showNotification('Harap ambil foto terlebih dahulu', 'warning');
-                    return;
-                }
-                
-                const now = new Date();
-                const today = now.toISOString().split('T')[0];
-                const timeString = now.toTimeString().split(' ')[0].substring(0, 5);
-                
-                // Cek apakah sudah absen masuk hari ini
-                const existingEntry = attendanceData.find(a => 
-                    a.userId === currentUser.id && a.date === today && a.checkIn
-                );
-                
-                if (existingEntry) {
-                    showNotification('Anda sudah absen masuk hari ini', 'warning');
-                    return;
-                }
-                
-                // Cek keterlambatan
-                const [scheduledHour, scheduledMinute] = currentUser.schedule.in.split(':');
-                const scheduledTime = new Date();
-                scheduledTime.setHours(parseInt(scheduledHour), parseInt(scheduledMinute), 0, 0);
-                
-                const isLate = now > scheduledTime;
-                const status = isLate ? 'Terlambat' : 'Tepat Waktu';
-                const minutesLate = isLate ? Math.floor((now - scheduledTime) / 60000) : 0;
-                
-                // Simpan data absensi
-                attendanceData.push({
-                    userId: currentUser.id,
-                    date: today,
-                    checkIn: timeString,
-                    checkOut: null,
-                    status: status,
-                    notes: isLate ? `Terlambat ${minutesLate} menit` : '',
-                    photo: currentPhoto
-                });
-                
-                saveData();
-                loadAttendanceHistory();
-                updateAttendanceStatus();
-                
-                if (isLate) {
-                    lateWarning.classList.remove('d-none');
-                    showNotification(`Anda terlambat ${minutesLate} menit!`, 'warning');
-                } else {
-                    lateWarning.classList.add('d-none');
-                    showNotification('Absen masuk berhasil dicatat', 'success');
-                }
-                
-                // Reset camera
-                currentPhoto = null;
-                retakePhotoBtn.classList.add('d-none');
-                startCameraBtn.classList.remove('d-none');
-                profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name)}&background=3498db&color=fff`;
-            });
-
-            // Handle absensi pulang
-            checkOutBtn.addEventListener('click', function() {
-                if (!currentUser || isAdmin) return;
-                
-                const now = new Date();
-                const today = now.toISOString().split('T')[0];
-                const timeString = now.toTimeString().split(' ')[0].substring(0, 5);
-                
-                // Cari data absensi masuk hari ini
-                const todayEntry = attendanceData.find(a => 
-                    a.userId === currentUser.id && a.date === today
-                );
-                
-                if (!todayEntry) {
-                    showNotification('Anda belum absen masuk hari ini', 'warning');
-                    return;
-                }
-                
-                if (todayEntry.checkOut) {
-                    showNotification('Anda sudah absen pulang hari ini', 'warning');
-                    return;
-                }
-                
-                // Update data absensi
-                todayEntry.checkOut = timeString;
-                saveData();
-                loadAttendanceHistory();
-                updateAttendanceStatus();
-                
-                showNotification('Absen pulang berhasil dicatat', 'success');
-            });
-
-            // Load riwayat absensi
-            function loadAttendanceHistory() {
-                if (!currentUser) return;
-                
-                const selectedMonth = parseInt(monthSelect.value);
-                const selectedYear = parseInt(yearSelect.value);
-                
-                let userAttendance;
-                if (isAdmin) {
-                    // Admin bisa melihat semua data
-                    userAttendance = attendanceData;
-                } else {
-                    // Relawan hanya melihat data sendiri
-                    userAttendance = attendanceData.filter(a => a.userId === currentUser.id);
-                }
-                
-                // Filter berdasarkan bulan dan tahun yang dipilih
-                const filteredAttendance = userAttendance.filter(a => {
-                    const dateParts = a.date.split('-');
-                    const year = parseInt(dateParts[0]);
-                    const month = parseInt(dateParts[1]) - 1;
-                    
-                    return month === selectedMonth && year === selectedYear;
-                });
-                
-                // Kosongkan tabel
-                attendanceHistory.innerHTML = '';
-                
-                // Isi tabel dengan data
-                if (filteredAttendance.length === 0) {
-                    attendanceHistory.innerHTML = `
-                        <tr>
-                            <td colspan="6" class="text-center">Tidak ada data absensi untuk periode ini</td>
-                        </tr>
-                    `;
-                } else {
-                    filteredAttendance.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(record => {
-                        const row = document.createElement('tr');
+            function setupLogout() {
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function() {
+                        currentUser = null;
+                        isAdmin = false;
+                        mainSection.classList.add('d-none');
+                        adminSection.classList.add('d-none');
+                        backupSection.classList.add('d-none');
+                        loginSection.classList.remove('d-none');
+                        usernameInput.value = '';
+                        passwordInput.value = '';
                         
-                        // Dapatkan info relawan
-                        const volunteer = volunteers.find(v => v.id === record.userId);
-                        const volunteerName = volunteer ? volunteer.name : 'Unknown';
-                        
-                        // Format tanggal
-                        const dateObj = new Date(record.date);
-                        const formattedDate = dateObj.toLocaleDateString('id-ID', {
-                            weekday: 'short',
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric'
-                        });
-                        
-                        // Tentukan kelas untuk status
-                        const statusClass = record.status === 'Terlambat' ? 'late' : 'on-time';
-                        const statusIcon = record.status === 'Terlambat' ? 
-                            '<span class="status-indicator status-late"></span>' : 
-                            '<span class="status-indicator status-present"></span>';
-                        
-                        // Tombol lihat foto
-                        let photoButton = '';
-                        if (record.photo) {
-                            photoButton = `<button class="btn btn-sm btn-info view-photo" data-photo="${record.photo}">
-                                <i class="fas fa-eye"></i>
-                            </button>`;
-                        }
-                        
-                        row.innerHTML = `
-                            <td>${isAdmin ? volunteerName + '<br><small>' + formattedDate + '</small>' : formattedDate}</td>
-                            <td>${record.checkIn || '-'}</td>
-                            <td>${record.checkOut || '-'}</td>
-                            <td class="${statusClass}">${statusIcon}${record.status || '-'}</td>
-                            <td>${record.notes || '-'}</td>
-                            <td>${photoButton}</td>
-                        `;
-                        
-                        attendanceHistory.appendChild(row);
-                    });
-                    
-                    // Tambahkan event listener untuk tombol lihat foto
-                    document.querySelectorAll('.view-photo').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const photoData = this.getAttribute('data-photo');
-                            const win = window.open();
-                            win.document.write(`<img src="${photoData}" style="max-width: 100%;">`);
-                        });
+                        showNotification('Anda telah logout', 'info');
                     });
                 }
             }
-
-            // Update status kehadiran hari ini
-            function updateAttendanceStatus() {
-                if (!currentUser || isAdmin) return;
-                
-                const today = new Date().toISOString().split('T')[0];
-                const todayEntry = attendanceData.find(a => 
-                    a.userId === currentUser.id && a.date === today
-                );
-                
-                if (todayEntry) {
-                    if (todayEntry.checkIn && todayEntry.checkOut) {
-                        attendanceStatus.innerHTML = '<span class="status-indicator status-present"></span> Sudah absen masuk dan pulang';
-                    } else if (todayEntry.checkIn) {
-                        attendanceStatus.innerHTML = '<span class="status-indicator status-present"></span> Sudah absen masuk';
-                        checkInBtn.disabled = true;
-                    }
-                } else {
-                    attendanceStatus.innerHTML = '<span class="status-indicator status-absent"></span> Belum absen';
-                    checkInBtn.disabled = false;
-                }
-            }
-
-            // Export data to CSV
-            exportBtn.addEventListener('click', function() {
-                if (!currentUser) return;
-                
-                const selectedMonth = parseInt(monthSelect.value);
-                const selectedYear = parseInt(yearSelect.value);
-                
-                let userAttendance;
-                if (isAdmin) {
-                    userAttendance = attendanceData;
-                } else {
-                    userAttendance = attendanceData.filter(a => a.userId === currentUser.id);
-                }
-                
-                // Filter berdasarkan bulan dan tahun yang dipilih
-                const filteredAttendance = userAttendance.filter(a => {
-                    const dateParts = a.date.split('-');
-                    const year = parseInt(dateParts[0]);
-                    const month = parseInt(dateParts[1]) - 1;
-                    
-                    return month === selectedMonth && year === selectedYear;
-                });
-                
-                if (filteredAttendance.length === 0) {
-                    showNotification('Tidak ada data untuk diexport', 'warning');
-                    return;
-                }
-                
-                // Create CSV content
-                let csvContent = "Tanggal,Masuk,Pulang,Status,Keterangan\n";
-                
-                filteredAttendance.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(record => {
-                    const dateObj = new Date(record.date);
-                    const formattedDate = dateObj.toLocaleDateString('id-ID', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                    });
-                    
-                    csvContent += `"${formattedDate}",${record.checkIn || ''},${record.checkOut || ''},${record.status || ''},"${record.notes || ''}"\n`;
-                });
-                
-                // Create download link
-                const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", `absensi_${isAdmin ? 'semua' : currentUser.name}_${selectedYear}_${selectedMonth+1}.csv`);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('Data berhasil diexport', 'success');
-            });
-
-            // Generate report (Admin only)
-            generateReportBtn.addEventListener('click', function() {
-                if (!isAdmin) {
-                    showNotification('Hanya admin yang dapat mengakses fitur ini', 'danger');
-                    return;
-                }
-                
-                const selectedMonth = parseInt(reportMonth.value);
-                const selectedYear = parseInt(reportYear.value);
-                const format = reportFormat.value;
-                
-                // Filter data berdasarkan pilihan
-                let filteredData = attendanceData;
-                
-                if (selectedMonth !== -1) {
-                    filteredData = filteredData.filter(a => {
-                        const dateParts = a.date.split('-');
-                        const year = parseInt(dateParts[0]);
-                        const month = parseInt(dateParts[1]) - 1;
-                        
-                        return month === selectedMonth && year === selectedYear;
-                    });
-                } else {
-                    filteredData = filteredData.filter(a => {
-                        const dateParts = a.date.split('-');
-                        const year = parseInt(dateParts[0]);
-                        return year === selectedYear;
-                    });
-                }
-                
-                if (filteredData.length === 0) {
-                    showNotification('Tidak ada data untuk laporan yang dipilih', 'warning');
-                    return;
-                }
-                
-                if (format === 'csv') {
-                    generateCSVReport(filteredData, selectedMonth, selectedYear);
-                } else {
-                    generatePDFReport(filteredData, selectedMonth, selectedYear);
-                }
-            });
-
-            // Generate CSV report
-            function generateCSVReport(data, month, year) {
-                // Group data by user
-                const groupedData = {};
-                
-                data.forEach(record => {
-                    if (!groupedData[record.userId]) {
-                        const volunteer = volunteers.find(v => v.id === record.userId);
-                        groupedData[record.userId] = {
-                            volunteer: volunteer,
-                            records: []
-                        };
-                    }
-                    groupedData[record.userId].records.push(record);
-                });
-                
-                // Create CSV content
-                let csvContent = "Laporan Absensi Relawan SPPG Gunung Picung\n";
-                csvContent += `Periode: ${month !== -1 ? `${month + 1}/${year}` : `Tahun ${year}`}\n`;
-                csvContent += `Tanggal Generate: ${new Date().toLocaleDateString('id-ID')}\n\n`;
-                
-                // Generate CSV for each user
-                for ( const userId in groupedData) {
-                    const { volunteer, records } = groupedData[userId];
-                    csvContent += `\nNama: ${volunteer.name}\n`;
-                    csvContent += `Divisi: ${volunteer.division}\n`;
-                    csvContent += "Tanggal,Masuk,Pulang,Status,Keterangan\n";
-                    
-                    records.sort((a, b) => new Date(a.date) - new Date(b.date)).forEach(record => {
-                        const dateObj = new Date(record.date);
-                        const formattedDate = dateObj.toLocaleDateString('id-ID', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric'
-                        });
-                        
-                        csvContent += `"${formattedDate}",${record.checkIn || ''},${record.checkOut || ''},${record.status || ''},"${record.notes || ''}"\n`;
-                    });
-                }
-                
-                // Create download link
-                const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
-                const link = document.createElement("a");
-                const fileName = `laporan_absensi_semua_${month !== -1 ? `${month + 1}_${year}` : `tahun_${year}`}.csv`;
-                
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", fileName);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('Laporan CSV berhasil diunduh', 'success');
-            }
-
-            // Generate PDF report
-            function generatePDFReport(data, month, year) {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                // Add title
-                doc.setFontSize(18);
-                doc.setTextColor(40, 40, 40);
-                doc.text('LAPORAN ABSENSI RELAWAN SPPG GUNUNG PICUNG', 105, 15, { align: 'center' });
-                
-                // Add period
-                doc.setFontSize(12);
-                doc.setTextColor(100, 100, 100);
-                doc.text(`Periode: ${month !== -1 ? `${month + 1}/${year}` : `Tahun ${year}`}`, 105, 22, { align: 'center' });
-                
-                // Add date generated
-                doc.setFontSize(10);
-                doc.text(`Tanggal Generate: ${new Date().toLocaleDateString('id-ID')}`, 105, 28, { align: 'center' });
-                
-                let startY = 40;
-                
-                // Group by user
-                const groupedData = {};
-                
-                data.forEach(record => {
-                    if (!groupedData[record.userId]) {
-                        const volunteer = volunteers.find(v => v.id === record.userId);
-                        groupedData[record.userId] = {
-                            volunteer: volunteer,
-                            records: []
-                        };
-                    }
-                    groupedData[record.userId].records.push(record);
-                });
-                
-                // Generate PDF for each user
-                for (const userId in groupedData) {
-                    const { volunteer, records } = groupedData[userId];
-                    
-                    // Add user info
-                    doc.setFontSize(12);
-                    doc.setTextColor(40, 40, 40);
-                    doc.text(`Nama: ${volunteer.name}`, 14, startY);
-                    doc.text(`Divisi: ${volunteer.division}`, 14, startY + 7);
-                    
-                    startY += 15;
-                    
-                    // Prepare table data
-                    const tableData = records.sort((a, b) => new Date(a.date) - new Date(b.date)).map(record => {
-                        const dateObj = new Date(record.date);
-                        const formattedDate = dateObj.toLocaleDateString('id-ID', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric'
-                        });
-                        
-                        return [
-                            formattedDate,
-                            record.checkIn || '-',
-                            record.checkOut || '-',
-                            record.status || '-',
-                            record.notes || '-'
-                        ];
-                    });
-                    
-                    // Add table
-                    doc.autoTable({
-                        startY: startY,
-                        head: [['Tanggal', 'Masuk', 'Pulang', 'Status', 'Keterangan']],
-                        body: tableData,
-                        theme: 'grid',
-                        headStyles: {
-                            fillColor: [52, 152, 219],
-                            textColor: [255, 255, 255],
-                            fontStyle: 'bold'
-                        },
-                        alternateRowStyles: {
-                            fillColor: [240, 240, 240]
-                        }
-                    });
-                    
-                    startY = doc.lastAutoTable.finalY + 15;
-                    
-                    // Add new page if needed
-                    if (startY > 250) {
-                        doc.addPage();
-                        startY = 20;
-                    }
-                }
-                
-                // Save PDF
-                const fileName = `laporan_absensi_semua_${month !== -1 ? `${month + 1}_${year}` : `tahun_${year}`}.pdf`;
-                
-                doc.save(fileName);
-                showNotification('Laporan PDF berhasil diunduh', 'success');
-            }
-
-            // Event listener untuk filter bulan dan tahun
-            monthSelect.addEventListener('change', loadAttendanceHistory);
-            yearSelect.addEventListener('change', loadAttendanceHistory);
 
             // Inisialisasi aplikasi
-            initData();
+            setupLogout();
         });
     </script>
 </body>
 </html>
-
