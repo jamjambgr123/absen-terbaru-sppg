@@ -3,743 +3,779 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Absensi Relawan SPPG Gunung Picung</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login - Absensi Relawan SPPG</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --dark: #2c3e50;
-            --gray: #95a5a6;
+            --primary: #1a56db;
+            --primary-dark: #0e3e9e;
+            --secondary: #2563eb;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --background: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
-                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f8f9fa" width="100" height="100"/><path fill="%233498db" opacity="0.2" d="M0 0h100v100H0z"/><path fill="%232c3e50" opacity="0.1" d="M0 0h50v50H0z"/></svg>');
-            background-size: 300px;
+            background-color: var(--background);
+            color: var(--dark);
             min-height: 100vh;
+            line-height: 1.6;
         }
         
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            height: 80px;
-            width: auto;
-            object-fit: contain;
-        }
-        
-        .title-container {
-            text-align: center;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
         }
         
-        .title-container h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        /* Login Page */
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 2rem 0;
         }
         
-        .title-container h2 {
-            font-size: 18px;
-            font-weight: 500;
-            margin: 5px 0 0 0;
-            color: #ecf0f1;
-        }
-        
-        .navbar {
-            background-color: var(--primary);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            border: none;
-            transition: transform 0.3s;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
-            background-color: var(--secondary);
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
             color: white;
-            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .login-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .login-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+        
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
             font-weight: 600;
-            padding: 15px 20px;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .input-with-icon input {
+            padding-left: 45px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+        }
+        
+        input.error {
+            border-color: var(--danger);
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
         }
         
         .btn-primary {
-            background-color: var(--secondary);
-            border: none;
-            padding: 10px 20px;
-            font-weight: 600;
-            transition: all 0.3s;
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
         }
         
         .btn-primary:hover {
-            background-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: var(--primary-dark);
         }
         
-        .btn-success {
-            background-color: var(--success);
+        .btn-link {
+            background: none;
             border: none;
-            padding: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s;
+            color: var(--primary);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
         }
         
-        .btn-warning {
-            background-color: var(--warning);
-            border: none;
-            padding: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s;
+        .btn-link:hover {
+            color: var(--primary-dark);
         }
         
-        .btn-danger {
-            background-color: var(--accent);
-            border: none;
-            transition: all 0.3s;
+        /* Additional Options */
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
         }
         
-        .table th {
-            background-color: var(--primary);
-            color: white;
+        .remember-me {
+            display: flex;
+            align-items: center;
         }
         
-        .late {
-            color: var(--accent);
-            font-weight: bold;
+        .remember-me input {
+            width: auto;
+            margin-right: 0.5rem;
         }
         
-        .on-time {
-            color: var(--success);
-            font-weight: bold;
+        /* Support Section */
+        .support-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light);
         }
         
-        .login-container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .support-section p {
+            margin-bottom: 1rem;
+            color: var(--gray);
         }
         
-        .attendance-btn {
-            font-size: 1.2rem;
-            padding: 15px;
-            margin: 10px 0;
-            transition: all 0.3s;
-        }
-        
-        .attendance-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1050;
-            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-20px); }
-        }
-        
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--secondary);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .info-badge {
+        .admin-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             background-color: var(--light);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin: 5px 0;
-            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            color: var(--dark);
+            text-decoration: none;
         }
         
-        .current-time {
-            font-size: 1.2rem;
+        .admin-contact:hover {
+            background-color: #e5e7eb;
+        }
+        
+        /* Recovery Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary);
         }
         
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 5px;
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
         }
         
-        .status-present {
-            background-color: var(--success);
-        }
-        
-        .status-late {
-            background-color: var(--accent);
-        }
-        
-        .status-absent {
-            background-color: var(--gray);
-        }
-        
-        .schedule-box {
-            background-color: var(--light);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        
-        .export-btn {
-            margin-top: 10px;
-        }
-        
-        .report-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-top: 20px;
-        }
-        
-        .report-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-        
-        .camera-container {
-            width: 100%;
-            margin: 15px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        #video, #canvas {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            background-color: var(--light);
-        }
-        
-        .camera-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .admin-only {
-            border-left: 4px solid var(--accent);
-        }
-        
-        .footer {
-            background-color: var(--primary);
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem;
+            border-radius: 8px;
             color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
+            background-color: var(--accent);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            max-width: 350px;
         }
         
-        .backup-section {
-            background-color: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
+        .notification.error {
+            background-color: var(--danger);
         }
         
-        /* Responsive adjustments */
+        /* User Credentials */
+        .user-credentials {
+            margin-top: 1.5rem;
+        }
+        
+        .credentials-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .credentials-table th, 
+        .credentials-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .credentials-table th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+        
+        .credentials-table tr:hover {
+            background-color: #f9fafb;
+        }
+        
+        .show-credentials {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--light);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .login-container {
-                margin: 30px auto;
-                padding: 20px;
+            .login-card {
+                padding: 2rem 1.5rem;
             }
             
-            .card-body {
-                padding: 15px;
+            .login-header h1 {
+                font-size: 2rem;
             }
             
-            .attendance-btn {
-                font-size: 1rem;
-                padding: 12px;
-            }
-            
-            .report-options {
+            .login-options {
                 flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
             }
             
-            .camera-buttons {
-                flex-direction: column;
+            .credentials-table {
+                font-size: 0.8rem;
             }
-            
-            .title-container h1 {
-                font-size: 20px;
-            }
-            
-            .title-container h2 {
-                font-size: 16px;
-            }
-            
-            .logo {
-                height: 60px;
-            }
+        }
+        
+        /* Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        /* Reset Data Button */
+        .reset-data {
+            text-align: center;
+            margin-top: 1.5rem;
         }
     </style>
 </head>
 <body>
-    <!-- Header dengan Logo dan Judul -->
-    <div class="header">
+    <!-- Login Page -->
+    <section id="loginPage">
         <div class="container">
-            <div class="logo-container">
-                <!-- Logo Badan Gizi Nasional -->
-                <div class="logo-wrapper">
-                    <div class="logo-placeholder" style="width: 180px; height: 80px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px; border-radius: 5px;">
-                        <div style="font-weight: bold; color: #2c3e50; font-size: 16px; text-align: center;">BADAN</div>
-                        <div style="font-weight: bold; color: #2c3e50; font-size: 16px; text-align: center;">GIZI NASIONAL</div>
-                        <div style="color: #2c3e50; font-size: 12px; text-align: center;">REPUBLIK INDONESIA</div>
+            <div class="login-header">
+                <h1>Relawan SPPG Gunung Picung Pamijahan</h1>
+                <p>Absensi Relawan @SPPG GN PICUNG 2025</p>
+            </div>
+            
+            <div class="login-card">
+                <button class="show-credentials" id="showCredentialsBtn" title="Lihat Kredensial">
+                    <i class="fas fa-key"></i>
+                </button>
+                
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
                     </div>
+                    <h2 class="card-title">Login Sistem</h2>
+                    <p class="card-subtitle">Masukkan username dan password Anda</p>
                 </div>
                 
-                <!-- Judul -->
-                <div class="title-container">
-                    <h1>SISTEM ABSENSI RELAWAN BADAN GIZI NASIONAL</h1>
-                    <h2>SPPG GUNUNG PICUNG - YAYasan MASJID AL-FATTAH CIREENDEU</h2>
-                </div>
-                
-                <!-- Logo Yayasan Masjid -->
-                <div class="logo-wrapper">
-                    <div class="logo-placeholder" style="width: 180px; height: 80px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px; border-radius: 5px;">
-                        <div style="font-weight: bold; color: #2c3e50; font-size: 18px; text-align: center;">MASJID</div>
-                        <div style="font-weight: bold; color: #2c3e50; font-size: 18px; text-align: center;">AL-FATTAH</div>
-                        <div style="color: #2c3e50; font-size: 14px; text-align: center;">CIREUNDEU</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login Section -->
-    <div id="login-section" class="container">
-        <div class="login-container">
-            <h2 class="text-center mb-4">Login Sistem</h2>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Masukkan username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Masukkan password">
-                <div class="form-text">Untuk admin: Hesoyam123@ | Untuk relawan: password123</div>
-            </div>
-            <button id="login-btn" class="btn btn-primary w-100">Login</button>
-            <div class="text-center mt-3">
-                <small>Contoh username relawan: YANI HERAWATI</small>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content (hidden until login) -->
-    <div id="main-section" class="container mt-4 d-none">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Profil Relawan</h5>
-                    </div>
-                    <div class="card-body text-center">
-                        <img src="https://ui-avatars.com/api/?name=Relawan&background=3498db&color=fff" class="profile-img mb-3" alt="Profile" id="profile-image">
-                        <h4 id="profile-name">Nama Relawan</h4>
-                        <p id="profile-division" class="text-muted">Divisi</p>
-                        <div class="info-badge" id="profile-salary">Upah Harian: Rp 0</div>
-                        
-                        <!-- Camera Section -->
-                        <div class="camera-container mt-3">
-                            <video id="video" autoplay playsinline class="d-none"></video>
-                            <canvas id="canvas" class="d-none"></canvas>
-                            <div class="camera-buttons">
-                                <button id="start-camera" class="btn btn-info btn-sm">
-                                    <i class="fas fa-camera me-1"></i>Aktifkan Kamera
-                                </button>
-                                <button id="take-photo" class="btn btn-success btn-sm d-none">
-                                    <i class="fas fa-camera me-1"></i>Ambil Foto
-                                </button>
-                                <button id="retake-photo" class="btn btn-warning btn-sm d-none">
-                                    <i class="fas fa-redo me-1"></i>Ulangi
-                                </button>
-                            </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Username</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan username" autocomplete="username">
                         </div>
-                        
-                        <div class="d-grid gap-2 mt-3">
-                            <button id="check-in-btn" class="btn btn-success attendance-btn">
-                                <i class="fas fa-fingerprint me-2"></i>Absen Masuk
-                            </button>
-                            <button id="check-out-btn" class="btn btn-warning attendance-btn">
-                                <i class="fas fa-sign-out-alt me-2"></i>Absen Pulang
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Info Jadwal</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="schedule-box">
-                            <p><strong>Jam Masuk:</strong> <span id="schedule-in">00:00</span></p>
-                            <p><strong>Jam Pulang:</strong> <span id="schedule-out">00:00</span></p>
-                        </div>
-                        <p><strong>Status Hari Ini:</strong> <span id="attendance-status">-</span></p>
-                        <div id="late-warning" class="alert alert-warning d-none">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            Anda terlambat absen masuk!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Riwayat Absensi</h5>
-                        <div>
-                            <select id="month-select" class="form-select form-select-sm d-inline-block w-auto">
-                                <option value="0">Januari</option>
-                                <option value="1">Februari</option>
-                                <option value="2">Maret</option>
-                                <option value="3">April</option>
-                                <option value="4">Mei</option>
-                                <option value="5">Juni</option>
-                                <option value="6">Juli</option>
-                                <option value="7">Agustus</option>
-                                <option value="8">September</option>
-                                <option value="9">Oktober</option>
-                                <option value="10">November</option>
-                                <option value="11">Desember</option>
-                            </select>
-                            <select id="year-select" class="form-select form-select-sm d-inline-block w-auto ms-2">
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                            <button id="export-btn" class="btn btn-sm btn-outline-primary ms-2">
-                                <i class="fas fa-download"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th>Masuk</th>
-                                        <th>Pulang</th>
-                                        <th>Status</th>
-                                        <th>Keterangan</th>
-                                        <th>Foto</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attendance-history">
-                                    <!-- Data will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Laporan Section (Admin Only) -->
-                <div class="report-section admin-only d-none" id="admin-section">
-                    <h4 class="mb-4"><i class="fas fa-lock me-2"></i>Admin - Unduh Laporan Absensi</h4>
-                    <div class="report-options">
-                        <select id="report-month" class="form-select">
-                            <option value="-1">Semua Bulan</option>
-                            <option value="0">Januari</option>
-                            <option value="1">Februari</option>
-                            <option value="2">Maret</option>
-                            <option value="3">April</option>
-                            <option value="4">Mei</option>
-                            <option value="5">Juni</option>
-                            <option value="6">Juli</option>
-                            <option value="7">Agustus</option>
-                            <option value="8">September</option>
-                            <option value="9">Oktober</option>
-                            <option value="10">November</option>
-                            <option value="11">Desember</option>
-                        </select>
-                        <select id="report-year" class="form-select">
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
-                        <select id="report-format" class="form-select">
-                            <option value="csv">CSV</option>
-                            <option value="pdf">PDF</option>
-                        </select>
-                        <button id="generate-report" class="btn btn-primary">
-                            <i class="fas fa-file-download me-2"></i>Buat Laporan
-                        </button>
-                    </div>
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Fitur ini hanya tersedia untuk admin. Laporan akan berisi data absensi semua relawan.
-                    </div>
-                </div>
-
-                <!-- Backup Section (Admin Only) -->
-                <div class="backup-section admin-only d-none" id="backup-section">
-                    <h4 class="mb-4"><i class="fas fa-database me-2"></i>Admin - Backup Data</h4>
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Backup data absensi ke komputer lokal. File backup berformat JSON dan dapat di-restore kapan saja.
+                        <div class="error-message" id="usernameError">Username harus diisi</div>
                     </div>
                     
-                    <div class="d-grid gap-2">
-                        <button id="backup-btn" class="btn btn-success">
-                            <i class="fas fa-download me-2"></i>Backup Data ke File
-                        </button>
-                        <div class="mb-3 mt-3">
-                            <label for="restore-file" class="form-label">Restore Data dari File</label>
-                            <input class="form-control" type="file" id="restore-file" accept=".json">
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" autocomplete="current-password">
                         </div>
-                        <button id="restore-btn" class="btn btn-warning">
-                            <i class="fas fa-upload me-2"></i>Restore Data
-                        </button>
+                        <div class="error-message" id="passwordError">Password harus diisi</div>
                     </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Masuk</button>
+                    </div>
+                </form>
+                
+                <div class="login-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Ingat saya</label>
+                    </div>
+                    <button type="button" class="btn-link" id="forgotPasswordBtn">Lupa password?</button>
+                </div>
+                
+                <div class="support-section">
+                    <p>Jika mengalami kendala login, hubungi admin</p>
+                    <a href="#" class="admin-contact" id="contactAdminBtn">
+                        <i class="fas fa-headset"></i>
+                        Hubungi Admin
+                    </a>
+                </div>
+                
+                <div class="reset-data">
+                    <button type="button" class="btn-link" id="resetDataBtn">Reset Data ke Default</button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="mb-0">© 2023 Sistem Absensi Relawan BGN - SPPG Gunung Picung</p>
-            <p class="mb-0">Yayasan Masjid Al-Fattah Cirendeu</p>
+    </section>
+    
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Pemulihan Password</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>Untuk keamanan, silakan hubungi admin untuk mereset password Anda.</p>
+            <div class="admin-contact" style="margin: 1.5rem 0;">
+                <i class="fas fa-user-cog"></i>
+                Admin: Jamjam
+            </div>
+            <div class="admin-contact">
+                <i class="fas fa-phone"></i>
+                Telepon: 085715388009
+            </div>
         </div>
-    </footer>
-
-    <!-- Notification Area -->
-    <div id="notification-area"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    
+    <!-- Contact Admin Modal -->
+    <div class="modal" id="contactAdminModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Hubungi Admin</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>Silakan hubungi admin melalui salah satu cara berikut:</p>
+            <div class="admin-contact" style="margin: 1.5rem 0;">
+                <i class="fas fa-user"></i>
+                Nama Admin: Jamjam
+            </div>
+            <div class="admin-contact" style="margin-bottom: 1rem;">
+                <i class="fas fa-phone"></i>
+                Telepon: 085715388009
+            </div>
+            <div class="admin-contact">
+                <i class="fas fa-envelope"></i>
+                Email: admin@sppg-gnpicung.id
+            </div>
+        </div>
+    </div>
+    
+    <!-- Credentials Modal -->
+    <div class="modal" id="credentialsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Daftar Username dan Password</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>Berikut adalah daftar username dan password untuk login (hanya untuk keperluan demo):</p>
+            
+            <div class="user-credentials">
+                <table class="credentials-table">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Divisi</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yani Herawati</td>
+                            <td>ASLAP</td>
+                            <td>yani</td>
+                            <td>yani123</td>
+                        </tr>
+                        <tr>
+                            <td>Supriyadi</td>
+                            <td>SECURITY</td>
+                            <td>supriyadi</td>
+                            <td>supri123</td>
+                        </tr>
+                        <tr>
+                            <td>Rian Haryadin</td>
+                            <td>KA. CUCI OMPRENG</td>
+                            <td>rian</td>
+                            <td>rian123</td>
+                        </tr>
+                        <tr>
+                            <td>Azis Januar</td>
+                            <td>CUCI OMPRENG</td>
+                            <td>azis</td>
+                            <td>azis123</td>
+                        </tr>
+                        <tr>
+                            <td>Evandi Febriansyah</td>
+                            <td>CUCI OMPRENG</td>
+                            <td>evandi</td>
+                            <td>evandi123</td>
+                        </tr>
+                        <tr>
+                            <td>Administrator</td>
+                            <td>ADMIN</td>
+                            <td>admin</td>
+                            <td>admin123</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+    
     <script>
+        // Data contoh untuk aplikasi
+        const sampleEmployees = [
+            { id: 1, name: "Yani Herawati", division: "ASLAP", dailyWage: 220000, schedule: "04.00 - 12.00", username: "yani", password: "yani123", role: "user" },
+            { id: 2, name: "Supriyadi", division: "SECURITY", dailyWage: 150000, schedule: "23.00 - 07.00", username: "supriyadi", password: "supri123", role: "user" },
+            { id: 3, name: "Rian Haryadin", division: "KA. CUCI OMPRENG", dailyWage: 140000, schedule: "13.00 - 21.00", username: "rian", password: "rian123", role: "user" },
+            { id: 4, name: "Azis Januar", division: "CUCI OMPRENG", dailyWage: 120000, schedule: "13.00 - 21.00", username: "azis", password: "azis123", role: "user" },
+            { id: 5, name: "Evandi Febriansyah", division: "CUCI OMPRENG", dailyWage: 120000, schedule: "13.00 - 21.00", username: "evandi", password: "evandi123", role: "user" },
+            { id: 99, name: "Admin", division: "ADMIN", dailyWage: 0, schedule: "00.00 - 00.00", username: "admin", password: "admin123", role: "admin" }
+        ];
+        
+        // Inisialisasi aplikasi
         document.addEventListener('DOMContentLoaded', function() {
-            // Data relawan
-            const volunteers = [
-                { id: 1, name: "YANI HERAWATI", division: "ASLAP", phone: "085715388009", dailySalary: 220000, schedule: { in: "04:00", out: "12:00" } },
-                { id: 2, name: "SUPRIYADI", division: "SECURITY", phone: "085715388009", dailySalary: 150000, schedule: { in: "23:00", out: "07:00" } },
-                { id: 3, name: "RIAN HARYADIN", division: "KA. CUCI OMPRENG", phone: "085715388009", dailySalary: 140000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 4, name: "AZIS JANUAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 5, name: "EVANDI FEBRIANSYAH", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 6, name: "HADI HIDAYAT", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 7, name: "ILHAM KHOERUDIN", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 8, name: "INDRA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 9, name: "MANDAR", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } },
-                { id: 10, name: "MUHAMMAD DAVIS PRATAMA", division: "CUCI OMPRENG", phone: "085715388009", dailySalary: 120000, schedule: { in: "13:00", out: "21:00" } }
-            ];
-
-            // Elemen UI
-            const loginSection = document.getElementById('login-section');
-            const mainSection = document.getElementById('main-section');
-            const loginBtn = document.getElementById('login-btn');
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            const notificationArea = document.getElementById('notification-area');
-            const adminSection = document.getElementById('admin-section');
-            const backupSection = document.getElementById('backup-section');
-            const profileName = document.getElementById('profile-name');
-            const profileDivision = document.getElementById('profile-division');
-            const profileSalary = document.getElementById('profile-salary');
-            const scheduleIn = document.getElementById('schedule-in');
-            const scheduleOut = document.getElementById('schedule-out');
-            const profileImage = document.getElementById('profile-image');
-            const checkInBtn = document.getElementById('check-in-btn');
-            const checkOutBtn = document.getElementById('check-out-btn');
-            const startCameraBtn = document.getElementById('start-camera');
-
-            // State aplikasi
-            let currentUser = null;
-            let isAdmin = false;
-            let attendanceData = [];
-
-            // Tampilkan notifikasi
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `alert alert-${type} alert-dismissible fade show notification`;
-                notification.innerHTML = `
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-                notificationArea.appendChild(notification);
-                
-                // Hapus notifikasi setelah 3 detik
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 3000);
+            // Reset data jika parameter reset ada di URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('reset')) {
+                resetData();
             }
-
-            // Handle login
-            loginBtn.addEventListener('click', function() {
-                const username = usernameInput.value.trim();
-                const password = passwordInput.value.trim();
+            
+            // Load data dari localStorage jika ada
+            let employees = [];
+            try {
+                const savedEmployees = localStorage.getItem('employees');
+                employees = savedEmployees ? JSON.parse(savedEmployees) : sampleEmployees;
                 
-                // Validasi sederhana
-                if (!username || !password) {
-                    showNotification('Username dan password harus diisi', 'danger');
-                    return;
+                if (!savedEmployees) {
+                    localStorage.setItem('employees', JSON.stringify(employees));
                 }
-                
-                // Cek admin login
-                if (username === 'admin' && password === 'Hesoyam123@') {
-                    isAdmin = true;
-                    currentUser = {
-                        id: 0,
-                        name: 'Administrator',
-                        division: 'Admin',
-                        phone: '',
-                        dailySalary: 0,
-                        schedule: { in: '00:00', out: '00:00' }
-                    };
-                    
-                    loginSection.classList.add('d-none');
-                    mainSection.classList.remove('d-none');
-                    adminSection.classList.remove('d-none');
-                    backupSection.classList.remove('d-none');
-                    
-                    // Update profil
-                    profileName.textContent = currentUser.name;
-                    profileDivision.textContent = currentUser.division;
-                    profileSalary.textContent = `Sistem Administrator`;
-                    scheduleIn.textContent = '00:00';
-                    scheduleOut.textContent = '00:00';
-                    
-                    // Update gambar profil
-                    profileImage.src = `https://ui-avatars.com/api/?name=Admin&background=e74c3c&color=fff`;
-                    
-                    // Nonaktifkan fitur absen untuk admin
-                    checkInBtn.disabled = true;
-                    checkOutBtn.disabled = true;
-                    startCameraBtn.disabled = true;
-                    
-                    showNotification('Selamat datang, Administrator!', 'success');
-                    return;
-                }
-                
-                // Password default untuk relawan
-                if (password !== 'password123') {
-                    showNotification('Password salah. Gunakan password default: password123', 'danger');
-                    return;
-                }
-                
-                // Cari relawan berdasarkan nama (case insensitive)
-                const user = volunteers.find(v => 
-                    v.name.toLowerCase() === username.toLowerCase()
-                );
-                
-                if (user) {
-                    isAdmin = false;
-                    currentUser = user;
-                    loginSection.classList.add('d-none');
-                    mainSection.classList.remove('d-none');
-                    adminSection.classList.add('d-none');
-                    backupSection.classList.add('d-none');
-                    
-                    // Update profil
-                    profileName.textContent = user.name;
-                    profileDivision.textContent = user.division;
-                    profileSalary.textContent = `Upah: Rp ${user.dailySalary.toLocaleString('id-ID')}`;
-                    scheduleIn.textContent = user.schedule.in;
-                    scheduleOut.textContent = user.schedule.out;
-                    
-                    // Update gambar profil
-                    profileImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=3498db&color=fff`;
-                    
-                    // Aktifkan fitur absen untuk relawan
-                    checkInBtn.disabled = false;
-                    checkOutBtn.disabled = false;
-                    startCameraBtn.disabled = false;
-                    
-                    showNotification(`Selamat datang, ${user.name}!`, 'success');
-                } else {
-                    showNotification('Login gagal. Periksa username Anda.', 'danger');
+            } catch (e) {
+                console.error('Error parsing employees data:', e);
+                employees = sampleEmployees;
+                localStorage.setItem('employees', JSON.stringify(employees));
+            }
+            
+            // Load remember me data jika ada
+            const rememberMe = localStorage.getItem('rememberMe') === 'true';
+            const savedUsername = localStorage.getItem('username');
+            
+            if (rememberMe && savedUsername) {
+                document.getElementById('loginUsername').value = savedUsername;
+                document.getElementById('rememberMe').checked = true;
+            }
+            
+            // Setup event listeners
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                login();
+            });
+            
+            document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
+                document.getElementById('forgotPasswordModal').style.display = 'flex';
+            });
+            
+            document.getElementById('contactAdminBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('contactAdminModal').style.display = 'flex';
+            });
+            
+            document.getElementById('showCredentialsBtn').addEventListener('click', function() {
+                document.getElementById('credentialsModal').style.display = 'flex';
+            });
+            
+            document.getElementById('resetDataBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin mereset semua data ke pengaturan default?')) {
+                    resetData();
+                    showNotification('Data berhasil direset ke pengaturan default');
                 }
             });
-
-            // Handle logout
-            function setupLogout() {
-                const logoutBtn = document.getElementById('logout-btn');
-                if (logoutBtn) {
-                    logoutBtn.addEventListener('click', function() {
-                        currentUser = null;
-                        isAdmin = false;
-                        mainSection.classList.add('d-none');
-                        adminSection.classList.add('d-none');
-                        backupSection.classList.add('d-none');
-                        loginSection.classList.remove('d-none');
-                        usernameInput.value = '';
-                        passwordInput.value = '';
-                        
-                        showNotification('Anda telah logout', 'info');
+            
+            // Close modal buttons
+            document.querySelectorAll('.close-modal').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
                     });
-                }
-            }
-
-            // Inisialisasi aplikasi
-            setupLogout();
+                });
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
         });
+        
+        // Fungsi untuk reset data
+        function resetData() {
+            localStorage.setItem('employees', JSON.stringify(sampleEmployees));
+            localStorage.removeItem('attendance');
+            localStorage.removeItem('rememberMe');
+            localStorage.removeItem('username');
+            
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('rememberMe').checked = false;
+        }
+        
+        // Fungsi untuk login
+        function login() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+            
+            // Reset error states
+            usernameError.style.display = 'none';
+            passwordError.style.display = 'none';
+            document.getElementById('loginUsername').classList.remove('error', 'shake');
+            document.getElementById('loginPassword').classList.remove('error', 'shake');
+            
+            // Validasi input
+            let isValid = true;
+            
+            if (!username) {
+                usernameError.style.display = 'block';
+                document.getElementById('loginUsername').classList.add('error', 'shake');
+                isValid = false;
+                
+                // Hentikan animasi setelah selesai
+                setTimeout(() => {
+                    document.getElementById('loginUsername').classList.remove('shake');
+                }, 500);
+            }
+            
+            if (!password) {
+                passwordError.style.display = 'block';
+                document.getElementById('loginPassword').classList.add('error', 'shake');
+                isValid = false;
+                
+                // Hentikan animasi setelah selesai
+                setTimeout(() => {
+                    document.getElementById('loginPassword').classList.remove('shake');
+                }, 500);
+            }
+            
+            if (!isValid) return;
+            
+            // Simpan remember me preference
+            if (rememberMe) {
+                localStorage.setItem('rememberMe', 'true');
+                localStorage.setItem('username', username);
+            } else {
+                localStorage.removeItem('rememberMe');
+                localStorage.removeItem('username');
+            }
+            
+            // Cek kredensial
+            let employees = [];
+            try {
+                employees = JSON.parse(localStorage.getItem('employees') || '[]');
+            } catch (e) {
+                console.error('Error parsing employees data:', e);
+                employees = sampleEmployees;
+                localStorage.setItem('employees', JSON.stringify(employees));
+            }
+            
+            const user = employees.find(emp => emp.username === username && emp.password === password);
+            
+            if (user) {
+                // Login berhasil
+                showNotification('Login berhasil! Mengarahkan ke dashboard...');
+                
+                // Simpan info user yang login
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect ke halaman utama (simulasi)
+                setTimeout(() => {
+                    // Di sini biasanya akan redirect ke halaman utama
+                    // Untuk contoh ini, kita tampilkan pesan sukses
+                    alert('Login berhasil! Selamat datang ' + user.name);
+                    // Dalam aplikasi nyata, redirect ke halaman dashboard:
+                    // window.location.href = 'dashboard.html';
+                }, 1500);
+            } else {
+                // Login gagal
+                showNotification('Username atau password salah. Silakan coba lagi.', true);
+                document.getElementById('loginUsername').classList.add('error', 'shake');
+                document.getElementById('loginPassword').classList.add('error', 'shake');
+                
+                // Hentikan animasi setelah selesai
+                setTimeout(() => {
+                    document.getElementById('loginUsername').classList.remove('shake');
+                    document.getElementById('loginPassword').classList.remove('shake');
+                }, 500);
+                
+                // Kosongkan password field
+                document.getElementById('loginPassword').value = '';
+            }
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = isError ? 'notification error' : 'notification';
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 4000);
+        }
     </script>
 </body>
 </html>
