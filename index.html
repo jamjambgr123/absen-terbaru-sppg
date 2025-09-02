@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Absensi - SPPG Gunung Picung</title>
+    <title>Sistem Manajemen Relawan - SPPG Gunung Picung</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -281,85 +281,78 @@
             font-size: 1.1rem;
         }
         
-        /* Face Recognition */
-        .face-recognition {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .camera-container {
-            width: 100%;
-            max-width: 500px;
+        /* Form Styles */
+        .form-group {
             margin-bottom: 20px;
-            position: relative;
-            border: 2px dashed var(--secondary);
-            border-radius: 8px;
-            overflow: hidden;
         }
         
-        #video, #video-profile {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            background-color: #f0f0f0;
-        }
-        
-        .capture-btn {
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-        }
-        
-        .face-result {
-            margin-top: 20px;
-            text-align: center;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-        }
-        
-        /* Profile Section */
-        .profile-section {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-        }
-        
-        .profile-image-container {
-            text-align: center;
-        }
-        
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--secondary);
-            margin-bottom: 15px;
-        }
-        
-        .profile-details {
-            padding: 20px;
-        }
-        
-        .detail-row {
-            display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .detail-label {
-            flex: 1;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
         }
         
-        .detail-value {
-            flex: 2;
-            color: #555;
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .btn-edit {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .btn-delete {
+            background-color: var(--danger);
+            color: white;
         }
         
         /* Status Badges */
@@ -384,6 +377,64 @@
         .status-pending {
             background-color: rgba(243, 156, 18, 0.2);
             color: var(--warning);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark);
         }
         
         /* Responsive Adjustments */
@@ -414,15 +465,15 @@
             .main-content {
                 margin-left: 70px;
             }
-            
-            .profile-section {
-                grid-template-columns: 1fr;
-            }
         }
         
         @media (max-width: 768px) {
             .summary-cards {
                 grid-template-columns: 1fr 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -449,6 +500,10 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -473,10 +528,9 @@
         
         <ul class="sidebar-menu">
             <li><a href="#" class="active" data-page="dashboard"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="#" data-page="volunteers"><i class="fas fa-users"></i> <span class="menu-text">Data Relawan</span></a></li>
             <li><a href="#" data-page="attendance"><i class="fas fa-calendar-check"></i> <span class="menu-text">Absensi</span></a></li>
             <li><a href="#" data-page="face-recognition"><i class="fas fa-camera"></i> <span class="menu-text">Face Recognition</span></a></li>
-            <li><a href="#" data-page="volunteers"><i class="fas fa-users"></i> <span class="menu-text">Data Relawan</span></a></li>
-            <li><a href="#" data-page="profile"><i class="fas fa-user-circle"></i> <span class="menu-text">Profil & Registrasi Wajah</span></a></li>
             <li><a href="#" data-page="reports"><i class="fas fa-chart-bar"></i> <span class="menu-text">Laporan</span></a></li>
             <li><a href="#" data-page="settings"><i class="fas fa-cog"></i> <span class="menu-text">Pengaturan</span></a></li>
             <li><a href="#" data-page="logout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
@@ -499,38 +553,27 @@
                 </div>
             </div>
             
-            <!-- Attendance Status -->
-            <div class="attendance-status">
-                <div class="schedule-info">
-                    <div class="schedule-type">Hari Ini: Selasa, 02 September 2025</div>
-                    <div class="schedule-time">Total Relawan: 53 | Hadir: 42 | Belum Absen: 11</div>
-                </div>
-                <div class="attendance-actions">
-                    <button class="btn btn-primary"><i class="fas fa-download"></i> Export Laporan</button>
-                </div>
-            </div>
-            
             <!-- Summary Cards -->
             <div class="summary-cards">
+                <div class="summary-card">
+                    <h3>Total Relawan</h3>
+                    <div class="count" id="total-volunteers">0</div>
+                    <div class="label">Orang</div>
+                </div>
                 <div class="summary-card present">
                     <h3>Hadir Hari Ini</h3>
-                    <div class="count">42</div>
+                    <div class="count">0</div>
                     <div class="label">Relawan</div>
                 </div>
                 <div class="summary-card absent">
-                    <h3>Belum Absen</h3>
-                    <div class="count">11</div>
-                    <div class="label">Relawan</div>
-                </div>
-                <div class="summary-card leave">
-                    <h3>Izin</h3>
-                    <div class="count">3</div>
+                    <h3>Tidak Hadir</h3>
+                    <div class="count">0</div>
                     <div class="label">Relawan</div>
                 </div>
                 <div class="summary-card overtime">
-                    <h3>Lembur</h3>
-                    <div class="count">8</div>
-                    <div class="label">Relawan</div>
+                    <h3>Total Gaji</h3>
+                    <div class="count">Rp 0</div>
+                    <div class="label">Per Hari</div>
                 </div>
             </div>
             
@@ -538,242 +581,201 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Aktivitas Terbaru</h2>
+                </div>
+                <div style="padding: 20px; text-align: center; color: var(--gray);">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <p>Belum ada aktivitas terbaru. Silakan tambahkan data relawan terlebih dahulu.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Volunteers Management Page -->
+        <div class="page-content" id="volunteers" style="display: none;">
+            <div class="header">
+                <h1 class="page-title">Manajemen Data Relawan</h1>
+                <div class="header-actions">
+                    <button class="btn btn-success" id="add-volunteer-btn"><i class="fas fa-plus"></i> Tambah Relawan</button>
+                    <button class="btn btn-primary"><i class="fas fa-download"></i> Export Data</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Daftar Relawan</h2>
                     <div>
-                        <button class="btn"><i class="fas fa-list"></i> Lihat Semua</button>
+                        <input type="text" class="form-control" placeholder="Cari relawan..." style="width: 250px;">
                     </div>
                 </div>
                 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Divisi</th>
-                            <th>Waktu</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>YANI HERAWATI</td>
-                            <td>ASLAP</td>
-                            <td>07:55</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>SUPRIYADI</td>
-                            <td>SECURITY</td>
-                            <td>22:58</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>RIAN HARYADIN</td>
-                            <td>KA. CUCI OMPRENG</td>
-                            <td>12:45</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>AZIS JANUAR</td>
-                            <td>CUCI OMPRENG</td>
-                            <td>12:50</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>EVANDI FEBRIANSYAH</td>
-                            <td>CUCI OMPRENG</td>
-                            <td>12:55</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Face Recognition Page -->
-        <div class="page-content" id="face-recognition" style="display: none;">
-            <div class="header">
-                <h1 class="page-title">Face Recognition</h1>
-                <div class="header-actions">
-                    <button class="btn"><i class="fas fa-history"></i> Riwayat</button>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Lengkap</th>
+                                <th>Divisi</th>
+                                <th>Gaji</th>
+                                <th>Jam Kerja</th>
+                                <th>Status Wajah</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="volunteers-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                                    <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                                    <p>Belum ada data relawan. Silakan tambahkan data relawan baru.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Absensi dengan Face Recognition</h2>
-                </div>
-                
-                <div class="face-recognition">
-                    <div class="camera-container">
-                        <video id="video" autoplay playsinline></video>
-                    </div>
-                    
-                    <button class="btn btn-success capture-btn" id="capture-btn">
-                        <i class="fas fa-camera"></i> Ambil Foto untuk Absensi
-                    </button>
-                    
-                    <div class="face-result" id="face-result">
-                        <p>Silahkan posisikan wajah Anda di depan kamera dan klik tombol di atas</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Panduan Penggunaan</h2>
-                </div>
-                
-                <div style="padding: 20px;">
-                    <ol style="margin-left: 20px; line-height: 1.8;">
-                        <li>Pastikan Anda berada di ruangan dengan pencahayaan yang cukup</li>
-                        <li>Hadapkan wajah Anda ke kamera hingga terlihat jelas</li>
-                        <li>Klik tombol "Ambil Foto untuk Absensi"</li>
-                        <li>Tunggu hingga sistem mengenali wajah Anda</li>
-                        <li>Status absensi akan muncul di layar</li>
-                    </ol>
-                    
-                    <div style="margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: 5px;">
-                        <h3 style="color: var(--primary); margin-bottom: 10px;">Tips untuk hasil terbaik:</h3>
-                        <ul style="margin-left: 20px; line-height: 1.8;">
-                            <li>Hindari bayangan pada wajah</li>
-                            <li>Jangan menggunakan topi atau kacamata hitam</li>
-                            <li>Pastikan wajah terlihat seluruhnya tanpa tertutup</li>
-                            <li>Pastikan Anda sudah terdaftar wajahnya di menu Profil</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Profile Page for Face Registration -->
-        <div class="page-content" id="profile" style="display: none;">
-            <div class="header">
-                <h1 class="page-title">Profil & Registrasi Wajah</h1>
-                <div class="header-actions">
-                    <button class="btn btn-primary"><i class="fas fa-save"></i> Simpan Perubahan</button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Data Pribadi</h2>
-                </div>
-                
-                <div class="profile-section">
-                    <div class="profile-image-container">
-                        <img src="https://ui-avatars.com/api/?name=YANI+HERAWATI&background=3498db&color=fff&size=200" alt="Profile" class="profile-image" id="profile-image">
-                        <div class="face-status" id="face-status">
-                            <span class="status-badge status-pending">Wajah Belum Terdaftar</span>
-                        </div>
-                        <button class="btn btn-success" style="margin-top: 15px;" id="register-face-btn">
-                            <i class="fas fa-camera"></i> Daftarkan Wajah
-                        </button>
-                    </div>
-                    
-                    <div class="profile-details">
-                        <div class="detail-row">
-                            <div class="detail-label">Nama Lengkap:</div>
-                            <div class="detail-value">YANI HERAWATI</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">ID Relawan:</div>
-                            <div class="detail-value">REL-001</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Divisi:</div>
-                            <div class="detail-value">ASLAP</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Jadwal Kerja:</div>
-                            <div class="detail-value">-</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Gaji:</div>
-                            <div class="detail-value">Rp 220.000</div>
-                        </div>
-                        <div class="detail-row">
-                            <div class="detail-label">Status:</div>
-                            <div class="detail-value"><span class="status-badge status-present">Aktif</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Face Registration Section -->
-            <div class="card" id="face-registration-section" style="display: none;">
-                <div class="card-header">
-                    <h2>Registrasi Wajah</h2>
-                </div>
-                
-                <div class="face-recognition">
-                    <div class="camera-container">
-                        <video id="video-profile" autoplay playsinline></video>
-                    </div>
-                    
-                    <div style="text-align: center; margin: 20px 0;">
-                        <button class="btn btn-success capture-btn" id="capture-profile-btn">
-                            <i class="fas fa-camera"></i> Ambil Foto untuk Registrasi
-                        </button>
-                        <button class="btn btn-danger" id="cancel-capture-btn" style="margin-left: 10px;">
-                            <i class="fas fa-times"></i> Batal
-                        </button>
-                    </div>
-                    
-                    <div class="face-result" id="face-registration-result">
-                        <p>Pastikan wajah Anda terlihat jelas dan sesuai dengan identitas Anda</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Attendance History -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>Riwayat Absensi</h2>
-                </div>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Jam Masuk</th>
-                            <th>Jam Keluar</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>01/09/2025</td>
-                            <td>07:55</td>
-                            <td>16:30</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>31/08/2025</td>
-                            <td>08:00</td>
-                            <td>17:00</td>
-                            <td><span class="status-badge status-present">Hadir</span></td>
-                        </tr>
-                        <tr>
-                            <td>30/08/2025</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td><span class="status-badge status-absent">Tidak Hadir</span></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
         
         <!-- Other pages would be defined here -->
+        <div class="page-content" id="attendance" style="display: none;">
+            <div class="header">
+                <h1 class="page-title">Manajemen Absensi</h1>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Data Absensi</h2>
+                </div>
+                <div style="padding: 20px; text-align: center; color: var(--gray);">
+                    <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <p>Fitur absensi akan tersedia setelah data relawan ditambahkan.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content" id="face-recognition" style="display: none;">
+            <div class="header">
+                <h1 class="page-title">Face Recognition</h1>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Registrasi dan Verifikasi Wajah</h2>
+                </div>
+                <div style="padding: 20px; text-align: center; color: var(--gray);">
+                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <p>Fitur face recognition akan tersedia setelah data relawan ditambahkan.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content" id="reports" style="display: none;">
+            <div class="header">
+                <h1 class="page-title">Laporan dan Analitik</h1>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Laporan Kehadiran</h2>
+                </div>
+                <div style="padding: 20px; text-align: center; color: var(--gray);">
+                    <i class="fas fa-chart-bar" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                    <p>Fitur laporan akan tersedia setelah data relawan ditambahkan.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-content" id="settings" style="display: none;">
+            <div class="header">
+                <h1 class="page-title">Pengaturan Sistem</h1>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Konfigurasi Umum</h2>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label for="system-name">Nama Sistem</label>
+                        <input type="text" class="form-control" id="system-name" value="Sistem Manajemen Relawan SPPG Gunung Picung">
+                    </div>
+                    <div class="form-group">
+                        <label for="organization-name">Nama Organisasi</label>
+                        <input type="text" class="form-control" id="organization-name" value="SPPG Gunung Picung">
+                    </div>
+                    <div class="form-group">
+                        <label for="working-days">Hari Kerja dalam Seminggu</label>
+                        <select class="form-control" id="working-days">
+                            <option value="5">5 Hari (Senin-Jumat)</option>
+                            <option value="6">6 Hari (Senin-Sabtu)</option>
+                            <option value="7">7 Hari (Setiap Hari)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success"><i class="fas fa-save"></i> Simpan Pengaturan</button>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <!-- Modal for Adding/Editing Volunteers -->
+    <div class="modal" id="volunteer-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Tambah Relawan Baru</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="volunteer-form">
+                    <input type="hidden" id="volunteer-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteer-name">Nama Lengkap *</label>
+                            <input type="text" class="form-control" id="volunteer-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteer-division">Divisi *</label>
+                            <select class="form-control" id="volunteer-division" required>
+                                <option value="">Pilih Divisi</option>
+                                <option value="ASLAP">ASLAP</option>
+                                <option value="SECURITY">SECURITY</option>
+                                <option value="KA. CUCI OMPRENG">KA. CUCI OMPRENG</option>
+                                <option value="CUCI OMPRENG">CUCI OMPRENG</option>
+                                <option value="CUCI OMPRENG/ALAT MASAK">CUCI OMPRENG/ALAT MASAK</option>
+                                <option value="KEPALA DRIVER">KEPALA DRIVER</option>
+                                <option value="DRIVER">DRIVER</option>
+                                <option value="KENEK">KENEK</option>
+                                <option value="KEPALA DAPUR">KEPALA DAPUR</option>
+                                <option value="MASAK">MASAK</option>
+                                <option value="KEPALA PEMORSIAN">KEPALA PEMORSIAN</option>
+                                <option value="PEMORSIAN">PEMORSIAN</option>
+                                <option value="KEPALA PERSIAPAN">KEPALA PERSIAPAN</option>
+                                <option value="PERSIAPAN">PERSIAPAN</option>
+                                <option value="PENGIKATAN">PENGIKATAN</option>
+                                <option value="SANITASI & LIMBAH">SANITASI & LIMBAH</option>
+                                <option value="OB">OB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteer-salary">Gaji per Hari (Rp) *</label>
+                            <input type="number" class="form-control" id="volunteer-salary" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteer-schedule">Jam Kerja *</label>
+                            <input type="text" class="form-control" id="volunteer-schedule" placeholder="Contoh: 08.00 - 16.00" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="volunteer-notes">Catatan Tambahan</label>
+                        <textarea class="form-control" id="volunteer-notes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="cancel-btn">Batal</button>
+                <button type="button" class="btn btn-success" id="save-volunteer-btn">Simpan Data</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Data relawan
-        const volunteers = [
-            [1, "YANI HERAWATI", "ASLAP", 220000, " - "],
-            [2, "SUPRIYADI", "SECURITY", 150000, "23.00 - 11.00"],
-            [3, "RIAN HARYADIN", "KA. CUCI OMPRENG", 140000, "13.00 - 21.00"],
-            // ... other volunteers data
-        ];
+        // Data storage
+        let volunteers = JSON.parse(localStorage.getItem('volunteers')) || [];
+        let editingId = null;
 
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation handling
@@ -809,191 +811,195 @@
                     const pageId = this.getAttribute('data-page');
                     document.getElementById(pageId).style.display = 'block';
                     
-                    // Special handling for specific pages
-                    if (pageId === 'face-recognition') {
-                        initFaceRecognition();
+                    // Refresh data if needed
+                    if (pageId === 'volunteers' || pageId === 'dashboard') {
+                        loadVolunteersData();
                     }
                 });
             });
             
-            // Face registration button
-            const registerFaceBtn = document.getElementById('register-face-btn');
-            const faceRegistrationSection = document.getElementById('face-registration-section');
-            const cancelCaptureBtn = document.getElementById('cancel-capture-btn');
+            // Volunteer modal handling
+            const modal = document.getElementById('volunteer-modal');
+            const addVolunteerBtn = document.getElementById('add-volunteer-btn');
+            const closeBtn = document.querySelector('.close');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const saveVolunteerBtn = document.getElementById('save-volunteer-btn');
+            const volunteerForm = document.getElementById('volunteer-form');
             
-            registerFaceBtn.addEventListener('click', function() {
-                faceRegistrationSection.style.display = 'block';
-                initFaceRegistration();
+            addVolunteerBtn.addEventListener('click', function() {
+                editingId = null;
+                document.getElementById('modal-title').textContent = 'Tambah Relawan Baru';
+                volunteerForm.reset();
+                modal.style.display = 'flex';
             });
             
-            cancelCaptureBtn.addEventListener('click', function() {
-                faceRegistrationSection.style.display = 'none';
-                stopCamera('video-profile');
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
             });
             
-            // Set current date
-            updateDateTime();
-            setInterval(updateDateTime, 60000);
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            saveVolunteerBtn.addEventListener('click', function() {
+                if (validateVolunteerForm()) {
+                    saveVolunteerData();
+                }
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Load initial data
+            loadVolunteersData();
         });
         
-        function initFaceRecognition() {
-            const video = document.getElementById('video');
-            const captureBtn = document.getElementById('capture-btn');
-            const faceResult = document.getElementById('face-result');
+        function loadVolunteersData() {
+            const volunteersTable = document.getElementById('volunteers-table-body');
+            const totalVolunteersElement = document.getElementById('total-volunteers');
             
-            // Access webcam
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(stream) {
-                        video.srcObject = stream;
-                        video.play();
-                    })
-                    .catch(function(error) {
-                        faceResult.innerHTML = '<p style="color: var(--danger);">Tidak dapat mengakses kamera: ' + error.message + '</p>';
-                    });
-            } else {
-                faceResult.innerHTML = '<p style="color: var(--danger);">Browser tidak mendukung akses kamera</p>';
+            // Update total count
+            totalVolunteersElement.textContent = volunteers.length;
+            
+            // Clear table
+            volunteersTable.innerHTML = '';
+            
+            if (volunteers.length === 0) {
+                volunteersTable.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Belum ada data relawan. Silakan tambahkan data relawan baru.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
             }
             
-            // Capture button event
-            captureBtn.addEventListener('click', function() {
-                // Simulate face recognition process
-                simulateFaceRecognition();
-            });
-        }
-        
-        function initFaceRegistration() {
-            const video = document.getElementById('video-profile');
-            const captureBtn = document.getElementById('capture-profile-btn');
-            const faceResult = document.getElementById('face-registration-result');
-            
-            // Access webcam
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(stream) {
-                        video.srcObject = stream;
-                        video.play();
-                    })
-                    .catch(function(error) {
-                        faceResult.innerHTML = '<p style="color: var(--danger);">Tidak dapat mengakses kamera: ' + error.message + '</p>';
-                    });
-            } else {
-                faceResult.innerHTML = '<p style="color: var(--danger);">Browser tidak mendukung akses kamera</p>';
-            }
-            
-            // Capture button event
-            captureBtn.addEventListener('click', function() {
-                // Simulate face registration process
-                simulateFaceRegistration();
-            });
-        }
-        
-        function stopCamera(videoId) {
-            const video = document.getElementById(videoId);
-            if (video.srcObject) {
-                const tracks = video.srcObject.getTracks();
-                tracks.forEach(track => track.stop());
-                video.srcObject = null;
-            }
-        }
-        
-        function simulateFaceRecognition() {
-            const faceResult = document.getElementById('face-result');
-            const captureBtn = document.getElementById('capture-btn');
-            
-            // Show loading state
-            captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            captureBtn.disabled = true;
-            
-            // Simulate processing time
-            setTimeout(() => {
-                // For demo purposes, we'll randomly determine if face is recognized
-                const isRecognized = Math.random() > 0.3;
+            // Add volunteers to table
+            volunteers.forEach((volunteer, index) => {
+                const row = document.createElement('tr');
                 
-                if (isRecognized) {
-                    // Randomly select a volunteer for demo
-                    const randomVolunteer = volunteers[Math.floor(Math.random() * volunteers.length)];
-                    const [id, name, division] = randomVolunteer;
-                    
-                    // Show success result
-                    faceResult.innerHTML = `
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <h3 style="color: var(--success); margin-bottom: 10px;">Wajah Terkenali!</h3>
-                            <p><strong>${name}</strong> (${division})</p>
-                            <p>Absensi berhasil dicatat pada <strong>${new Date().toLocaleTimeString('id-ID')}</strong></p>
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${volunteer.name}</td>
+                    <td>${volunteer.division}</td>
+                    <td>Rp ${volunteer.salary.toLocaleString('id-ID')}</td>
+                    <td>${volunteer.schedule}</td>
+                    <td><span class="status-badge status-pending">Belum Terdaftar</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit action-btn" data-id="${volunteer.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-delete action-btn" data-id="${volunteer.id}"><i class="fas fa-trash"></i> Hapus</button>
                         </div>
-                    `;
-                } else {
-                    // Show failure result
-                    faceResult.innerHTML = `
-                        <div style="text-align: center;">
-                            <div style="font-size: 3rem; color: var(--danger); margin-bottom: 15px;">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-                            <h3 style="color: var(--danger); margin-bottom: 10px;">Wajah Tidak Dikenali</h3>
-                            <p>Silahkan hubungi administrator untuk registrasi wajah</p>
-                            <p>Atau daftarkan wajah Anda di menu <strong>Profil & Registrasi Wajah</strong></p>
-                        </div>
-                    `;
-                }
-                
-                // Reset button
-                captureBtn.innerHTML = '<i class="fas fa-camera"></i> Ambil Foto untuk Absensi';
-                captureBtn.disabled = false;
-            }, 2000);
-        }
-        
-        function simulateFaceRegistration() {
-            const faceResult = document.getElementById('face-registration-result');
-            const captureBtn = document.getElementById('capture-profile-btn');
-            const faceStatus = document.getElementById('face-status');
-            const faceRegistrationSection = document.getElementById('face-registration-section');
-            
-            // Show loading state
-            captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            captureBtn.disabled = true;
-            
-            // Simulate processing time
-            setTimeout(() => {
-                // Show success result
-                faceResult.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3 style="color: var(--success); margin-bottom: 10px;">Registrasi Berhasil!</h3>
-                        <p>Wajah Anda telah terdaftar dalam sistem</p>
-                        <p>Anda sekarang dapat menggunakan fitur Face Recognition untuk absensi</p>
-                    </div>
+                    </td>
                 `;
                 
-                // Update face status
-                faceStatus.innerHTML = '<span class="status-badge status-present">Wajah Terdaftar</span>';
-                
-                // Hide registration section after a delay
-                setTimeout(() => {
-                    faceRegistrationSection.style.display = 'none';
-                    stopCamera('video-profile');
-                }, 3000);
-                
-                // Reset button
-                captureBtn.innerHTML = '<i class="fas fa-camera"></i> Ambil Foto untuk Registrasi';
-                captureBtn.disabled = false;
-            }, 2000);
+                volunteersTable.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    editVolunteer(id);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    deleteVolunteer(id);
+                });
+            });
         }
         
-        function updateDateTime() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('id-ID', options);
-            const dateElements = document.querySelectorAll('.current-date');
+        function validateVolunteerForm() {
+            const name = document.getElementById('volunteer-name').value.trim();
+            const division = document.getElementById('volunteer-division').value;
+            const salary = document.getElementById('volunteer-salary').value;
+            const schedule = document.getElementById('volunteer-schedule').value.trim();
             
-            dateElements.forEach(element => {
-                element.textContent = dateString;
-            });
+            if (!name) {
+                alert('Nama lengkap harus diisi!');
+                return false;
+            }
+            
+            if (!division) {
+                alert('Divisi harus dipilih!');
+                return false;
+            }
+            
+            if (!salary || salary <= 0) {
+                alert('Gaji harus diisi dengan nilai yang valid!');
+                return false;
+            }
+            
+            if (!schedule) {
+                alert('Jam kerja harus diisi!');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function saveVolunteerData() {
+            const id = editingId || Date.now().toString();
+            const name = document.getElementById('volunteer-name').value.trim();
+            const division = document.getElementById('volunteer-division').value;
+            const salary = parseInt(document.getElementById('volunteer-salary').value);
+            const schedule = document.getElementById('volunteer-schedule').value.trim();
+            const notes = document.getElementById('volunteer-notes').value.trim();
+            
+            if (editingId) {
+                // Update existing volunteer
+                const index = volunteers.findIndex(v => v.id === editingId);
+                if (index !== -1) {
+                    volunteers[index] = { id, name, division, salary, schedule, notes };
+                }
+            } else {
+                // Add new volunteer
+                volunteers.push({ id, name, division, salary, schedule, notes });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('volunteers', JSON.stringify(volunteers));
+            
+            // Close modal and refresh data
+            document.getElementById('volunteer-modal').style.display = 'none';
+            loadVolunteersData();
+            
+            alert(`Data relawan ${editingId ? 'diperbarui' : 'ditambahkan'} successfully!`);
+        }
+        
+        function editVolunteer(id) {
+            const volunteer = volunteers.find(v => v.id === id);
+            if (!volunteer) return;
+            
+            editingId = id;
+            document.getElementById('modal-title').textContent = 'Edit Data Relawan';
+            document.getElementById('volunteer-id').value = volunteer.id;
+            document.getElementById('volunteer-name').value = volunteer.name;
+            document.getElementById('volunteer-division').value = volunteer.division;
+            document.getElementById('volunteer-salary').value = volunteer.salary;
+            document.getElementById('volunteer-schedule').value = volunteer.schedule;
+            document.getElementById('volunteer-notes').value = volunteer.notes || '';
+            
+            document.getElementById('volunteer-modal').style.display = 'flex';
+        }
+        
+        function deleteVolunteer(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus data relawan ini?')) return;
+            
+            volunteers = volunteers.filter(v => v.id !== id);
+            localStorage.setItem('volunteers', JSON.stringify(volunteers));
+            loadVolunteersData();
+            
+            alert('Data relawan berhasil dihapus!');
         }
     </script>
 </body>
