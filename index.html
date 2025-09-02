@@ -240,44 +240,6 @@
             color: var(--gray);
         }
         
-        /* Attendance Status */
-        .attendance-status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .schedule-info {
-            flex: 1;
-        }
-        
-        .schedule-type {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-        
-        .schedule-time {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
-        
-        .current-date {
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .attendance-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
         /* Button Styles */
         .btn {
             display: inline-block;
@@ -319,23 +281,85 @@
             font-size: 1.1rem;
         }
         
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
+        /* Face Recognition */
+        .face-recognition {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
         
-        table th, table td {
-            padding: 12px 15px;
-            text-align: left;
+        .camera-container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 2px dashed var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #video, #video-profile {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+        
+        .capture-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+        
+        .face-result {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        
+        .profile-image-container {
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .profile-details {
+            padding: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
         
-        table th {
-            background-color: #f8f9fa;
+        .detail-label {
+            flex: 1;
             font-weight: 600;
             color: var(--dark);
+        }
+        
+        .detail-value {
+            flex: 2;
+            color: #555;
         }
         
         /* Status Badges */
@@ -357,174 +381,15 @@
             color: var(--danger);
         }
         
-        .status-leave {
+        .status-pending {
             background-color: rgba(243, 156, 18, 0.2);
             color: var(--warning);
-        }
-        
-        .status-pending {
-            background-color: rgba(52, 152, 219, 0.2);
-            color: var(--secondary);
-        }
-        
-        /* Face Recognition */
-        .face-recognition {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .camera-container {
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        #video {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        #canvas {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .capture-btn {
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-        }
-        
-        .face-result {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        /* Tabs */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            border-bottom: 3px solid var(--secondary);
-            color: var(--secondary);
-            font-weight: 600;
-        }
-        
-        /* Volunteer List */
-        .volunteer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .volunteer-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-        
-        .volunteer-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .volunteer-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .volunteer-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-            margin-right: 15px;
-        }
-        
-        .volunteer-info h3 {
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-        
-        .volunteer-info p {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        .volunteer-details {
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-        }
-        
-        .volunteer-detail {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .volunteer-detail .label {
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .volunteer-detail .value {
-            color: #555;
-        }
-        
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
         }
         
         /* Responsive Adjustments */
         @media (max-width: 992px) {
             .sidebar {
                 width: 70px;
-                overflow: visible;
             }
             
             .sidebar .org-info,
@@ -549,33 +414,15 @@
             .main-content {
                 margin-left: 70px;
             }
+            
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
             .summary-cards {
                 grid-template-columns: 1fr 1fr;
-            }
-            
-            .attendance-status {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .schedule-info {
-                margin-bottom: 15px;
-            }
-            
-            .attendance-actions {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            .volunteer-grid {
-                grid-template-columns: 1fr;
             }
         }
         
@@ -596,6 +443,11 @@
             .header-actions {
                 margin-top: 15px;
                 width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -624,9 +476,8 @@
             <li><a href="#" data-page="attendance"><i class="fas fa-calendar-check"></i> <span class="menu-text">Absensi</span></a></li>
             <li><a href="#" data-page="face-recognition"><i class="fas fa-camera"></i> <span class="menu-text">Face Recognition</span></a></li>
             <li><a href="#" data-page="volunteers"><i class="fas fa-users"></i> <span class="menu-text">Data Relawan</span></a></li>
+            <li><a href="#" data-page="profile"><i class="fas fa-user-circle"></i> <span class="menu-text">Profil & Registrasi Wajah</span></a></li>
             <li><a href="#" data-page="reports"><i class="fas fa-chart-bar"></i> <span class="menu-text">Laporan</span></a></li>
-            <li><a href="#" data-page="schedule"><i class="fas fa-clock"></i> <span class="menu-text">Jadwal</span></a></li>
-            <li><a href="#" data-page="announcements"><i class="fas fa-bullhorn"></i> <span class="menu-text">Pengumuman</span></a></li>
             <li><a href="#" data-page="settings"><i class="fas fa-cog"></i> <span class="menu-text">Pengaturan</span></a></li>
             <li><a href="#" data-page="logout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
         </ul>
@@ -652,7 +503,7 @@
             <div class="attendance-status">
                 <div class="schedule-info">
                     <div class="schedule-type">Hari Ini: Selasa, 02 September 2025</div>
-                    <div class="schedule-time">Total Relawan: 53 | Hadir: 42 | Tidak Hadir: 11</div>
+                    <div class="schedule-time">Total Relawan: 53 | Hadir: 42 | Belum Absen: 11</div>
                 </div>
                 <div class="attendance-actions">
                     <button class="btn btn-primary"><i class="fas fa-download"></i> Export Laporan</button>
@@ -667,7 +518,7 @@
                     <div class="label">Relawan</div>
                 </div>
                 <div class="summary-card absent">
-                    <h3>Tidak Hadir</h3>
+                    <h3>Belum Absen</h3>
                     <div class="count">11</div>
                     <div class="label">Relawan</div>
                 </div>
@@ -754,9 +605,6 @@
                 <div class="face-recognition">
                     <div class="camera-container">
                         <video id="video" autoplay playsinline></video>
-                        <div class="canvas-container">
-                            <canvas id="canvas"></canvas>
-                        </div>
                     </div>
                     
                     <button class="btn btn-success capture-btn" id="capture-btn">
@@ -789,33 +637,129 @@
                             <li>Hindari bayangan pada wajah</li>
                             <li>Jangan menggunakan topi atau kacamata hitam</li>
                             <li>Pastikan wajah terlihat seluruhnya tanpa tertutup</li>
+                            <li>Pastikan Anda sudah terdaftar wajahnya di menu Profil</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Volunteers Page -->
-        <div class="page-content" id="volunteers" style="display: none;">
+        <!-- Profile Page for Face Registration -->
+        <div class="page-content" id="profile" style="display: none;">
             <div class="header">
-                <h1 class="page-title">Data Relawan</h1>
+                <h1 class="page-title">Profil & Registrasi Wajah</h1>
                 <div class="header-actions">
-                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Relawan</button>
-                    <button class="btn"><i class="fas fa-download"></i> Export Data</button>
+                    <button class="btn btn-primary"><i class="fas fa-save"></i> Simpan Perubahan</button>
                 </div>
             </div>
             
             <div class="card">
                 <div class="card-header">
-                    <h2>Daftar Relawan</h2>
-                    <div>
-                        <input type="text" class="form-control" placeholder="Cari relawan..." style="width: 200px;">
-                    </div>
+                    <h2>Data Pribadi</h2>
                 </div>
                 
-                <div class="volunteer-grid" id="volunteer-list">
-                    <!-- Data relawan akan dimuat di sini oleh JavaScript -->
+                <div class="profile-section">
+                    <div class="profile-image-container">
+                        <img src="https://ui-avatars.com/api/?name=YANI+HERAWATI&background=3498db&color=fff&size=200" alt="Profile" class="profile-image" id="profile-image">
+                        <div class="face-status" id="face-status">
+                            <span class="status-badge status-pending">Wajah Belum Terdaftar</span>
+                        </div>
+                        <button class="btn btn-success" style="margin-top: 15px;" id="register-face-btn">
+                            <i class="fas fa-camera"></i> Daftarkan Wajah
+                        </button>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Nama Lengkap:</div>
+                            <div class="detail-value">YANI HERAWATI</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">ID Relawan:</div>
+                            <div class="detail-value">REL-001</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Divisi:</div>
+                            <div class="detail-value">ASLAP</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Jadwal Kerja:</div>
+                            <div class="detail-value">-</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Gaji:</div>
+                            <div class="detail-value">Rp 220.000</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Status:</div>
+                            <div class="detail-value"><span class="status-badge status-present">Aktif</span></div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Face Registration Section -->
+            <div class="card" id="face-registration-section" style="display: none;">
+                <div class="card-header">
+                    <h2>Registrasi Wajah</h2>
+                </div>
+                
+                <div class="face-recognition">
+                    <div class="camera-container">
+                        <video id="video-profile" autoplay playsinline></video>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="btn btn-success capture-btn" id="capture-profile-btn">
+                            <i class="fas fa-camera"></i> Ambil Foto untuk Registrasi
+                        </button>
+                        <button class="btn btn-danger" id="cancel-capture-btn" style="margin-left: 10px;">
+                            <i class="fas fa-times"></i> Batal
+                        </button>
+                    </div>
+                    
+                    <div class="face-result" id="face-registration-result">
+                        <p>Pastikan wajah Anda terlihat jelas dan sesuai dengan identitas Anda</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Attendance History -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Riwayat Absensi</h2>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01/09/2025</td>
+                            <td>07:55</td>
+                            <td>16:30</td>
+                            <td><span class="status-badge status-present">Hadir</span></td>
+                        </tr>
+                        <tr>
+                            <td>31/08/2025</td>
+                            <td>08:00</td>
+                            <td>17:00</td>
+                            <td><span class="status-badge status-present">Hadir</span></td>
+                        </tr>
+                        <tr>
+                            <td>30/08/2025</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><span class="status-badge status-absent">Tidak Hadir</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         
@@ -828,56 +772,7 @@
             [1, "YANI HERAWATI", "ASLAP", 220000, " - "],
             [2, "SUPRIYADI", "SECURITY", 150000, "23.00 - 11.00"],
             [3, "RIAN HARYADIN", "KA. CUCI OMPRENG", 140000, "13.00 - 21.00"],
-            [4, "AZIS JANUAR", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [5, "EVANDI FEBRIANSYAH", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [6, "HADI HIDAYAT", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [7, "ILHAM KHOERUDIN", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [8, "INDRA", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [9, "MANDAR", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [10, "MUHAMMAD DAVIS PRATAMA", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [11, "FAHMIRUDIN", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [12, "RIO FEBRIAN", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [13, "AHMAD KANJI", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [14, "IRWANSYAH", "CUCI OMPRENG", 120000, "13.00 - 21.00"],
-            [15, "JUARIAH", "CUCI OMPRENG/ALAT MASAK", 120000, "06.00 - 14.00"],
-            [16, "SARTIKA DEWI", "CUCI OMPRENG/ALAT MASAK", 120000, "06.00 - 14.00"],
-            [17, "IMAM", "KEPALA DRIVER", 150000, "06.30 - 14.30"],
-            [18, "SAJA", "DRIVER", 150000, "06.30 - 14.30"],
-            [19, "ANGGA FEBRI LUBIS", "KENEK", 115000, "06.30 - 14.30"],
-            [20, "DANILLAHMUDIN", "KENEK", 115000, "06.30 - 14.30"],
-            [21, "IBRAHIM PRATAMA", "KENEK", 115000, "06.30 - 14.30"],
-            [22, "ARICK DARMAWAN", "KENEK", 115000, "06.30 - 14.30"],
-            [23, "AMIRUDIN", "KEPALA DAPUR", 200000, "23.00 - 07.00"],
-            [24, "ADE", "MASAK", 150000, "13.00 - 21.00"],
-            [25, "SANDI IRAWAN", "MASAK", 150000, "23.00 - 07.00"],
-            [26, "MU'AMAR AHMAD RAMADHAN", "MASAK", 150000, "23.00 - 07.00"],
-            [27, "NENENG MINTARSIH", "MASAK", 150000, "23.00 - 07.00"],
-            [28, "NENG MEYLIMAWATI", "MASAK", 150000, "23.00 - 07.00"],
-            [29, "NURHASANAH BT TARJO", "MASAK", 150000, "23.00 - 07.00"],
-            [30, "DZOL FAHMI ROBANI", "MASAK", 150000, "23.00 - 07.00"],
-            [31, "ANGGI YULIASARI", "KEPALA PEMORSIAN", 150000, "04.00 - 12.00"],
-            [32, "DAHLIA", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [33, "EVI MAULINA", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [34, "MUHAMAD YUNUS", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [35, "RATU CIKAL AMALIA LAHMI", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [36, "RISKIA RAHMAWATI", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [37, "RIZKI MAULIDA", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [38, "SALWA SALSABILA", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [39, "SITI KAHLA KAMILA", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [40, "YULIA AGUSTIN", "PEMORSIAN", 120000, "04.00 - 12.00"],
-            [41, "NAHDIAH FAULINA BORU LUBIS", "KEPALA PERSIAPAN", 140000, "16.00 - 24.00"],
-            [42, "AHMAD RIPAI", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [43, "ELVIONITA BORU LUBIS", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [44, "NIA KURNIASIH", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [45, "SISKA MEILINA WATI", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [46, "SITI MULIFAH", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [47, "JUNAEDI", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [48, "KARSI", "PERSIAPAN", 115000, "16.00 - 24.00"],
-            [49, "DONI SEPTIAN", "PENGIKATAN", 115000, "05.00 - 13.00"],
-            [50, "PARLEL BUDIIMAN", "PENGIKATAN", 115000, "05.00 - 13.00"],
-            [51, "ENDANG SUHENDAR", "SANITASI & LIMBAH", 150000, "17.00 - 00.00"],
-            [52, "DARIYANA KUSUMA", "OB", 120000, "17.00 - 00.00"],
-            [53, "SURYA ADHIARI", "OB", 115000, "06.00 - 14.00"]
+            // ... other volunteers data
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -914,76 +809,35 @@
                     const pageId = this.getAttribute('data-page');
                     document.getElementById(pageId).style.display = 'block';
                     
-                    // Special handling for face recognition page
+                    // Special handling for specific pages
                     if (pageId === 'face-recognition') {
                         initFaceRecognition();
                     }
                 });
             });
             
-            // Load volunteers data
-            loadVolunteers();
+            // Face registration button
+            const registerFaceBtn = document.getElementById('register-face-btn');
+            const faceRegistrationSection = document.getElementById('face-registration-section');
+            const cancelCaptureBtn = document.getElementById('cancel-capture-btn');
+            
+            registerFaceBtn.addEventListener('click', function() {
+                faceRegistrationSection.style.display = 'block';
+                initFaceRegistration();
+            });
+            
+            cancelCaptureBtn.addEventListener('click', function() {
+                faceRegistrationSection.style.display = 'none';
+                stopCamera('video-profile');
+            });
             
             // Set current date
             updateDateTime();
             setInterval(updateDateTime, 60000);
         });
         
-        function loadVolunteers() {
-            const volunteerList = document.getElementById('volunteer-list');
-            volunteerList.innerHTML = '';
-            
-            volunteers.forEach(volunteer => {
-                const [id, name, division, salary, schedule] = volunteer;
-                
-                const card = document.createElement('div');
-                card.className = 'volunteer-card';
-                
-                // Get initials for avatar
-                const initials = name.split(' ').map(word => word[0]).join('').toUpperCase();
-                
-                card.innerHTML = `
-                    <div class="volunteer-header">
-                        <div class="volunteer-avatar">${initials}</div>
-                        <div class="volunteer-info">
-                            <h3>${name}</h3>
-                            <p>ID: ${id.toString().padStart(3, '0')}</p>
-                        </div>
-                    </div>
-                    <div class="volunteer-details">
-                        <div class="volunteer-detail">
-                            <span class="label">Divisi:</span>
-                            <span class="value">${division}</span>
-                        </div>
-                        <div class="volunteer-detail">
-                            <span class="label">Gaji:</span>
-                            <span class="value">Rp ${salary.toLocaleString('id-ID')}</span>
-                        </div>
-                        <div class="volunteer-detail">
-                            <span class="label">Jadwal:</span>
-                            <span class="value">${schedule}</span>
-                        </div>
-                        <div class="volunteer-detail">
-                            <span class="label">Status:</span>
-                            <span class="value"><span class="status-badge status-present">Aktif</span></span>
-                        </div>
-                    </div>
-                `;
-                
-                volunteerList.appendChild(card);
-            });
-        }
-        
-        function updateDateTime() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('id-ID', options);
-            document.querySelector('.current-date').textContent = dateString;
-        }
-        
         function initFaceRecognition() {
             const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
             const captureBtn = document.getElementById('capture-btn');
             const faceResult = document.getElementById('face-result');
             
@@ -1003,14 +857,44 @@
             
             // Capture button event
             captureBtn.addEventListener('click', function() {
-                const context = canvas.getContext('2d');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
                 // Simulate face recognition process
                 simulateFaceRecognition();
             });
+        }
+        
+        function initFaceRegistration() {
+            const video = document.getElementById('video-profile');
+            const captureBtn = document.getElementById('capture-profile-btn');
+            const faceResult = document.getElementById('face-registration-result');
+            
+            // Access webcam
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function(error) {
+                        faceResult.innerHTML = '<p style="color: var(--danger);">Tidak dapat mengakses kamera: ' + error.message + '</p>';
+                    });
+            } else {
+                faceResult.innerHTML = '<p style="color: var(--danger);">Browser tidak mendukung akses kamera</p>';
+            }
+            
+            // Capture button event
+            captureBtn.addEventListener('click', function() {
+                // Simulate face registration process
+                simulateFaceRegistration();
+            });
+        }
+        
+        function stopCamera(videoId) {
+            const video = document.getElementById(videoId);
+            if (video.srcObject) {
+                const tracks = video.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
         }
         
         function simulateFaceRecognition() {
@@ -1023,26 +907,93 @@
             
             // Simulate processing time
             setTimeout(() => {
-                // Randomly select a volunteer for demo
-                const randomVolunteer = volunteers[Math.floor(Math.random() * volunteers.length)];
-                const [id, name, division] = randomVolunteer;
+                // For demo purposes, we'll randomly determine if face is recognized
+                const isRecognized = Math.random() > 0.3;
                 
-                // Show result
-                faceResult.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
-                            <i class="fas fa-check-circle"></i>
+                if (isRecognized) {
+                    // Randomly select a volunteer for demo
+                    const randomVolunteer = volunteers[Math.floor(Math.random() * volunteers.length)];
+                    const [id, name, division] = randomVolunteer;
+                    
+                    // Show success result
+                    faceResult.innerHTML = `
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3 style="color: var(--success); margin-bottom: 10px;">Wajah Terkenali!</h3>
+                            <p><strong>${name}</strong> (${division})</p>
+                            <p>Absensi berhasil dicatat pada <strong>${new Date().toLocaleTimeString('id-ID')}</strong></p>
                         </div>
-                        <h3 style="color: var(--success); margin-bottom: 10px;">Wajah Terkenali!</h3>
-                        <p><strong>${name}</strong> (${division})</p>
-                        <p>Absensi berhasil dicatat pada <strong>${new Date().toLocaleTimeString('id-ID')}</strong></p>
-                    </div>
-                `;
+                    `;
+                } else {
+                    // Show failure result
+                    faceResult.innerHTML = `
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; color: var(--danger); margin-bottom: 15px;">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <h3 style="color: var(--danger); margin-bottom: 10px;">Wajah Tidak Dikenali</h3>
+                            <p>Silahkan hubungi administrator untuk registrasi wajah</p>
+                            <p>Atau daftarkan wajah Anda di menu <strong>Profil & Registrasi Wajah</strong></p>
+                        </div>
+                    `;
+                }
                 
                 // Reset button
                 captureBtn.innerHTML = '<i class="fas fa-camera"></i> Ambil Foto untuk Absensi';
                 captureBtn.disabled = false;
             }, 2000);
+        }
+        
+        function simulateFaceRegistration() {
+            const faceResult = document.getElementById('face-registration-result');
+            const captureBtn = document.getElementById('capture-profile-btn');
+            const faceStatus = document.getElementById('face-status');
+            const faceRegistrationSection = document.getElementById('face-registration-section');
+            
+            // Show loading state
+            captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            captureBtn.disabled = true;
+            
+            // Simulate processing time
+            setTimeout(() => {
+                // Show success result
+                faceResult.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 style="color: var(--success); margin-bottom: 10px;">Registrasi Berhasil!</h3>
+                        <p>Wajah Anda telah terdaftar dalam sistem</p>
+                        <p>Anda sekarang dapat menggunakan fitur Face Recognition untuk absensi</p>
+                    </div>
+                `;
+                
+                // Update face status
+                faceStatus.innerHTML = '<span class="status-badge status-present">Wajah Terdaftar</span>';
+                
+                // Hide registration section after a delay
+                setTimeout(() => {
+                    faceRegistrationSection.style.display = 'none';
+                    stopCamera('video-profile');
+                }, 3000);
+                
+                // Reset button
+                captureBtn.innerHTML = '<i class="fas fa-camera"></i> Ambil Foto untuk Registrasi';
+                captureBtn.disabled = false;
+            }, 2000);
+        }
+        
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('id-ID', options);
+            const dateElements = document.querySelectorAll('.current-date');
+            
+            dateElements.forEach(element => {
+                element.textContent = dateString;
+            });
         }
     </script>
 </body>
