@@ -3,30 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPPG Gunung Picung - Sistem Absensi Profesional</title>
+    <title>System Absensi - SPPG Gunung Picung Pamijaha</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1a56db;
-            --primary-light: #3b82f6;
-            --primary-dark: #0e3e9e;
-            --secondary: #10b981;
-            --secondary-light: #34d399;
-            --secondary-dark: #059669;
-            --accent: #f59e0b;
-            --accent-light: #fbbf24;
-            --accent-dark: #d97706;
-            --danger: #ef4444;
-            --danger-light: #f87171;
-            --danger-dark: #dc2626;
-            --success: #10b981;
-            --light: #f9fafb;
-            --dark: #1f2937;
-            --gray: #6b7280;
-            --background: #f0f9ff;
-            --card-bg: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gray: #95a5a6;
+            --sidebar-width: 250px;
         }
         
         * {
@@ -37,1388 +27,733 @@
         }
         
         body {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
+            background-color: #f5f7fa;
+            color: #333;
             line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .org-info {
+            text-align: center;
+            padding: 0 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
         }
         
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .org-info h1 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
         
-        .logo-icon {
-            font-size: 2rem;
-            color: white;
+        .org-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
         
-        .logo h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-        
-        .user-info {
+        .user-profile {
             display: flex;
             align-items: center;
-            gap: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
         
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: var(--primary-light);
+            background: var(--secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-name {
             font-weight: 600;
+            margin-bottom: 5px;
         }
         
-        .app-title {
-            text-align: center;
-            margin: 1.5rem 0;
-            color: white;
+        .user-role {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
         
-        .app-title h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-            margin-bottom: 0.5rem;
-        }
-        
-        .app-title p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 0.75rem 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-links {
-            display: flex;
+        .sidebar-menu {
             list-style: none;
-            gap: 1.5rem;
         }
         
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.6rem 1.2rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            border-radius: 8px;
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
         }
         
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
         }
         
         /* Main Content */
-        main {
-            padding: 2.5rem 0;
-            min-height: calc(100vh - 220px);
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
         }
         
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Card Styles */
         .card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .card-header {
-            border-bottom: 2px solid var(--primary-light);
-            padding-bottom: 1.2rem;
-            margin-bottom: 1.8rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .card-title {
-            font-size: 1.5rem;
+        .card-header h2 {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        /* Dashboard Summary */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .summary-card.present {
+            border-top-color: var(--success);
+        }
+        
+        .summary-card.absent {
+            border-top-color: var(--danger);
+        }
+        
+        .summary-card.leave {
+            border-top-color: var(--warning);
+        }
+        
+        .summary-card.overtime {
+            border-top-color: var(--accent);
+        }
+        
+        .summary-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .summary-card .count {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .summary-card.present .count {
+            color: var(--success);
+        }
+        
+        .summary-card.absent .count {
+            color: var(--danger);
+        }
+        
+        .summary-card.leave .count {
+            color: var(--warning);
+        }
+        
+        .summary-card.overtime .count {
+            color: var(--accent);
+        }
+        
+        .summary-card .label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Attendance Status */
+        .attendance-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .schedule-info {
+            flex: 1;
+        }
+        
+        .schedule-type {
             font-weight: 600;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
+            margin-bottom: 5px;
         }
         
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.5rem;
+        .schedule-time {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
         }
         
-        label {
-            display: block;
-            margin-bottom: 0.6rem;
+        .current-date {
             font-weight: 600;
-            color: var(--primary-dark);
-            font-size: 0.95rem;
+            color: var(--dark);
         }
         
-        input, select, textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s;
-            background-color: var(--light);
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        .attendance-actions {
+            display: flex;
+            gap: 10px;
         }
         
         /* Button Styles */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 1rem 1.8rem;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
             transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: var(--secondary);
         }
         
         .btn-success {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: linear-gradient(135deg, var(--danger-light) 0%, var(--danger) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: var(--success);
         }
         
         .btn-warning {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            color: white;
+            background-color: var(--warning);
         }
         
-        .btn-warning:hover {
-            background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-lg {
+            padding: 15px 25px;
+            font-size: 1.1rem;
         }
         
         /* Table Styles */
-        .table-responsive {
-            overflow-x: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin: 1.5rem 0;
-        }
-        
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 15px 0;
         }
         
-        th, td {
-            padding: 1.2rem;
+        table th, table td {
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #eee;
         }
         
-        th {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            color: white;
+        table th {
+            background-color: #f8f9fa;
             font-weight: 600;
-            font-size: 0.95rem;
+            color: var(--dark);
         }
         
-        tr:hover {
-            background-color: #f8fafc;
-        }
-        
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 1.8rem 0;
-            text-align: center;
-        }
-        
-        /* Dashboard Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.8rem;
-            margin-bottom: 2.5rem;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            color: white;
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }
-        
-        .stat-card:hover::before {
-            transform: rotate(45deg) translate(20px, 20px);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-8px);
-        }
-        
-        .stat-icon {
-            font-size: 2.8rem;
-            margin-bottom: 1.2rem;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .stat-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 0.6rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .stat-label {
-            font-weight: 500;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* Login Page */
-        #loginPage {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
-            padding: 2rem 0;
-        }
-        
-        .login-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            color: white;
-        }
-        
-        .login-header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.8rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-            font-weight: 800;
-        }
-        
-        .login-header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-        }
-        
-        .login-card {
-            background-color: var(--card-bg);
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
             border-radius: 20px;
-            padding: 2.8rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
         
-        .logo-container {
-            text-align: center;
-            margin-bottom: 2rem;
+        .status-present {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
         }
         
-        .logo-circle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        .status-absent {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger);
         }
         
-        .logo-circle i {
-            font-size: 2.8rem;
+        .status-leave {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
         }
         
-        .login-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 0.8rem;
+        .status-pending {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--secondary);
         }
         
-        .login-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
         }
         
-        /* Input Styles for Login */
-        .input-with-icon {
-            position: relative;
-        }
-        
-        .input-with-icon i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        .input-with-icon input {
-            padding-left: 50px;
-            border: 2px solid #e5e7eb;
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
             transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-size: 1rem;
         }
         
-        .input-with-icon input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                overflow: visible;
+            }
+            
+            .sidebar .org-info,
+            .sidebar .user-details,
+            .sidebar .menu-text {
+                display: none;
+            }
+            
+            .sidebar .user-profile {
+                justify-content: center;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+            }
+            
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
         }
         
-        .error-message {
-            color: var(--danger);
-            font-size: 0.9rem;
-            margin-top: 0.6rem;
-            display: none;
-        }
-        
-        .login-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.2rem;
-        }
-        
-        .remember-me {
-            display: flex;
-            align-items: center;
-        }
-        
-        .remember-me input {
-            width: auto;
-            margin-right: 0.6rem;
-        }
-        
-        .support-section {
-            text-align: center;
-            margin-top: 2.5rem;
-            padding-top: 1.8rem;
-            border-top: 2px solid var(--primary-light);
-        }
-        
-        .admin-contact {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            padding: 0.9rem 1.8rem;
-            border-radius: 10px;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .admin-contact:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            padding: 1.2rem 1.8rem;
-            border-radius: 12px;
-            color: white;
-            background: linear-gradient(135deg, var(--success) 0%, var(--secondary-dark) 100%);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            max-width: 380px;
-            transform: translateX(100%);
-            transition: transform 0.5s ease;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.error {
-            background: linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%);
-        }
-        
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                gap: 0.6rem;
+            .summary-cards {
+                grid-template-columns: 1fr 1fr;
             }
             
-            .header-content {
+            .attendance-status {
                 flex-direction: column;
-                gap: 1.2rem;
+                text-align: center;
             }
             
-            .stats-grid {
+            .schedule-info {
+                margin-bottom: 15px;
+            }
+            
+            .attendance-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .summary-cards {
                 grid-template-columns: 1fr;
             }
             
-            .login-card {
-                padding: 2rem 1.5rem;
+            .main-content {
+                padding: 15px;
             }
             
-            .login-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .login-options {
+            .header {
                 flex-direction: column;
-                gap: 1.2rem;
                 align-items: flex-start;
             }
-        }
-        
-        /* Animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        
-        .shake {
-            animation: shake 0.5s;
-        }
-        
-        /* Content Sections */
-        .content-section {
-            display: none;
-        }
-        
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Add Employee Form */
-        .form-row {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-col {
-            flex: 1;
-        }
-        
-        /* WhatsApp Integration */
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            padding: 0.7rem 1.2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(18, 140, 126, 0.3);
-        }
-        
-        /* Employee Form Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal-content {
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 2.5rem;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-        
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: color 0.3s;
-        }
-        
-        .close-modal:hover {
-            color: var(--danger);
-        }
-        
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 0.8rem;
-        }
-        
-        .btn-sm {
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
+            
+            .header-actions {
+                margin-top: 15px;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <section id="loginPage">
-        <div class="container">
-            <div class="login-header">
-                <h1>Relawan SPPG Gunung Picung Pamijahan</h1>
-                <p>Absensi Relawan @SPPG GN PICUNG 2025</p>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="org-info">
+            <h1>SPPG GUNUNG PICUNG</h1>
+            <p>Mitra Badan Gizi Nasional</p>
+            <p>Yayasan Masjid Al-Fattah Cireundeu</p>
+        </div>
+        
+        <div class="user-profile">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-details">
+                <div class="user-name">Nama Karyawan</div>
+                <div class="user-role">Staff</div>
+            </div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-home"></i> <span class="menu-text">Beranda</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-check"></i> <span class="menu-text">Absensi</span></a></li>
+            <li><a href="#"><i class="fas fa-database"></i> <span class="menu-text">Data Absensi</span></a></li>
+            <li><a href="#"><i class="fas fa-file-alt"></i> <span class="menu-text">Laporan Aktivitas</span></a></li>
+            <li><a href="#"><i class="fas fa-clock"></i> <span class="menu-text">Lembur</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-day"></i> <span class="menu-text">Izin</span></a></li>
+            <li><a href="#"><i class="fas fa-money-bill-wave"></i> <span class="menu-text">Reimbursement</span></a></li>
+            <li><a href="#"><i class="fas fa-exchange-alt"></i> <span class="menu-text">Shift</span></a></li>
+            <li><a href="#"><i class="fas fa-newspaper"></i> <span class="menu-text">Berita & Pengumuman</span></a></li>
+            <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> <span class="menu-text">Informasi Gaji</span></a></li>
+            <li><a href="#"><i class="fas fa-user"></i> <span class="menu-text">Profil Saya</span></a></li>
+            <li><a href="#"><i class="fas fa-bell"></i> <span class="menu-text">Pemberitahuan</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> <span class="menu-text">Pengaturan</span></a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
+        </ul>
+        
+        <div style="padding: 20px; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 20px;">
+            Versi: 3.9.0
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 class="page-title">Dashboard Absensi</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <button class="btn"><i class="fas fa-question-circle"></i> Bantuan</button>
+            </div>
+        </div>
+        
+        <!-- Attendance Status -->
+        <div class="attendance-status">
+            <div class="schedule-info">
+                <div class="schedule-type">Reguler 08:00 - 17:00</div>
+                <div class="schedule-time">Masuk: - | Pulang: -</div>
+                <div class="current-date">Selasa, 02 September 2025</div>
+            </div>
+            <div class="attendance-actions">
+                <button class="btn btn-success btn-lg"><i class="fas fa-fingerprint"></i> Clock In</button>
+                <button class="btn btn-warning btn-lg"><i class="fas fa-utensils"></i> Start Break</button>
+            </div>
+        </div>
+        
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card present">
+                <h3>Hadir</h3>
+                <div class="count">0</div>
+                <div class="label">Hari</div>
+            </div>
+            <div class="summary-card absent">
+                <h3>Alpa</h3>
+                <div class="count">0</div>
+                <div class="label">Hari</div>
+            </div>
+            <div class="summary-card leave">
+                <h3>Sakit</h3>
+                <div class="count">0</div>
+                <div class="label">Hari</div>
+            </div>
+            <div class="summary-card overtime">
+                <h3>Izin</h3>
+                <div class="count">0</div>
+                <div class="label">Hari</div>
+            </div>
+        </div>
+        
+        <!-- Attendance Data -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Data Absensi - September 2025</h2>
+                <div>
+                    <button class="btn"><i class="fas fa-download"></i> Export</button>
+                </div>
             </div>
             
-            <div class="login-card">
-                <div class="logo-container">
-                    <div class="logo-circle">
-                        <i class="fas fa-utensils"></i>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Hari</th>
+                        <th>Masuk</th>
+                        <th>Pulang</th>
+                        <th>Status</th>
+                        <th>Lembur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01/09/2025</td>
+                        <td>Senin</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status-badge status-absent">Alpa</span></td>
+                        <td>0 jam</td>
+                    </tr>
+                    <tr>
+                        <td>02/09/2025</td>
+                        <td>Selasa</td>
+                        <td>08:00</td>
+                        <td>17:00</td>
+                        <td><span class="status-badge status-present">Hadir</span></td>
+                        <td>0 jam</td>
+                    </tr>
+                    <tr>
+                        <td>03/09/2025</td>
+                        <td>Rabu</td>
+                        <td>08:15</td>
+                        <td>17:30</td>
+                        <td><span class="status-badge status-present">Hadir</span></td>
+                        <td>0.5 jam</td>
+                    </tr>
+                    <tr>
+                        <td>04/09/2025</td>
+                        <td>Kamis</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td><span class="status-badge status-leave">Izin</span></td>
+                        <td>0 jam</td>
+                    </tr>
+                    <tr>
+                        <td>05/09/2025</td>
+                        <td>Jumat</td>
+                        <td>08:05</td>
+                        <td>16:45</td>
+                        <td><span class="status-badge status-present">Hadir</span></td>
+                        <td>0 jam</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Attendance Recap -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Rekap Absensi</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h3 style="margin-bottom: 15px;">Izin</h3>
+                    <div style="margin-bottom: 10px;">
+                        <strong>Cuti</strong>
+                        <div>0 Hari</div>
                     </div>
-                    <h2 class="login-title">Login Sistem</h2>
-                    <p class="login-subtitle">Masukkan username dan password Anda</p>
+                    <div>
+                        <strong>Izin Lainnya</strong>
+                        <div>0 Hari</div>
+                    </div>
                 </div>
                 
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="loginUsername">Username</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan username" autocomplete="username">
-                        </div>
-                        <div class="error-message" id="usernameError">Username harus diisi</div>
+                <div>
+                    <h3 style="margin-bottom: 15px;">Lembur</h3>
+                    <div style="margin-bottom: 10px;">
+                        <strong>Terlambat</strong>
+                        <div>0 Kali (0 Menit)</div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" autocomplete="current-password">
-                        </div>
-                        <div class="error-message" id="passwordError">Password harus diisi</div>
+                    <div>
+                        <strong>Lembur</strong>
+                        <div>0 Kali (0 Menit)</div>
                     </div>
-                    
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" style="width: 100%">
-                            <i class="fas fa-sign-in-alt"></i> Masuk
-                        </button>
-                    </div>
-                </form>
-                
-                <div class="login-options">
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">Ingat saya</label>
-                    </div>
-                    <button type="button" class="btn-link" id="forgotPasswordBtn">Lupa password?</button>
                 </div>
                 
-                <div class="support-section">
-                    <p>Jika mengalami kendala login, hubungi admin</p>
-                    <a href="https://wa.me/6285715388009" class="admin-contact" id="contactAdminBtn">
-                        <i class="fas fa-headset"></i>
-                        Hubungi Admin via WhatsApp
-                    </a>
+                <div>
+                    <h3 style="margin-bottom: 15px;">Lainnya</h3>
+                    <div style="margin-bottom: 10px;">
+                        <strong>Pulang Cepat</strong>
+                        <div>0 Kali (0 Menit)</div>
+                    </div>
+                    <div>
+                        <strong>Tidak Absen Pulang</strong>
+                        <div>0 Kali</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Main Application (Initially Hidden) -->
-    <div id="appPage" style="display: none;">
-        <!-- Header -->
-        <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <i class="fas fa-utensils logo-icon"></i>
-                        <h1>SPPG Gunung Picung</h1>
-                    </div>
-                    <div class="user-info">
-                        <div class="user-avatar" id="userAvatar">Y</div>
-                        <span id="currentUser">Yani Herawati</span>
-                        <button class="btn btn-danger" onclick="logout()">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </div>
+        
+        <!-- News & Announcements -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Berita & Pengumuman</h2>
+                <div>
+                    <button class="btn"><i class="fas fa-eye"></i> Lihat Semua</button>
                 </div>
             </div>
-        </header>
-        
-        <div class="app-title">
-            <h2>Relawan SPPG Gunung Picung Pamijahan</h2>
-            <p>Absensi Relawan @SPPG GN PICUNG 2025</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h3 style="margin-bottom: 10px; color: var(--primary);">Pengumuman Libur Nasional</h3>
+                    <p style="font-size: 0.9rem; color: var(--gray);">17 Agustus 2025</p>
+                    <p>Dalam rangka memperingati Hari Kemerdekaan RI, seluruh karyawan diperbolehkan mengambil cuti pada tanggal 15-17 Agustus 2025.</p>
+                </div>
+                
+                <div>
+                    <h3 style="margin-bottom: 10px; color: var(--primary);">Pelatihan Kesehatan dan Gizi</h3>
+                    <p style="font-size: 0.9rem; color: var(--gray);">10 September 2025</p>
+                    <p>Badan Gizi Nasional akan menyelenggarakan pelatihan untuk semua mitra pada tanggal 10 September 2025. Daftar segera melalui portal internal.</p>
+                </div>
+            </div>
         </div>
-        
-        <!-- Navigation -->
-        <nav>
-            <div class="container">
-                <ul class="nav-links">
-                    <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="#" onclick="showSection('attendance')" id="attendanceLink"><i class="fas fa-calendar-check"></i> Absensi</a></li>
-                    <li><a href="#" onclick="showSection('report')"><i class="fas fa-chart-bar"></i> Laporan</a></li>
-                    <li><a href="#" onclick="showSection('payroll')"><i class="fas fa-money-bill-wave"></i> Gajian</a></li>
-                    <li><a href="#" onclick="showSection('admin')" id="adminLink"><i class="fas fa-cog"></i> Admin</a></li>
-                </ul>
-            </div>
-        </nav>
-        
-        <!-- Main Content -->
-        <main class="container">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="content-section active">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="fas fa-home"></i> Dashboard</h2>
-                        <span id="currentDate"></span>
-                    </div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-user-check"></i>
-                            </div>
-                            <span class="stat-value" id="totalPresent">12</span>
-                            <span class="stat-label">Hadir Hari Ini</span>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <span class="stat-value" id="totalLate">3</span>
-                            <span class="stat-label">Terlambat Hari Ini</span>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-user-times"></i>
-                            </div>
-                            <span class="stat-value" id="totalAbsent">2</span>
-                            <span class="stat-label">Tidak Hadir Hari Ini</span>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <span class="stat-value" id="totalLeave">1</span>
-                            <span class="stat-label">Izin Hari Ini</span>
-                        </div>
-                    </div>
-                    
-                    <h3><i class="fas fa-history"></i> Aktivitas Terbaru</h3>
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Waktu</th>
-                                    <th>Status</th>
-                                    <th>Divisi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentActivities">
-                                <tr>
-                                    <td>Yani Herawati</td>
-                                    <td>07:30:45</td>
-                                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #dcfce7; color: #166534;">Masuk</span></td>
-                                    <td>ASLAP</td>
-                                </tr>
-                                <tr>
-                                    <td>Supriyadi</td>
-                                    <td>07:45:12</td>
-                                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #fef3c7; color: #92400e;">Terlambat</span></td>
-                                    <td>SECURITY</td>
-                                </tr>
-                                <tr>
-                                    <td>Rian Haryadin</td>
-                                    <td>07:25:33</td>
-                                    <td><span style="display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; font-weight: 500; background-color: #dcfce7; color: #166534;">Masuk</span></td>
-                                    <td>KA. CUCI OMPRENG</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Attendance Section -->
-            <section id="attendance" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="fas fa-calendar-check"></i> Absensi Harian</h2>
-                    </div>
-                    
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <div style="font-size: 1.2rem; color: var(--primary);" id="attendanceDate"></div>
-                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);" id="attendanceTime"></div>
-                    </div>
-                    
-                    <div style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem;">
-                        <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">Selamat datang, <span id="welcomeUser">Yani Herawati</span>!</h3>
-                        <p style="color: var(--primary);">Silakan pilih jenis absensi yang ingin Anda lakukan.</p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="attendanceType">Jenis Absensi</label>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
-                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border: 2px solid #3b82f6;">
-                                <i class="fas fa-sign-in-alt" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #3b82f6;"></i>
-                                <span>Masuk</span>
-                            </div>
-                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #22c55e;">
-                                <i class="fas fa-sign-out-alt" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #22c55e;"></i>
-                                <span>Pulang</span>
-                            </div>
-                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
-                                <i class="fas fa-envelope" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #f59e0b;"></i>
-                                <span>Izin</span>
-                            </div>
-                            <div style="padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border: 2px solid #ef4444;">
-                                <i class="fas fa-first-aid" style="font-size: 2rem; margin-bottom: 0.5rem; display: block; color: #ef4444;"></i>
-                                <span>Sakit</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary" style="width: 100%;">
-                        <i class="fas fa-check-circle"></i> Simpan Absensi
-                    </button>
-                </div>
-            </section>
-            
-            <!-- Admin Section -->
-            <section id="admin" class="content-section">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title"><i class="fas fa-cog"></i> Panel Admin</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-users"></i> Kelola Data Karyawan</h3>
-                        <button class="btn btn-primary" onclick="showAddEmployeeForm()">
-                            <i class="fas fa-plus"></i> Tambah Karyawan Baru
-                        </button>
-                        
-                        <div class="table-responsive" style="margin-top: 1.5rem;">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Divisi</th>
-                                        <th>Jadwal Kerja</th>
-                                        <th>Gaji Harian</th>
-                                        <th>Username</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="employeeData">
-                                    <tr>
-                                        <td>Yani Herawati</td>
-                                        <td>ASLAP</td>
-                                        <td>04.00 - 12.00</td>
-                                        <td>Rp 220.000</td>
-                                        <td>yani</td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Supriyadi</td>
-                                        <td>SECURITY</td>
-                                        <td>23.00 - 07.00</td>
-                                        <td>Rp 150.000</td>
-                                        <td>supriyadi</td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rian Haryadin</td>
-                                        <td>KA. CUCI OMPRENG</td>
-                                        <td>13.00 - 21.00</td>
-                                        <td>Rp 140.000</td>
-                                        <td>rian</td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="btn btn-warning btn-sm">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-database"></i> Backup dan Restore Data</h3>
-                        <div style="display: flex; gap: 1rem;">
-                            <button class="btn btn-success">
-                                <i class="fas fa-download"></i> Backup Data
-                            </button>
-                            <button class="btn btn-warning">
-                                <i class="fas fa-upload"></i> Restore Data
-                            </button>
-                            <button class="btn btn-danger">
-                                <i class="fas fa-trash"></i> Hapus Semua Data
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-sync"></i> Sinkronisasi Data</h3>
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-sync"></i> Sinkronisasi Sekarang
-                            </button>
-                            <span>Terakhir sinkron: 02/09/2025 08:45:12</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <p>&copy; 2025 Relawan SPPG Gunung Picung Pamijahan - Sistem Absensi Profesional</p>
-            </div>
-        </footer>
-    </div>
-    
-    <!-- Add Employee Modal -->
-    <div class="modal" id="addEmployeeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title"><i class="fas fa-user-plus"></i> Tambah Karyawan Baru</h3>
-                <button class="close-modal" onclick="closeModal('addEmployeeModal')">&times;</button>
-            </div>
-            
-            <form id="addEmployeeForm">
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeeName">Nama Lengkap</label>
-                            <input type="text" id="employeeName" class="form-control" placeholder="Masukkan nama lengkap">
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeeDivision">Divisi</label>
-                            <select id="employeeDivision" class="form-control">
-                                <option value="">Pilih Divisi</option>
-                                <option value="ASLAP">ASLAP</option>
-                                <option value="SECURITY">SECURITY</option>
-                                <option value="KA. CUCI OMPRENG">KA. CUCI OMPRENG</option>
-                                <option value="CUCI OMPRENG">CUCI OMPRENG</option>
-                                <option value="KEPALA DRIVER">KEPALA DRIVER</option>
-                                <option value="DRIVER">DRIVER</option>
-                                <option value="KENEK">KENEK</option>
-                                <option value="KEPALA DAPUR">KEPALA DAPUR</option>
-                                <option value="MASAK">MASAK</option>
-                                <option value="KEPALA PEMORSIAN">KEPALA PEMORSIAN</option>
-                                <option value="PEMORSIAN">PEMORSIAN</option>
-                                <option value="KEPALA PERSIAPAN">KEPALA PERSIAPAN</option>
-                                <option value="PERSIAPAN">PERSIAPAN</option>
-                                <option value="PENGIKATAN">PENGIKATAN</option>
-                                <option value="SANITASI & LIMBAH">SANITASI & LIMBAH</option>
-                                <option value="OB">OB</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeeSchedule">Jadwal Kerja</label>
-                            <select id="employeeSchedule" class="form-control">
-                                <option value="">Pilih Jadwal</option>
-                                <option value="04.00 - 12.00">04.00 - 12.00</option>
-                                <option value="13.00 - 21.00">13.00 - 21.00</option>
-                                <option value="16.00 - 24.00">16.00 - 24.00</option>
-                                <option value="23.00 - 07.00">23.00 - 07.00</option>
-                                <option value="05.00 - 13.00">05.00 - 13.00</option>
-                                <option value="17.00 - 00.00">17.00 - 00.00</option>
-                                <option value="06.00 - 14.00">06.00 - 14.00</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeeWage">Gaji Harian (Rp)</label>
-                            <input type="number" id="employeeWage" class="form-control" placeholder="Masukkan gaji harian">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeeUsername">Username</label>
-                            <input type="text" id="employeeUsername" class="form-control" placeholder="Buat username">
-                        </div>
-                    </div>
-                    <div class="form-col">
-                        <div class="form-group">
-                            <label for="employeePassword">Password</label>
-                            <input type="password" id="employeePassword" class="form-control" placeholder="Buat password">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="employeePhone">Nomor WhatsApp</label>
-                    <div class="input-with-icon">
-                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
-                        <input type="tel" id="employeePhone" class="form-control" placeholder="Contoh: 6285715388009">
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <button type="submit" class="btn btn-success" style="flex: 1;">
-                        <i class="fas fa-save"></i> Simpan Data
-                    </button>
-                    <button type="button" class="btn btn-danger" style="flex: 1;" onclick="closeModal('addEmployeeModal')">
-                        <i class="fas fa-times"></i> Batal
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Notification -->
-    <div id="notification" class="notification">
-        <i class="fas fa-check-circle"></i>
-        <span id="notificationMessage"></span>
-    </div>
-    
+    </main>
+
     <script>
-        // Data contoh untuk aplikasi
-        const sampleEmployees = [
-            { id: 1, name: "Yani Herawati", division: "ASLAP", dailyWage: 220000, schedule: "04.00 - 12.00", username: "yani", password: "yani123", role: "user", phone: "6285715388009" },
-            { id: 2, name: "Supriyadi", division: "SECURITY", dailyWage: 150000, schedule: "23.00 - 07.00", username: "supriyadi", password: "supri123", role: "user", phone: "6285715388009" },
-            { id: 3, name: "Rian Haryadin", division: "KA. CUCI OMPRENG", dailyWage: 140000, schedule: "13.00 - 21.00", username: "rian", password: "rian123", role: "user", phone: "6285715388009" },
-            { id: 99, name: "Admin", division: "ADMIN", dailyWage: 0, schedule: "00.00 - 00.00", username: "admin", password: "admin123", role: "admin", phone: "6285715388009" }
-        ];
-        
-        let employees = [];
-        let currentUser = null;
-        
-        // Inisialisasi aplikasi
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load data dari localStorage jika ada
-            const savedEmployees = localStorage.getItem('employees');
-            employees = savedEmployees ? JSON.parse(savedEmployees) : sampleEmployees;
-            
-            if (!savedEmployees) {
-                localStorage.setItem('employees', JSON.stringify(employees));
-            }
-            
-            // Load remember me data jika ada
-            const rememberMe = localStorage.getItem('rememberMe') === 'true';
-            const savedUsername = localStorage.getItem('username');
-            
-            if (rememberMe && savedUsername) {
-                document.getElementById('loginUsername').value = savedUsername;
-                document.getElementById('rememberMe').checked = true;
-            }
-            
-            // Setup event listeners
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Fungsi untuk menangani navigasi sidebar
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                login();
+                document.querySelectorAll('.sidebar-menu a').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Ubah judul halaman berdasarkan menu yang dipilih
+                const menuText = this.querySelector('.menu-text').textContent;
+                document.querySelector('.page-title').textContent = menuText;
             });
-            
-            document.getElementById('forgotPasswordBtn').addEventListener('click', function() {
-                alert('Untuk reset password, silakan hubungi Admin: Jamjam (085715388009)');
-            });
-            
-            document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                addEmployee();
-            });
-            
-            // Tampilkan tanggal terkini
-            showCurrentDate();
-            updateLoginTime();
-            setInterval(updateLoginTime, 1000);
         });
         
-        // Fungsi untuk login
-        function login() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const rememberMe = document.getElementById('rememberMe').checked;
-            const usernameError = document.getElementById('usernameError');
-            const passwordError = document.getElementById('passwordError');
-            
-            // Reset error states
-            usernameError.style.display = 'none';
-            passwordError.style.display = 'none';
-            document.getElementById('loginUsername').classList.remove('error', 'shake');
-            document.getElementById('loginPassword').classList.remove('error', 'shake');
-            
-            // Validasi input
-            let isValid = true;
-            
-            if (!username) {
-                usernameError.style.display = 'block';
-                document.getElementById('loginUsername').classList.add('error', 'shake');
-                isValid = false;
-                
-                setTimeout(() => {
-                    document.getElementById('loginUsername').classList.remove('shake');
-                }, 500);
-            }
-            
-            if (!password) {
-                passwordError.style.display = 'block';
-                document.getElementById('loginPassword').classList.add('error', 'shake');
-                isValid = false;
-                
-                setTimeout(() => {
-                    document.getElementById('loginPassword').classList.remove('shake');
-                }, 500);
-            }
-            
-            if (!isValid) return;
-            
-            // Simpan remember me preference
-            if (rememberMe) {
-                localStorage.setItem('rememberMe', 'true');
-                localStorage.setItem('username', username);
-            } else {
-                localStorage.removeItem('rememberMe');
-                localStorage.removeItem('username');
-            }
-            
-            // Cek kredensial
-            const user = employees.find(emp => emp.username === username && emp.password === password);
-            
-            if (user) {
-                // Login berhasil
-                showNotification('Login berhasil! Mengarahkan ke dashboard...');
-                currentUser = user;
-                
-                // Simpan info user yang login
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Update UI dengan nama user
-                document.getElementById('currentUser').textContent = user.name;
-                document.getElementById('welcomeUser').textContent = user.name;
-                document.getElementById('userAvatar').textContent = user.name.charAt(0);
-                
-                // Sesuaikan menu berdasarkan role
-                if (user.role === 'admin') {
-                    document.getElementById('attendanceLink').style.display = 'none';
-                    document.getElementById('adminLink').style.display = 'list-item';
-                } else {
-                    document.getElementById('attendanceLink').style.display = 'list-item';
-                    document.getElementById('adminLink').style.display = 'none';
-                }
-                
-                // Sembunyikan halaman login, tampilkan aplikasi
-                setTimeout(() => {
-                    document.getElementById('loginPage').style.display = 'none';
-                    document.getElementById('appPage').style.display = 'block';
-                    
-                    // Perbarui dashboard
-                    updateDashboard();
-                }, 1500);
-            } else {
-                // Login gagal
-                showNotification('Username atau password salah. Silakan coba lagi.', true);
-                document.getElementById('loginUsername').classList.add('error', 'shake');
-                document.getElementById('loginPassword').classList.add('error', 'shake');
-                
-                setTimeout(() => {
-                    document.getElementById('loginUsername').classList.remove('shake');
-                    document.getElementById('loginPassword').classList.remove('shake');
-                }, 500);
-                
-                // Kosongkan password field
-                document.getElementById('loginPassword').value = '';
-            }
-        }
-        
-        // Fungsi untuk logout
-        function logout() {
-            if (confirm('Apakah Anda yakin ingin logout?')) {
-                currentUser = null;
-                sessionStorage.removeItem('currentUser');
-                
-                document.getElementById('appPage').style.display = 'none';
-                document.getElementById('loginPage').style.display = 'flex';
-                
-                showNotification('Logout berhasil');
-            }
-        }
-        
-        // Fungsi untuk menampilkan section tertentu
-        function showSection(sectionId) {
-            // Sembunyikan semua section
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Tampilkan section yang dipilih
-            document.getElementById(sectionId).classList.add('active');
-        }
-        
-        // Fungsi untuk menampilkan tanggal terkini
-        function showCurrentDate() {
+        // Fungsi untuk menampilkan tanggal dan waktu terkini
+        function updateDateTime() {
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
-            document.getElementById('attendanceDate').textContent = now.toLocaleDateString('id-ID', options);
+            const dateString = now.toLocaleDateString('id-ID', options);
+            document.querySelector('.current-date').innerText = dateString;
         }
         
-        // Fungsi untuk memperbarui waktu
-        function updateLoginTime() {
+        // Fungsi untuk simulasi absensi
+        document.querySelector('.btn-success').addEventListener('click', function() {
             const now = new Date();
-            document.getElementById('attendanceTime').textContent = now.toLocaleTimeString('id-ID');
-        }
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            this.innerHTML = `<i class="fas fa-check"></i> Sudah Absen (${timeString})`;
+            this.classList.add('btn-secondary');
+            this.classList.remove('btn-success');
+            this.disabled = true;
+            
+            alert(`Absensi berhasil dicatat pada pukul ${timeString}`);
+        });
         
-        // Fungsi untuk memperbarui dashboard
-        function updateDashboard() {
-            // Contoh data untuk dashboard
-            document.getElementById('totalPresent').textContent = '12';
-            document.getElementById('totalLate').textContent = '3';
-            document.getElementById('totalAbsent').textContent = '2';
-            document.getElementById('totalLeave').textContent = '1';
-        }
+        // Panggil fungsi pertama kali dan set interval untuk update
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update setiap menit
         
-        // Fungsi untuk menampilkan notifikasi
-        function showNotification(message, isError = false) {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notificationMessage');
-            
-            notificationMessage.textContent = message;
-            
-            if (isError) {
-                notification.style.background = 'linear-gradient(135deg, var(--danger) 0%, var(--danger-dark) 100%)';
-                notification.querySelector('i').className = 'fas fa-exclamation-circle';
-            } else {
-                notification.style.background = 'linear-gradient(135deg, var(--success) 0%, var(--secondary-dark) 100%)';
-                notification.querySelector('i').className = 'fas fa-check-circle';
-            }
-            
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Fungsi untuk menampilkan modal tambah karyawan
-        function showAddEmployeeForm() {
-            document.getElementById('addEmployeeModal').style.display = 'flex';
-        }
-        
-        // Fungsi untuk menutup modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        // Fungsi untuk menambah karyawan baru
-        function addEmployee() {
-            const name = document.getElementById('employeeName').value;
-            const division = document.getElementById('employeeDivision').value;
-            const schedule = document.getElementById('employeeSchedule').value;
-            const wage = document.getElementById('employeeWage').value;
-            const username = document.getElementById('employeeUsername').value;
-            const password = document.getElementById('employeePassword').value;
-            const phone = document.getElementById('employeePhone').value;
-            
-            if (!name || !division || !schedule || !wage || !username || !password) {
-                showNotification('Harap isi semua field yang wajib diisi!', true);
-                return;
-            }
-            
-            const newEmployee = {
-                id: Date.now(),
-                name,
-                division,
-                dailyWage: parseInt(wage),
-                schedule,
-                username,
-                password,
-                phone,
-                role: 'user'
-            };
-            
-            employees.push(newEmployee);
-            localStorage.setItem('employees', JSON.stringify(employees));
-            
-            showNotification('Karyawan berhasil ditambahkan!');
-            closeModal('addEmployeeModal');
-            
-            // Reset form
-            document.getElementById('addEmployeeForm').reset();
-        }
+        // Tambahkan kelas active untuk tab
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
     </script>
 </body>
 </html>
