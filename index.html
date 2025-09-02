@@ -379,6 +379,87 @@
             color: var(--warning);
         }
         
+        /* Face Recognition */
+        .face-recognition {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .camera-container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 2px dashed var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #video, #video-profile {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+        
+        .capture-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+        
+        .face-result {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        /* Profile Section */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        
+        .profile-image-container {
+            text-align: center;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .profile-details {
+            padding: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-label {
+            flex: 1;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .detail-value {
+            flex: 2;
+            color: #555;
+        }
+        
         /* Modal Styles */
         .modal {
             display: none;
@@ -437,6 +518,20 @@
             color: var(--dark);
         }
         
+        /* Attendance Section */
+        .attendance-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .attendance-btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            min-width: 180px;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 992px) {
             .sidebar {
@@ -465,6 +560,10 @@
             .main-content {
                 margin-left: 70px;
             }
+            
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
@@ -474,6 +573,11 @@
             
             .form-row {
                 grid-template-columns: 1fr;
+            }
+            
+            .attendance-controls {
+                flex-direction: column;
+                align-items: center;
             }
         }
         
@@ -548,7 +652,7 @@
             <div class="header">
                 <h1 class="page-title">Dashboard</h1>
                 <div class="header-actions">
-                    <button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    <button class="btn btn-primary" onclick="loadData()"><i class="fas fa-sync-alt"></i> Refresh</button>
                     <button class="btn"><i class="fas fa-question-circle"></i> Bantuan</button>
                 </div>
             </div>
@@ -562,17 +666,17 @@
                 </div>
                 <div class="summary-card present">
                     <h3>Hadir Hari Ini</h3>
-                    <div class="count">0</div>
+                    <div class="count" id="present-count">0</div>
                     <div class="label">Relawan</div>
                 </div>
                 <div class="summary-card absent">
                     <h3>Tidak Hadir</h3>
-                    <div class="count">0</div>
+                    <div class="count" id="absent-count">0</div>
                     <div class="label">Relawan</div>
                 </div>
                 <div class="summary-card overtime">
                     <h3>Total Gaji</h3>
-                    <div class="count">Rp 0</div>
+                    <div class="count" id="total-salary">Rp 0</div>
                     <div class="label">Per Hari</div>
                 </div>
             </div>
@@ -581,10 +685,13 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Aktivitas Terbaru</h2>
+                    <button class="btn" onclick="loadAttendanceData()"><i class="fas fa-sync-alt"></i> Refresh</button>
                 </div>
-                <div style="padding: 20px; text-align: center; color: var(--gray);">
-                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                    <p>Belum ada aktivitas terbaru. Silakan tambahkan data relawan terlebih dahulu.</p>
+                <div id="recent-activities">
+                    <div style="padding: 20px; text-align: center; color: var(--gray);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Belum ada aktivitas terbaru. Silakan tambahkan data relawan terlebih dahulu.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -595,7 +702,7 @@
                 <h1 class="page-title">Manajemen Data Relawan</h1>
                 <div class="header-actions">
                     <button class="btn btn-success" id="add-volunteer-btn"><i class="fas fa-plus"></i> Tambah Relawan</button>
-                    <button class="btn btn-primary"><i class="fas fa-download"></i> Export Data</button>
+                    <button class="btn btn-primary" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
                 </div>
             </div>
             
@@ -603,7 +710,7 @@
                 <div class="card-header">
                     <h2>Daftar Relawan</h2>
                     <div>
-                        <input type="text" class="form-control" placeholder="Cari relawan..." style="width: 250px;">
+                        <input type="text" class="form-control" id="search-volunteer" placeholder="Cari relawan..." style="width: 250px;" onkeyup="searchVolunteers()">
                     </div>
                 </div>
                 
@@ -633,69 +740,263 @@
             </div>
         </div>
         
-        <!-- Other pages would be defined here -->
+        <!-- Attendance Page -->
         <div class="page-content" id="attendance" style="display: none;">
             <div class="header">
                 <h1 class="page-title">Manajemen Absensi</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="loadAttendanceData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
             </div>
+            
             <div class="card">
                 <div class="card-header">
-                    <h2>Data Absensi</h2>
+                    <h2>Absensi Hari Ini - <span id="current-date"></span></h2>
                 </div>
-                <div style="padding: 20px; text-align: center; color: var(--gray);">
-                    <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                    <p>Fitur absensi akan tersedia setelah data relawan ditambahkan.</p>
+                
+                <div class="attendance-controls">
+                    <button class="btn btn-success attendance-btn" onclick="markAllPresent()"><i class="fas fa-check-circle"></i> Tandai Semua Hadir</button>
+                    <button class="btn btn-danger attendance-btn" onclick="markAllAbsent()"><i class="fas fa-times-circle"></i> Tandai Semua Tidak Hadir</button>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Lengkap</th>
+                                <th>Divisi</th>
+                                <th>Jam Kerja</th>
+                                <th>Status</th>
+                                <th>Waktu Absensi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                                    <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                                    <p>Belum ada data relawan. Silakan tambahkan data relawan terlebih dahulu.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Riwayat Absensi</h2>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="history-month">Bulan</label>
+                            <select class="form-control" id="history-month">
+                                <option value="0">Januari</option>
+                                <option value="1">Februari</option>
+                                <option value="2">Maret</option>
+                                <option value="3">April</option>
+                                <option value="4">Mei</option>
+                                <option value="5">Juni</option>
+                                <option value="6">Juli</option>
+                                <option value="7">Agustus</option>
+                                <option value="8">September</option>
+                                <option value="9">Oktober</option>
+                                <option value="10">November</option>
+                                <option value="11">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="history-year">Tahun</label>
+                            <select class="form-control" id="history-year">
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025" selected>2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="opacity: 0;">Aksi</label>
+                            <button class="btn btn-primary" onclick="loadAttendanceHistory()"><i class="fas fa-filter"></i> Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div id="attendance-history">
+                        <div style="text-align: center; color: var(--gray); padding: 20px;">
+                            <i class="fas fa-history" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Belum ada riwayat absensi. Silakan pilih bulan dan tahun untuk melihat riwayat.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <!-- Face Recognition Page -->
         <div class="page-content" id="face-recognition" style="display: none;">
             <div class="header">
                 <h1 class="page-title">Face Recognition</h1>
+                <div class="header-actions">
+                    <button class="btn" onclick="loadFaceRecognitionData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
             </div>
+            
             <div class="card">
                 <div class="card-header">
-                    <h2>Registrasi dan Verifikasi Wajah</h2>
+                    <h2>Registrasi Wajah Relawan</h2>
                 </div>
-                <div style="padding: 20px; text-align: center; color: var(--gray);">
-                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                    <p>Fitur face recognition akan tersedia setelah data relawan ditambahkan.</p>
+                
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label for="volunteer-select">Pilih Relawan</label>
+                        <select class="form-control" id="volunteer-select" onchange="loadVolunteerDetails()">
+                            <option value="">Pilih Relawan</option>
+                        </select>
+                    </div>
+                    
+                    <div id="volunteer-face-details">
+                        <div style="text-align: center; padding: 20px; color: var(--gray);">
+                            <i class="fas fa-user" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Silakan pilih relawan untuk melihat detail dan melakukan registrasi wajah.</p>
+                        </div>
+                    </div>
+                    
+                    <div id="face-registration-section" style="display: none;">
+                        <div class="face-recognition">
+                            <div class="camera-container">
+                                <video id="video" autoplay playsinline></video>
+                            </div>
+                            
+                            <button class="btn btn-success capture-btn" id="capture-btn">
+                                <i class="fas fa-camera"></i> Ambil Foto untuk Registrasi
+                            </button>
+                            
+                            <div class="face-result" id="face-result">
+                                <p>Silahkan posisikan wajah di depan kamera dan klik tombol di atas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Status Registrasi Wajah</h2>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Lengkap</th>
+                                <th>Divisi</th>
+                                <th>Status Registrasi</th>
+                                <th>Tanggal Registrasi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="face-status-table">
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 30px; color: var(--gray);">
+                                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                                    <p>Belum ada data registrasi wajah.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         
+        <!-- Reports Page -->
         <div class="page-content" id="reports" style="display: none;">
             <div class="header">
                 <h1 class="page-title">Laporan dan Analitik</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="generateReport()"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                    <button class="btn btn-success" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Export Excel</button>
+                </div>
             </div>
+            
             <div class="card">
                 <div class="card-header">
                     <h2>Laporan Kehadiran</h2>
                 </div>
-                <div style="padding: 20px; text-align: center; color: var(--gray);">
-                    <i class="fas fa-chart-bar" style="font-size: 2rem; margin-bottom: 15px;"></i>
-                    <p>Fitur laporan akan tersedia setelah data relawan ditambahkan.</p>
+                
+                <div style="padding: 20px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="report-month">Bulan</label>
+                            <select class="form-control" id="report-month">
+                                <option value="0">Januari</option>
+                                <option value="1">Februari</option>
+                                <option value="2">Maret</option>
+                                <option value="3">April</option>
+                                <option value="4">Mei</option>
+                                <option value="5">Juni</option>
+                                <option value="6">Juli</option>
+                                <option value="7">Agustus</option>
+                                <option value="8">September</option>
+                                <option value="9">Oktober</option>
+                                <option value="10">November</option>
+                                <option value="11">Desember</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-year">Tahun</label>
+                            <select class="form-control" id="report-year">
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025" selected>2025</option>
+                                <option value="2026">2026</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-type">Jenis Laporan</label>
+                            <select class="form-control" id="report-type">
+                                <option value="attendance">Laporan Kehadiran</option>
+                                <option value="salary">Laporan Gaji</option>
+                                <option value="summary">Ringkasan Bulanan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="opacity: 0;">Aksi</label>
+                            <button class="btn btn-primary" onclick="loadReportData()"><i class="fas fa-filter"></i> Generate</button>
+                        </div>
+                    </div>
+                    
+                    <div id="report-results">
+                        <div style="text-align: center; color: var(--gray); padding: 40px;">
+                            <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                            <p>Silakan pilih bulan, tahun, dan jenis laporan kemudian klik Generate untuk melihat data.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <!-- Settings Page -->
         <div class="page-content" id="settings" style="display: none;">
             <div class="header">
                 <h1 class="page-title">Pengaturan Sistem</h1>
             </div>
+            
             <div class="card">
                 <div class="card-header">
                     <h2>Konfigurasi Umum</h2>
                 </div>
+                
                 <div style="padding: 20px;">
                     <div class="form-group">
                         <label for="system-name">Nama Sistem</label>
                         <input type="text" class="form-control" id="system-name" value="Sistem Manajemen Relawan SPPG Gunung Picung">
                     </div>
+                    
                     <div class="form-group">
                         <label for="organization-name">Nama Organisasi</label>
                         <input type="text" class="form-control" id="organization-name" value="SPPG Gunung Picung">
                     </div>
+                    
                     <div class="form-group">
                         <label for="working-days">Hari Kerja dalam Seminggu</label>
                         <select class="form-control" id="working-days">
@@ -704,7 +1005,56 @@
                             <option value="7">7 Hari (Setiap Hari)</option>
                         </select>
                     </div>
-                    <button class="btn btn-success"><i class="fas fa-save"></i> Simpan Pengaturan</button>
+                    
+                    <div class="form-group">
+                        <label for="work-start-time">Jam Mulai Kerja</label>
+                        <input type="time" class="form-control" id="work-start-time" value="08:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="work-end-time">Jam Selesai Kerja</label>
+                        <input type="time" class="form-control" id="work-end-time" value="17:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attendance-tolerance">Toleransi Keterlambatan (menit)</label>
+                        <input type="number" class="form-control" id="attendance-tolerance" value="15" min="0">
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="saveSettings()"><i class="fas fa-save"></i> Simpan Pengaturan</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Manajemen Data</h2>
+                </div>
+                
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label>Cadangkan Data</label>
+                        <div>
+                            <button class="btn btn-primary" onclick="backupData()"><i class="fas fa-download"></i> Backup Data</button>
+                            <p style="font-size: 0.9rem; color: var(--gray); margin-top: 8px;">Unduh salinan semua data sistem.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Pulihkan Data</label>
+                        <div>
+                            <input type="file" id="restore-file" accept=".json" style="display: none;">
+                            <button class="btn btn-warning" onclick="document.getElementById('restore-file').click()"><i class="fas fa-upload"></i> Pulihkan Data</button>
+                            <p style="font-size: 0.9rem; color: var(--gray); margin-top: 8px;">Upload file backup untuk memulihkan data.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hapus Semua Data</label>
+                        <div>
+                            <button class="btn btn-danger" onclick="resetData()"><i class="fas fa-trash"></i> Hapus Semua Data</button>
+                            <p style="font-size: 0.9rem; color: var(--gray); margin-top: 8px;">Hapus semua data relawan, absensi, dan pengaturan.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -775,9 +1125,21 @@
     <script>
         // Data storage
         let volunteers = JSON.parse(localStorage.getItem('volunteers')) || [];
+        let attendance = JSON.parse(localStorage.getItem('attendance')) || {};
+        let settings = JSON.parse(localStorage.getItem('settings')) || {
+            systemName: "Sistem Manajemen Relawan SPPG Gunung Picung",
+            organizationName: "SPPG Gunung Picung",
+            workingDays: 5,
+            workStartTime: "08:00",
+            workEndTime: "17:00",
+            attendanceTolerance: 15
+        };
         let editingId = null;
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize settings
+            initializeSettings();
+            
             // Navigation handling
             const navLinks = document.querySelectorAll('.sidebar-menu a');
             const pageContents = document.querySelectorAll('.page-content');
@@ -811,9 +1173,26 @@
                     const pageId = this.getAttribute('data-page');
                     document.getElementById(pageId).style.display = 'block';
                     
-                    // Refresh data if needed
-                    if (pageId === 'volunteers' || pageId === 'dashboard') {
-                        loadVolunteersData();
+                    // Load data for the specific page
+                    switch(pageId) {
+                        case 'dashboard':
+                            loadDashboardData();
+                            break;
+                        case 'volunteers':
+                            loadVolunteersData();
+                            break;
+                        case 'attendance':
+                            loadAttendanceData();
+                            break;
+                        case 'face-recognition':
+                            loadFaceRecognitionData();
+                            break;
+                        case 'reports':
+                            loadReportData();
+                            break;
+                        case 'settings':
+                            loadSettings();
+                            break;
                     }
                 });
             });
@@ -854,16 +1233,122 @@
                 }
             });
             
+            // File input for restore
+            document.getElementById('restore-file').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    restoreData(file);
+                }
+            });
+            
+            // Set current date
+            const now = new Date();
+            document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
             // Load initial data
-            loadVolunteersData();
+            loadDashboardData();
         });
+        
+        function initializeSettings() {
+            if (!localStorage.getItem('settings')) {
+                localStorage.setItem('settings', JSON.stringify(settings));
+            } else {
+                settings = JSON.parse(localStorage.getItem('settings'));
+            }
+        }
+        
+        function loadDashboardData() {
+            loadVolunteersData();
+            updateDashboardSummary();
+            loadRecentActivities();
+        }
+        
+        function updateDashboardSummary() {
+            const presentToday = volunteers.filter(v => {
+                const today = new Date().toISOString().split('T')[0];
+                return attendance[today] && attendance[today][v.id] && attendance[today][v.id].status === 'present';
+            }).length;
+            
+            document.getElementById('total-volunteers').textContent = volunteers.length;
+            document.getElementById('present-count').textContent = presentToday;
+            document.getElementById('absent-count').textContent = volunteers.length - presentToday;
+            
+            const totalSalary = volunteers.reduce((sum, volunteer) => sum + volunteer.salary, 0);
+            document.getElementById('total-salary').textContent = `Rp ${totalSalary.toLocaleString('id-ID')}`;
+        }
+        
+        function loadRecentActivities() {
+            const activitiesContainer = document.getElementById('recent-activities');
+            
+            if (volunteers.length === 0) {
+                activitiesContainer.innerHTML = `
+                    <div style="padding: 20px; text-align: center; color: var(--gray);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Belum ada aktivitas terbaru. Silakan tambahkan data relawan terlebih dahulu.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Get today's date
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Check if we have attendance data for today
+            if (!attendance[today] || Object.keys(attendance[today]).length === 0) {
+                activitiesContainer.innerHTML = `
+                    <div style="padding: 20px; text-align: center; color: var(--gray);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Belum ada absensi hari ini. Silakan input data absensi di halaman Absensi.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Display recent activities
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Divisi</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            for (const volunteerId in attendance[today]) {
+                const record = attendance[today][volunteerId];
+                const volunteer = volunteers.find(v => v.id === volunteerId);
+                
+                if (volunteer) {
+                    html += `
+                        <tr>
+                            <td>${volunteer.name}</td>
+                            <td>${volunteer.division}</td>
+                            <td>${record.time || '-'}</td>
+                            <td><span class="status-badge ${record.status === 'present' ? 'status-present' : 'status-absent'}">${record.status === 'present' ? 'Hadir' : 'Tidak Hadir'}</span></td>
+                        </tr>
+                    `;
+                }
+            }
+            
+            html += `
+                    </tbody>
+                </table>
+            `;
+            
+            activitiesContainer.innerHTML = html;
+        }
         
         function loadVolunteersData() {
             const volunteersTable = document.getElementById('volunteers-table-body');
-            const totalVolunteersElement = document.getElementById('total-volunteers');
-            
-            // Update total count
-            totalVolunteersElement.textContent = volunteers.length;
             
             // Clear table
             volunteersTable.innerHTML = '';
@@ -890,7 +1375,7 @@
                     <td>${volunteer.division}</td>
                     <td>Rp ${volunteer.salary.toLocaleString('id-ID')}</td>
                     <td>${volunteer.schedule}</td>
-                    <td><span class="status-badge status-pending">Belum Terdaftar</span></td>
+                    <td><span class="status-badge ${volunteer.faceRegistered ? 'status-present' : 'status-pending'}">${volunteer.faceRegistered ? 'Terdaftar' : 'Belum Terdaftar'}</span></td>
                     <td>
                         <div class="action-buttons">
                             <button class="btn-edit action-btn" data-id="${volunteer.id}"><i class="fas fa-edit"></i> Edit</button>
@@ -916,6 +1401,435 @@
                     deleteVolunteer(id);
                 });
             });
+        }
+        
+        function loadAttendanceData() {
+            const attendanceTable = document.getElementById('attendance-table-body');
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Clear table
+            attendanceTable.innerHTML = '';
+            
+            if (volunteers.length === 0) {
+                attendanceTable.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-calendar-check" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Belum ada data relawan. Silakan tambahkan data relawan terlebih dahulu.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Initialize today's attendance if not exists
+            if (!attendance[today]) {
+                attendance[today] = {};
+            }
+            
+            // Add volunteers to attendance table
+            volunteers.forEach((volunteer, index) => {
+                const row = document.createElement('tr');
+                const attendanceRecord = attendance[today][volunteer.id] || { status: 'absent', time: null };
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${volunteer.name}</td>
+                    <td>${volunteer.division}</td>
+                    <td>${volunteer.schedule}</td>
+                    <td><span class="status-badge ${attendanceRecord.status === 'present' ? 'status-present' : 'status-absent'}">${attendanceRecord.status === 'present' ? 'Hadir' : 'Tidak Hadir'}</span></td>
+                    <td>${attendanceRecord.time || '-'}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-success action-btn" onclick="markAttendance('${volunteer.id}', 'present')"><i class="fas fa-check"></i> Hadir</button>
+                            <button class="btn-danger action-btn" onclick="markAttendance('${volunteer.id}', 'absent')"><i class="fas fa-times"></i> Tidak Hadir</button>
+                        </div>
+                    </td>
+                `;
+                
+                attendanceTable.appendChild(row);
+            });
+        }
+        
+        function loadAttendanceHistory() {
+            const month = document.getElementById('history-month').value;
+            const year = document.getElementById('history-year').value;
+            const historyContainer = document.getElementById('attendance-history');
+            
+            // Filter attendance data by month and year
+            const filteredAttendance = {};
+            
+            for (const date in attendance) {
+                const dateObj = new Date(date);
+                if (dateObj.getMonth() == month && dateObj.getFullYear() == year) {
+                    filteredAttendance[date] = attendance[date];
+                }
+            }
+            
+            if (Object.keys(filteredAttendance).length === 0) {
+                historyContainer.innerHTML = `
+                    <div style="text-align: center; color: var(--gray); padding: 20px;">
+                        <i class="fas fa-history" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Tidak ada data absensi untuk bulan dan tahun yang dipilih.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Generate attendance history table
+            let html = `
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+            `;
+            
+            // Add volunteer names as headers
+            volunteers.forEach(volunteer => {
+                html += `<th>${volunteer.name}</th>`;
+            });
+            
+            html += `
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Add attendance data for each date
+            for (const date in filteredAttendance) {
+                const dateObj = new Date(date);
+                html += `<tr><td>${dateObj.toLocaleDateString('id-ID')}</td>`;
+                
+                volunteers.forEach(volunteer => {
+                    const status = filteredAttendance[date][volunteer.id]?.status || 'absent';
+                    html += `<td><span class="status-badge ${status === 'present' ? 'status-present' : 'status-absent'}">${status === 'present' ? 'H' : 'T'}</span></td>`;
+                });
+                
+                html += `</tr>`;
+            }
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            historyContainer.innerHTML = html;
+        }
+        
+        function loadFaceRecognitionData() {
+            const volunteerSelect = document.getElementById('volunteer-select');
+            
+            // Clear existing options
+            volunteerSelect.innerHTML = '<option value="">Pilih Relawan</option>';
+            
+            // Add volunteers to select
+            volunteers.forEach(volunteer => {
+                const option = document.createElement('option');
+                option.value = volunteer.id;
+                option.textContent = volunteer.name;
+                volunteerSelect.appendChild(option);
+            });
+            
+            // Load face status table
+            loadFaceStatusTable();
+        }
+        
+        function loadVolunteerDetails() {
+            const volunteerId = document.getElementById('volunteer-select').value;
+            const detailsContainer = document.getElementById('volunteer-face-details');
+            const faceSection = document.getElementById('face-registration-section');
+            
+            if (!volunteerId) {
+                detailsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: var(--gray);">
+                        <i class="fas fa-user" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                        <p>Silakan pilih relawan untuk melihat detail dan melakukan registrasi wajah.</p>
+                    </div>
+                `;
+                faceSection.style.display = 'none';
+                return;
+            }
+            
+            const volunteer = volunteers.find(v => v.id === volunteerId);
+            
+            if (volunteer) {
+                detailsContainer.innerHTML = `
+                    <div class="profile-section">
+                        <div class="profile-image-container">
+                            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(volunteer.name)}&background=3498db&color=fff&size=200" alt="Profile" class="profile-image">
+                            <div class="face-status">
+                                <span class="status-badge ${volunteer.faceRegistered ? 'status-present' : 'status-pending'}">${volunteer.faceRegistered ? 'Wajah Terdaftar' : 'Wajah Belum Terdaftar'}</span>
+                            </div>
+                        </div>
+                        <div class="profile-details">
+                            <div class="detail-row">
+                                <div class="detail-label">Nama Lengkap:</div>
+                                <div class="detail-value">${volunteer.name}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Divisi:</div>
+                                <div class="detail-value">${volunteer.division}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Jam Kerja:</div>
+                                <div class="detail-value">${volunteer.schedule}</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Gaji per Hari:</div>
+                                <div class="detail-value">Rp ${volunteer.salary.toLocaleString('id-ID')}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Show face registration section if not registered
+                faceSection.style.display = volunteer.faceRegistered ? 'none' : 'block';
+                
+                // Initialize camera if needed
+                if (!volunteer.faceRegistered) {
+                    initFaceRegistration();
+                }
+            }
+        }
+        
+        function loadFaceStatusTable() {
+            const statusTable = document.getElementById('face-status-table');
+            
+            // Clear table
+            statusTable.innerHTML = '';
+            
+            if (volunteers.length === 0) {
+                statusTable.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Belum ada data registrasi wajah.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Add volunteers to status table
+            volunteers.forEach((volunteer, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${volunteer.name}</td>
+                    <td>${volunteer.division}</td>
+                    <td><span class="status-badge ${volunteer.faceRegistered ? 'status-present' : 'status-pending'}">${volunteer.faceRegistered ? 'Terdaftar' : 'Belum Terdaftar'}</span></td>
+                    <td>${volunteer.faceRegistered ? new Date(volunteer.faceRegistrationDate).toLocaleDateString('id-ID') : '-'}</td>
+                `;
+                
+                statusTable.appendChild(row);
+            });
+        }
+        
+        function loadReportData() {
+            const month = document.getElementById('report-month').value;
+            const year = document.getElementById('report-year').value;
+            const reportType = document.getElementById('report-type').value;
+            const reportContainer = document.getElementById('report-results');
+            
+            if (volunteers.length === 0) {
+                reportContainer.innerHTML = `
+                    <div style="text-align: center; color: var(--gray); padding: 40px;">
+                        <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <p>Belum ada data relawan. Silakan tambahkan data relawan terlebih dahulu.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Filter attendance data by month and year
+            const filteredAttendance = {};
+            
+            for (const date in attendance) {
+                const dateObj = new Date(date);
+                if (dateObj.getMonth() == month && dateObj.getFullYear() == year) {
+                    filteredAttendance[date] = attendance[date];
+                }
+            }
+            
+            let html = '';
+            
+            switch(reportType) {
+                case 'attendance':
+                    html = generateAttendanceReport(filteredAttendance);
+                    break;
+                case 'salary':
+                    html = generateSalaryReport(filteredAttendance);
+                    break;
+                case 'summary':
+                    html = generateSummaryReport(filteredAttendance);
+                    break;
+            }
+            
+            reportContainer.innerHTML = html;
+        }
+        
+        function generateAttendanceReport(attendanceData) {
+            let html = `
+                <h3 style="margin-bottom: 20px;">Laporan Kehadiran Bulanan</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Relawan</th>
+                                <th>Divisi</th>
+                                <th>Total Hadir</th>
+                                <th>Total Tidak Hadir</th>
+                                <th>Persentase Kehadiran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            volunteers.forEach(volunteer => {
+                let presentCount = 0;
+                let totalDays = Object.keys(attendanceData).length;
+                
+                for (const date in attendanceData) {
+                    if (attendanceData[date][volunteer.id]?.status === 'present') {
+                        presentCount++;
+                    }
+                }
+                
+                const absentCount = totalDays - presentCount;
+                const attendancePercentage = totalDays > 0 ? ((presentCount / totalDays) * 100).toFixed(2) : 0;
+                
+                html += `
+                    <tr>
+                        <td>${volunteer.name}</td>
+                        <td>${volunteer.division}</td>
+                        <td>${presentCount}</td>
+                        <td>${absentCount}</td>
+                        <td>${attendancePercentage}%</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        function generateSalaryReport(attendanceData) {
+            let html = `
+                <h3 style="margin-bottom: 20px;">Laporan Gaji Bulanan</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Relawan</th>
+                                <th>Divisi</th>
+                                <th>Gaji per Hari</th>
+                                <th>Total Hari Kerja</th>
+                                <th>Total Gaji</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            let totalSalary = 0;
+            
+            volunteers.forEach(volunteer => {
+                let presentCount = 0;
+                
+                for (const date in attendanceData) {
+                    if (attendanceData[date][volunteer.id]?.status === 'present') {
+                        presentCount++;
+                    }
+                }
+                
+                const salary = presentCount * volunteer.salary;
+                totalSalary += salary;
+                
+                html += `
+                    <tr>
+                        <td>${volunteer.name}</td>
+                        <td>${volunteer.division}</td>
+                        <td>Rp ${volunteer.salary.toLocaleString('id-ID')}</td>
+                        <td>${presentCount}</td>
+                        <td>Rp ${salary.toLocaleString('id-ID')}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+                                <td style="font-weight: bold;">Rp ${totalSalary.toLocaleString('id-ID')}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        function generateSummaryReport(attendanceData) {
+            let presentCount = 0;
+            let totalDays = Object.keys(attendanceData).length;
+            let totalWorkDays = totalDays * volunteers.length;
+            
+            for (const date in attendanceData) {
+                for (const volunteerId in attendanceData[date]) {
+                    if (attendanceData[date][volunteerId]?.status === 'present') {
+                        presentCount++;
+                    }
+                }
+            }
+            
+            const absentCount = totalWorkDays - presentCount;
+            const attendancePercentage = totalWorkDays > 0 ? ((presentCount / totalWorkDays) * 100).toFixed(2) : 0;
+            
+            let html = `
+                <h3 style="margin-bottom: 20px;">Ringkasan Bulanan</h3>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h3>Total Hari Kerja</h3>
+                        <div class="count">${totalDays}</div>
+                        <div class="label">Hari</div>
+                    </div>
+                    <div class="summary-card present">
+                        <h3>Total Kehadiran</h3>
+                        <div class="count">${presentCount}</div>
+                        <div class="label">Absensi</div>
+                    </div>
+                    <div class="summary-card absent">
+                        <h3>Total Ketidakhadiran</h3>
+                        <div class="count">${absentCount}</div>
+                        <div class="label">Absensi</div>
+                    </div>
+                    <div class="summary-card overtime">
+                        <h3>Persentase Kehadiran</h3>
+                        <div class="count">${attendancePercentage}%</div>
+                        <div class="label">Rata-rata</div>
+                    </div>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        function loadSettings() {
+            document.getElementById('system-name').value = settings.systemName;
+            document.getElementById('organization-name').value = settings.organizationName;
+            document.getElementById('working-days').value = settings.workingDays;
+            document.getElementById('work-start-time').value = settings.workStartTime;
+            document.getElementById('work-end-time').value = settings.workEndTime;
+            document.getElementById('attendance-tolerance').value = settings.attendanceTolerance;
         }
         
         function validateVolunteerForm() {
@@ -959,11 +1873,26 @@
                 // Update existing volunteer
                 const index = volunteers.findIndex(v => v.id === editingId);
                 if (index !== -1) {
-                    volunteers[index] = { id, name, division, salary, schedule, notes };
+                    volunteers[index] = { 
+                        ...volunteers[index], 
+                        name, 
+                        division, 
+                        salary, 
+                        schedule, 
+                        notes 
+                    };
                 }
             } else {
                 // Add new volunteer
-                volunteers.push({ id, name, division, salary, schedule, notes });
+                volunteers.push({ 
+                    id, 
+                    name, 
+                    division, 
+                    salary, 
+                    schedule, 
+                    notes,
+                    faceRegistered: false
+                });
             }
             
             // Save to localStorage
@@ -972,6 +1901,7 @@
             // Close modal and refresh data
             document.getElementById('volunteer-modal').style.display = 'none';
             loadVolunteersData();
+            loadDashboardData();
             
             alert(`Data relawan ${editingId ? 'diperbarui' : 'ditambahkan'} successfully!`);
         }
@@ -997,9 +1927,393 @@
             
             volunteers = volunteers.filter(v => v.id !== id);
             localStorage.setItem('volunteers', JSON.stringify(volunteers));
+            
+            // Remove from attendance records
+            for (const date in attendance) {
+                if (attendance[date][id]) {
+                    delete attendance[date][id];
+                }
+            }
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            
             loadVolunteersData();
+            loadDashboardData();
             
             alert('Data relawan berhasil dihapus!');
+        }
+        
+        function markAttendance(volunteerId, status) {
+            const today = new Date().toISOString().split('T')[0];
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            // Initialize today's attendance if not exists
+            if (!attendance[today]) {
+                attendance[today] = {};
+            }
+            
+            // Update attendance record
+            attendance[today][volunteerId] = {
+                status: status,
+                time: status === 'present' ? timeString : null
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            
+            // Refresh attendance data
+            loadAttendanceData();
+            loadDashboardData();
+            
+            alert(`Absensi berhasil dicatat untuk status: ${status === 'present' ? 'Hadir' : 'Tidak Hadir'}`);
+        }
+        
+        function markAllPresent() {
+            if (!confirm('Tandai semua relawan sebagai hadir?')) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            // Initialize today's attendance if not exists
+            if (!attendance[today]) {
+                attendance[today] = {};
+            }
+            
+            // Mark all volunteers as present
+            volunteers.forEach(volunteer => {
+                attendance[today][volunteer.id] = {
+                    status: 'present',
+                    time: timeString
+                };
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            
+            // Refresh attendance data
+            loadAttendanceData();
+            loadDashboardData();
+            
+            alert('Semua relawan berhasil ditandai sebagai hadir!');
+        }
+        
+        function markAllAbsent() {
+            if (!confirm('Tandai semua relawan sebagai tidak hadir?')) return;
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Initialize today's attendance if not exists
+            if (!attendance[today]) {
+                attendance[today] = {};
+            }
+            
+            // Mark all volunteers as absent
+            volunteers.forEach(volunteer => {
+                attendance[today][volunteer.id] = {
+                    status: 'absent',
+                    time: null
+                };
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('attendance', JSON.stringify(attendance));
+            
+            // Refresh attendance data
+            loadAttendanceData();
+            loadDashboardData();
+            
+            alert('Semua relawan berhasil ditandai sebagai tidak hadir!');
+        }
+        
+        function initFaceRegistration() {
+            const video = document.getElementById('video');
+            const captureBtn = document.getElementById('capture-btn');
+            const faceResult = document.getElementById('face-result');
+            
+            // Access webcam
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function(error) {
+                        faceResult.innerHTML = '<p style="color: var(--danger);">Tidak dapat mengakses kamera: ' + error.message + '</p>';
+                    });
+            } else {
+                faceResult.innerHTML = '<p style="color: var(--danger);">Browser tidak mendukung akses kamera</p>';
+            }
+            
+            // Capture button event
+            captureBtn.addEventListener('click', function() {
+                // Simulate face registration process
+                simulateFaceRegistration();
+            });
+        }
+        
+        function simulateFaceRegistration() {
+            const volunteerId = document.getElementById('volunteer-select').value;
+            const faceResult = document.getElementById('face-result');
+            const captureBtn = document.getElementById('capture-btn');
+            
+            if (!volunteerId) {
+                alert('Silakan pilih relawan terlebih dahulu!');
+                return;
+            }
+            
+            // Show loading state
+            captureBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            captureBtn.disabled = true;
+            
+            // Simulate processing time
+            setTimeout(() => {
+                // Find volunteer
+                const volunteerIndex = volunteers.findIndex(v => v.id === volunteerId);
+                if (volunteerIndex === -1) return;
+                
+                // Update volunteer data
+                volunteers[volunteerIndex].faceRegistered = true;
+                volunteers[volunteerIndex].faceRegistrationDate = new Date().toISOString();
+                
+                // Save to localStorage
+                localStorage.setItem('volunteers', JSON.stringify(volunteers));
+                
+                // Show success result
+                faceResult.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; color: var(--success); margin-bottom: 15px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 style="color: var(--success); margin-bottom: 10px;">Registrasi Berhasil!</h3>
+                        <p>Wajah ${volunteers[volunteerIndex].name} telah terdaftar dalam sistem</p>
+                    </div>
+                `;
+                
+                // Hide registration section
+                document.getElementById('face-registration-section').style.display = 'none';
+                
+                // Update volunteer details
+                loadVolunteerDetails();
+                
+                // Update face status table
+                loadFaceStatusTable();
+                
+                // Reset button
+                captureBtn.innerHTML = '<i class="fas fa-camera"></i> Ambil Foto untuk Registrasi';
+                captureBtn.disabled = false;
+            }, 2000);
+        }
+        
+        function saveSettings() {
+            settings.systemName = document.getElementById('system-name').value;
+            settings.organizationName = document.getElementById('organization-name').value;
+            settings.workingDays = parseInt(document.getElementById('working-days').value);
+            settings.workStartTime = document.getElementById('work-start-time').value;
+            settings.workEndTime = document.getElementById('work-end-time').value;
+            settings.attendanceTolerance = parseInt(document.getElementById('attendance-tolerance').value);
+            
+            // Save to localStorage
+            localStorage.setItem('settings', JSON.stringify(settings));
+            
+            alert('Pengaturan berhasil disimpan!');
+        }
+        
+        function backupData() {
+            const data = {
+                volunteers: volunteers,
+                attendance: attendance,
+                settings: settings,
+                backupDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `backup-sistem-relawan-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+        
+        function restoreData(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (confirm('Apakah Anda yakin ingin memulihkan data? Data saat ini akan digantikan dengan data backup.')) {
+                        if (data.volunteers) {
+                            volunteers = data.volunteers;
+                            localStorage.setItem('volunteers', JSON.stringify(volunteers));
+                        }
+                        
+                        if (data.attendance) {
+                            attendance = data.attendance;
+                            localStorage.setItem('attendance', JSON.stringify(attendance));
+                        }
+                        
+                        if (data.settings) {
+                            settings = data.settings;
+                            localStorage.setItem('settings', JSON.stringify(settings));
+                        }
+                        
+                        alert('Data berhasil dipulihkan!');
+                        loadDashboardData();
+                    }
+                } catch (error) {
+                    alert('Error memulihkan data: File tidak valid.');
+                    console.error('Restore error:', error);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        function resetData() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
+                volunteers = [];
+                attendance = {};
+                settings = {
+                    systemName: "Sistem Manajemen Relawan SPPG Gunung Picung",
+                    organizationName: "SPPG Gunung Picung",
+                    workingDays: 5,
+                    workStartTime: "08:00",
+                    workEndTime: "17:00",
+                    attendanceTolerance: 15
+                };
+                
+                localStorage.setItem('volunteers', JSON.stringify(volunteers));
+                localStorage.setItem('attendance', JSON.stringify(attendance));
+                localStorage.setItem('settings', JSON.stringify(settings));
+                
+                alert('Semua data berhasil dihapus!');
+                loadDashboardData();
+            }
+        }
+        
+        function exportData() {
+            if (volunteers.length === 0) {
+                alert('Tidak ada data untuk diexport!');
+                return;
+            }
+            
+            let csvContent = "Nama,Divisi,Gaji,Jam Kerja,Status Wajah\n";
+            
+            volunteers.forEach(volunteer => {
+                csvContent += `"${volunteer.name}","${volunteer.division}","${volunteer.salary}","${volunteer.schedule}","${volunteer.faceRegistered ? 'Terdaftar' : 'Belum Terdaftar'}"\n`;
+            });
+            
+            const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `data-relawan-${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function searchVolunteers() {
+            const searchTerm = document.getElementById('search-volunteer').value.toLowerCase();
+            const volunteersTable = document.getElementById('volunteers-table-body');
+            
+            // Clear table
+            volunteersTable.innerHTML = '';
+            
+            if (volunteers.length === 0) {
+                volunteersTable.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Belum ada data relawan. Silakan tambahkan data relawan baru.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Filter volunteers based on search term
+            const filteredVolunteers = volunteers.filter(volunteer => 
+                volunteer.name.toLowerCase().includes(searchTerm) || 
+                volunteer.division.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filteredVolunteers.length === 0) {
+                volunteersTable.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px; color: var(--gray);">
+                            <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>Tidak ada relawan yang sesuai dengan pencarian.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Add filtered volunteers to table
+            filteredVolunteers.forEach((volunteer, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${volunteer.name}</td>
+                    <td>${volunteer.division}</td>
+                    <td>Rp ${volunteer.salary.toLocaleString('id-ID')}</td>
+                    <td>${volunteer.schedule}</td>
+                    <td><span class="status-badge ${volunteer.faceRegistered ? 'status-present' : 'status-pending'}">${volunteer.faceRegistered ? 'Terdaftar' : 'Belum Terdaftar'}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit action-btn" data-id="${volunteer.id}"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn-delete action-btn" data-id="${volunteer.id}"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                    </td>
+                `;
+                
+                volunteersTable.appendChild(row);
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    editVolunteer(id);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    deleteVolunteer(id);
+                });
+            });
+        }
+        
+        function generateReport() {
+            alert('Fitur export PDF akan segera hadir!');
+        }
+        
+        function exportToExcel() {
+            alert('Fitur export Excel akan segera hadir!');
+        }
+        
+        function loadData() {
+            volunteers = JSON.parse(localStorage.getItem('volunteers')) || [];
+            attendance = JSON.parse(localStorage.getItem('attendance')) || {};
+            settings = JSON.parse(localStorage.getItem('settings')) || {
+                systemName: "Sistem Manajemen Relawan SPPG Gunung Picung",
+                organizationName: "SPPG Gunung Picung",
+                workingDays: 5,
+                workStartTime: "08:00",
+                workEndTime: "17:00",
+                attendanceTolerance: 15
+            };
+            
+            loadDashboardData();
+            alert('Data berhasil dimuat ulang!');
         }
     </script>
 </body>
